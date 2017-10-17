@@ -1,0 +1,27 @@
+{
+  "name": "rei.js",
+  "version": "0.0.1",
+  "description": "A Discord.js chat bot with focus on unusual features",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoubleKilled/Rei.js.git"
+  },
+  "keywords": [
+    "Discord",
+    "Bot",
+    "Discord.js"
+  ],
+  "author": "LewdSkoll",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DoubleKilled/Rei.js/issues"
+  },
+  "homepage": "https://github.com/DoubleKilled/Rei.js#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
