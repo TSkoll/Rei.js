@@ -11,7 +11,6 @@ class fsUtil {
                 async.each(files, (file, callback) => {
                     fs.stat(Path.join(process.cwd(), folderPath, file), (err, stat) => {
                         if (stat.isDirectory()) {
-                            console.log(file);
                             dirs.push(file);
                         }
                     });
@@ -21,6 +20,26 @@ class fsUtil {
                 });
             });
             resolve(dirs);
+        });
+    }
+
+    // Async file get
+    static async getFiles(folderPath) {
+        return new Promise(resolve => {
+            let retFiles = [];
+            fs.readdir(folderPath, (err, files) => {
+                async.each(files, (file, callback) => {
+                    fs.stat(Path.join(process.cwd(), folderPath, file), (err, stat) => {
+                        if (!stat.isDirectory()) {
+                            retFiles.push(file);
+                        }
+                    });
+                    callback();
+                }, (err) => {
+                    throw err;
+                });
+            });
+            resolve(retFiles);
         });
     }
 }
