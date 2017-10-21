@@ -1,33 +1,26 @@
 const fs = require('fs');
-const path = require('path');
+const Path = require('path');
+const async = require('async');
 
 class fsUtil {
     // Async folder get
-    static getFolders(path) {
-        fs.readdir(path, (err, files) => {
-            if (err)
-                throw err;
-            
+    static async getFolders(folderPath) {
+        return new Promise(resolve => {
             let dirs = [];
-            let lasterr = false;
-            files.filter(file => {
-                fs.stat(path.join(process.cwd(), path, file), (err, stats) => {
-                    if (err) {
-                        console.error(err);
-                        if (lasterr)
-                            throw "Multiple errors, check previus log points";
-                        lasterr = true;
-                    }
-
-                    if (stats.isDirectory()) {
-                        dirs.push(file);
-                        lasterr = false;
-                    }
-                })
-                .then(() => {
-                    return dirs;
+            fs.readdir(folderPath, (err, files) => {
+                async.each(files, (file, callback) => {
+                    fs.stat(Path.join(process.cwd(), folderPath, file), (err, stat) => {
+                        if (stat.isDirectory()) {
+                            console.log(file);
+                            dirs.push(file);
+                        }
+                    });
+                    callback();
+                }, (err) => {
+                    throw err;
                 });
             });
+            resolve(dirs);
         });
     }
 }
