@@ -4,27 +4,32 @@ const async = require('async');
 
 class fsUtil {
     // Async folder get
-    static async getFolders(folderPath) {
+    static getFolders(folderPath) {
         return new Promise(resolve => {
-            let dirs = [];
+            let retDirs = [];
             fs.readdir(folderPath, (err, files) => {
+                if (err)
+                    throw err;
+
                 async.each(files, (file, callback) => {
                     fs.stat(Path.join(process.cwd(), folderPath, file), (err, stat) => {
                         if (stat.isDirectory()) {
-                            dirs.push(file);
+                            retDirs.push(file);
                         }
+                        callback(null);
                     });
-                    callback();
                 }, (err) => {
-                    throw err;
+                    if (err)
+                        throw err;
+
+                    resolve(retDirs);
                 });
             });
-            resolve(dirs);
         });
     }
 
     // Async file get
-    static async getFiles(folderPath) {
+    static getFiles(folderPath) {
         return new Promise(resolve => {
             let retFiles = [];
             fs.readdir(folderPath, (err, files) => {
@@ -33,13 +38,14 @@ class fsUtil {
                         if (!stat.isDirectory()) {
                             retFiles.push(file);
                         }
+                        callback(null);
                     });
-                    callback();
                 }, (err) => {
-                    throw err;
-                });
+                    if (err)
+                        throw err;
+                    resolve(retFiles);
+                })
             });
-            resolve(retFiles);
         });
     }
 }
