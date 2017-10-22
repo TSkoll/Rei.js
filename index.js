@@ -1,6 +1,9 @@
 const Discord = require("discord.js");
 const fs = require('fs');
-const client = Discord.Client();
+const client = new Discord.Client();
+
+const loader = require('./cmdHandler/cmdLoader.js');
+const fsUtil = require('./utils/fsUtil.js');
 
 /*
     Config loading
@@ -22,3 +25,9 @@ try {
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.name} [${client.user.id}]`)
 });
+
+async function test() {
+    let woop = await loader.load();
+    console.log(woop);
+}
+test();
