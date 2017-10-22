@@ -10,7 +10,7 @@ class Command {
     }
 
     async sendBasicSuccess(msg, content) {
-        return new Promise(resolve => {
+        return new Promise(async resolve => {
             let msg = await msg.channel.send({
                 embed: new Discord.RichEmbed()
                 .setColor('GREEN')
