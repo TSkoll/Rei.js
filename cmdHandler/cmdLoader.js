@@ -43,10 +43,16 @@ class Loader {
                 if (err)
                     throw err;
                 resolve({
-                    "moduleHelpTexts": moduleHelpTexts,
-                    "commandRet": commandRet
+                    "helpTexts": moduleHelpTexts,
+                    "commands": commandRet
                 });
             });
+        });
+    }
+
+    static reload() {
+        return new Promise(resolve => {
+            resolve(null);
         });
     }
 }
