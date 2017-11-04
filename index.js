@@ -27,7 +27,11 @@ client.on('ready', () => {
 });
 
 async function test() {
-    let woop = await loader.load();
-    console.log(woop);
+    /*let woop = await loader.load();
+    console.log(woop);*/
+
+    let argParser = require('./cmdHandler/argParser.js');
+    let test = argParser.parse('hello world "how are you doing woop lel');
+    console.log(test);
 }
 test();
