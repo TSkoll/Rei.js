@@ -18,6 +18,8 @@ class Loader {
                 fsUtils.getFiles(`./modules/${modulePath}/`)
                 .then(commands => {
                     async.each(commands, (cmdPath, cb) => {
+
+                        // Blocks, explore async options
                         let commandObj = require(path.join(process.cwd(), 'modules', modulePath, cmdPath));
                         let command = new commandObj();
 
