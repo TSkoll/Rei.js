@@ -2,8 +2,8 @@ const Discord = require("discord.js");
 const fs = require('fs');
 const client = new Discord.Client();
 
-const loader = require('./cmdHandler/cmdLoader.js');
-const fsUtil = require('./utils/fsUtil.js');
+const Builder = require('_initBuilder.js');
+const cmdHandler = new Builder.cmdHandler(client);
 
 /*
     Config loading
@@ -26,12 +26,21 @@ client.on('ready', () => {
     console.log(`Logged in as ${client.user.name} [${client.user.id}]`)
 });
 
-async function test() {
-    /*let woop = await loader.load();
-    console.log(woop);*/
+client.on('message', async message => {
+    if (message.content.startsWith()) {
+        const cmdData = message.content.split(' ', 2);
+        const cmd = cmdData[0].substring("$".length, cmdData[0].length);
 
-    let argParser = require('./cmdHandler/argParser.js');
-    let test = argParser.parse('hello world "how are you doing woop lel');
-    console.log(test);
-}
-test();
+        try {
+            await cmdHandler.run(message, cmd, cmdData[1]);
+        } catch(err) {
+            message.channel.send(new Discord.RichEmbed()
+            .setTitle('Woops!')
+            .setDescription(err)
+            .setFooter("You shouldn't be seeing this!"))
+        }
+    }
+});
+
+if (token != null)
+    client.login(config.token);
