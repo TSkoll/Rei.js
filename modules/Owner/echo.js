@@ -3,7 +3,8 @@ const Command = require('../../Types/command.js');
 class Echo extends Command {
     constructor() {
         super({
-            "ownerOnly": true
+            "ownerOnly": true,
+            "args": 1
         });
     }
 

@@ -1,7 +1,5 @@
-const async = require('async');
-
 class argParser {
-    static parse(input, argAmount, minArgs, ignoreMin) {
+    static parse(input, argAmount, ignoreMin) {
         let args = [];
 
         let quote = false;
@@ -43,7 +41,7 @@ class argParser {
         if (quoteCache.length > 0)
             args.push(quoteCache.join(' '));
         
-        if (args.length == argAmount && ignoreMin)
+        if (args.length == argAmount && !ignoreMin)
             throw "Not enough arguments!";
         else
             return args;

@@ -35,22 +35,30 @@ class Command {
     }
 
     sendBasicError(message, content) {
-        return new Promise(async resolve => {
-            let msg = await message.channel.send({
-                embed: new Discord.RichEmbed()
-                .setColor('RED')
-                .setDescription(content)
-            });
-            resolve(msg);
+        return new Promise(async (resolve, reject) => {
+            try {
+                let msg = await message.channel.send({
+                    embed: new Discord.RichEmbed()
+                    .setColor('RED')
+                    .setDescription(content)
+                });
+                resolve(msg);
+            } catch (err) {
+                reject(err);
+            }
         })
     }
 
     sendEmbed(message, embed) {
-        return new Promise(async resolve => {
-            let msg = await message.channel.send({
-                embed: embed
-            });
-            resolve(msg);
+        return new Promise(async (resolve, reject) => {
+            try {
+                let msg = await message.channel.send({
+                    embed: embed
+                });
+                resolve(msg);
+            } catch (err) {
+                reject(err);
+            }
         });
     }
 }

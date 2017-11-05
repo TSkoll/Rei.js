@@ -20,7 +20,7 @@ class commandHandler {
             try {
                 console.log(this.commands);
                 let cmd = this.getCommand(commandName.toLowerCase());
-                let parsedArgs = await argParser.parse(args);
+                let parsedArgs = await argParser.parse(args, cmd.args);
 
                 await cmd.run(this.client, msg, parsedArgs);
                 resolve();
