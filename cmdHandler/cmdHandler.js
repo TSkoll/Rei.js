@@ -4,13 +4,34 @@ const argParser = require('./argParser.js');
 const cmdLoader = require('./cmdLoader.js');
 
 class commandHandler {
-    constructor() {
+    constructor(client) {
+        this.client = client;
         this.commands = { };
         this.helpTexts = { };
     }
 
-    static async loadCommands() {
-        return new Promise(resolve => {
+    /*
+        RUN
+    */
+    async run(msg, commandName, args) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let cmd = this.getCommand(commandName);
+                let parsedArgs = await argParser.parse(args);
+
+                await cmd.run(this.client, msg, parsedArgs);
+                resolve();
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+
+    /*
+        LOADING
+    */
+    async loadCommands() {
+        return new Promise(async resolve => {
             let ret = await cmdLoader.load();
             
             this.commands = ret.commands;
@@ -19,8 +40,8 @@ class commandHandler {
         });
     }
 
-    static async reloadCommands() {
-        return new Promise(resolve => {
+    async reloadCommands() {
+        return new Promise(async resolve => {
             this.commands = { };
             this.helpTexts = { };
     
@@ -29,7 +50,10 @@ class commandHandler {
         });
     }
 
-    static getCommand(name) {
+    /*
+        HELP
+    */
+    getCommand(name) {
         if (this.commands.hasOwnProperty(name)) {
             return this.commands[name];
         } else {
@@ -37,7 +61,7 @@ class commandHandler {
         }
     }
 
-    static getCommandHelp(name) {
+    getCommandHelp(name) {
         let keys = this.helpTexts.keys();
         for (let i = 0; i < keys.length; i++) {
             let mod = Keys[i];
@@ -48,7 +72,7 @@ class commandHandler {
         throw "Command doesn't exist!";
     }
 
-    static getAllHelp() {
+    getAllHelp() {
         let keys = this.helpTexts.keys();
         let ret = { };
         for (let i = 0; i < keys.length; i++) {
