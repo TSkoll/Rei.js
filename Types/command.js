@@ -53,7 +53,7 @@ class Command {
         return new Promise(async (resolve, reject) => {
             try {
                 let msg = await message.channel.send({
-                    embed: embed
+                    embed
                 });
                 resolve(msg);
             } catch (err) {
