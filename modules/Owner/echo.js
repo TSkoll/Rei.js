@@ -8,8 +8,12 @@ class Echo extends Command {
     }
 
     run(bot, msg, args) {
-        return new Promise(async resolve => {
-            await super.sendBasicSuccess(msg, msg.content);
+        return new Promise(async (resolve, reject) => {
+            try {
+                await super.sendBasicSuccess(msg, msg.content);
+            } catch(err) {
+                reject(err);
+            }
         });
     }
 }

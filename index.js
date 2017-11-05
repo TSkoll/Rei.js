@@ -2,9 +2,7 @@ const Discord = require("discord.js");
 const fs = require('fs');
 const client = new Discord.Client();
 
-const Builder = require('_initBuilder.js');
-const cmdHandler = new Builder.cmdHandler(client);
-
+const cmdHandler = new (require('./cmdHandler/cmdHandler.js'))(client);
 /*
     Config loading
 */
@@ -23,13 +21,15 @@ try {
 }
 
 client.on('ready', () => {
-    console.log(`Logged in as ${client.user.name} [${client.user.id}]`)
+    console.log(`Logged in as ${client.user.username} [${client.user.id}]`)
 });
 
 client.on('message', async message => {
-    if (message.content.startsWith()) {
+    console.log(`[${message.author.username}] ${message.content}`);
+    let prefix = "=";
+    if (message.content.startsWith(prefix)) {
         const cmdData = message.content.split(' ', 2);
-        const cmd = cmdData[0].substring("$".length, cmdData[0].length);
+        const cmd = cmdData[0].substring(prefix.length, cmdData[0].length);
 
         try {
             await cmdHandler.run(message, cmd, cmdData[1]);
@@ -42,5 +42,5 @@ client.on('message', async message => {
     }
 });
 
-if (token != null)
+if (config.token != null)
     client.login(config.token);

@@ -8,6 +8,8 @@ class commandHandler {
         this.client = client;
         this.commands = { };
         this.helpTexts = { };
+
+        this.loadCommands();
     }
 
     /*
@@ -16,7 +18,8 @@ class commandHandler {
     async run(msg, commandName, args) {
         return new Promise(async (resolve, reject) => {
             try {
-                let cmd = this.getCommand(commandName);
+                console.log(this.commands);
+                let cmd = this.getCommand(commandName.toLowerCase());
                 let parsedArgs = await argParser.parse(args);
 
                 await cmd.run(this.client, msg, parsedArgs);
@@ -84,3 +87,4 @@ class commandHandler {
         return ret;
     }
 }
+module.exports = commandHandler;

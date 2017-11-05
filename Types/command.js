@@ -19,20 +19,24 @@ class Command {
     }
 
     /* Functions */
-    sendBasicSuccess(msg, content) {
-        return new Promise(async resolve => {
-            let msg = await msg.channel.send({
-                embed: new Discord.RichEmbed()
-                .setColor('GREEN')
-                .setDescription(content)
-            });
-            resolve(msg);
+    sendBasicSuccess(message, content) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let msg = await message.channel.send({
+                    embed: new Discord.RichEmbed()
+                    .setColor('GREEN')
+                    .setDescription(content)
+                });
+                resolve(msg);
+            } catch (err) {
+                reject(err);
+            }
         });
     }
 
-    sendBasicError(msg, content) {
+    sendBasicError(message, content) {
         return new Promise(async resolve => {
-            let msg = await msg.channel.send({
+            let msg = await message.channel.send({
                 embed: new Discord.RichEmbed()
                 .setColor('RED')
                 .setDescription(content)
@@ -41,9 +45,9 @@ class Command {
         })
     }
 
-    sendEmbed(msg, embed) {
+    sendEmbed(message, embed) {
         return new Promise(async resolve => {
-            let msg = await msg.channel.send({
+            let msg = await message.channel.send({
                 embed: embed
             });
             resolve(msg);

@@ -30,7 +30,7 @@ class Loader {
                                 "args": command.helpArgs
                             }
                         }
-                        commandRet[command.constructor.name] = command;
+                        commandRet[command.constructor.name.toLowerCase()] = command;
 
                         cb(null);
                     }, (innerErr) => {
