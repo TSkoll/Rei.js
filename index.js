@@ -34,11 +34,10 @@ client.on('message', async message => {
         try {
             await cmdHandler.run(message, cmd, cmdData[1]);
         } catch(err) {
-            let embed = new Discord.RichEmbed()
+            message.channel.send(new Discord.RichEmbed()
             .setTitle('Woops!')
             .setDescription(err)
-            .setFooter("You shouldn't be seeing this!");
-            message.channel.send(embed);
+            .setFooter("You shouldn't be seeing this!"));
         }
     }
 });
