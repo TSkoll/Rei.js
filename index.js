@@ -3,6 +3,8 @@ const fs = require('fs');
 const client = new Discord.Client();
 
 const cmdHandler = new (require('./cmdHandler/cmdHandler.js'))(client);
+// Database migration
+(require('./utils/dbUtil.js')).migrate();
 /*
     Config loading
 */
@@ -10,7 +12,7 @@ let config = { };
 try {
     config = require('./data/config.json');
 } catch (err) {
-    config = { token: "", ownerid: "" }
+    config = { token: "", ownerid: "", defaultPrefix: "$" }
 
     // Create files
     fs.mkdirSync('./data/');
