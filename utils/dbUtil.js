@@ -62,15 +62,18 @@ class dbUtil {
     }
 
     static async ifRowExists(table, searchPattern) {
-        try {
-            let rows = await knex(table)
-            .select()
-            .where(searchPattern);
-
-            resolve(rows.length);
-        } catch (err) {
-            reject(err);
-        }
+        return new Promise(async (resolve, reject) => {
+            try {
+                let rows = await knex(table)
+                .select()
+                .where(searchPattern);
+    
+                resolve(((rows.length > 0) ? true : false));
+            } catch (err) {
+                console.log(err);
+                reject(err);
+            }
+        });
     }
 }
 module.exports = dbUtil;
