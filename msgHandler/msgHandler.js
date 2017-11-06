@@ -8,7 +8,7 @@ class msgHandler {
     constructor(client) {
         this.client = client;
 
-        // Initialize command handler and hoist it to global status
+        // Initialize command handler
         cmdHandler = new (require('../cmdHandler/cmdHandler.js'))(client);
     }
 
