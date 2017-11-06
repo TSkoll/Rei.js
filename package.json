@@ -23,6 +23,8 @@
   "homepage": "https://github.com/DoubleKilled/Rei.js#readme",
   "dependencies": {
     "async": "^2.5.0",
-    "discord.js": "^11.2.1"
+    "discord.js": "^11.2.1",
+    "knex": "^0.13.0",
+    "sqlite3": "^3.1.13"
   }
 }
