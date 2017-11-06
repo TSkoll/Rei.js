@@ -2,7 +2,10 @@ const Discord = require("discord.js");
 const fs = require('fs');
 const client = new Discord.Client();
 
-const cmdHandler = new (require('./cmdHandler/cmdHandler.js'))(client);
+let msgHandler = new (require('./msgHandler/msgHandler.js'))(client);
+let test = require('./msgHandler/msgHandler.js');
+msgHandler = new test(client);
+
 // Database migration
 (require('./utils/dbUtil.js')).migrate();
 /*
@@ -28,19 +31,11 @@ client.on('ready', () => {
 
 client.on('message', async message => {
     console.log(`[${message.author.username}] ${message.content}`);
-    let prefix = "=";
-    if (message.content.startsWith(prefix)) {
-        const cmdData = message.content.split(' ', 2);
-        const cmd = cmdData[0].substring(prefix.length, cmdData[0].length);
-
-        try {
-            await cmdHandler.run(message, cmd, cmdData[1]);
-        } catch(err) {
-            message.channel.send(new Discord.RichEmbed()
-            .setTitle('Woops!')
-            .setDescription(err)
-            .setFooter("You shouldn't be seeing this!"));
-        }
+    try {
+        // Pass event to message handler
+        await msgHandler.onMessageEvent(message);
+    } catch (err) {
+        /* Log errors from here to dkboat.xyz statistics */
     }
 });
 
