@@ -37,7 +37,7 @@ client.on('message', async message => {
             message.channel.send(new Discord.RichEmbed()
             .setTitle('Woops!')
             .setDescription(err)
-            .setFooter("You shouldn't be seeing this!"))
+            .setFooter("You shouldn't be seeing this!"));
         }
     }
 });
