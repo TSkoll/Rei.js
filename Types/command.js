@@ -22,10 +22,10 @@ class Command {
     sendBasicSuccess(message, content) {
         return new Promise(async (resolve, reject) => {
             try {
-                let embed = new Discord.RichEmbed()
+                let msg = await message.channel.send(new Discord.RichEmbed()
                 .setColor('GREEN')
-                .setDescription(content);
-                let msg = await message.channel.send(embed);
+                .setDescription(content));
+
                 resolve(msg);
             } catch (err) {
                 reject(err);
@@ -36,10 +36,10 @@ class Command {
     sendBasicError(message, content) {
         return new Promise(async (resolve, reject) => {
             try {
-                let embed = new Discord.RichEmbed()
+                let msg = await message.channel.send(new Discord.RichEmbed()
                 .setColor('RED')
-                .setDescription(content);
-                let msg = await message.channel.send(embed);
+                .setDescription(content));
+
                 resolve(msg);
             } catch (err) {
                 reject(err);
@@ -51,6 +51,7 @@ class Command {
         return new Promise(async (resolve, reject) => {
             try {
                 let msg = await message.channel.send(embed);
+                
                 resolve(msg);
             } catch (err) {
                 reject(err);
