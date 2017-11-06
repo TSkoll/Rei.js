@@ -25,7 +25,7 @@ class Command {
                 let embed = new Discord.RichEmbed()
                 .setColor('GREEN')
                 .setDescription(content);
-                let msg = await message.channel.send({embed});
+                let msg = await message.channel.send(embed);
                 resolve(msg);
             } catch (err) {
                 reject(err);
@@ -39,7 +39,7 @@ class Command {
                 let embed = new Discord.RichEmbed()
                 .setColor('RED')
                 .setDescription(content);
-                let msg = await message.channel.send({embed});
+                let msg = await message.channel.send(embed);
                 resolve(msg);
             } catch (err) {
                 reject(err);
@@ -50,7 +50,7 @@ class Command {
     sendEmbed(message, embed) {
         return new Promise(async (resolve, reject) => {
             try {
-                let msg = await message.channel.send({embed});
+                let msg = await message.channel.send(embed);
                 resolve(msg);
             } catch (err) {
                 reject(err);
