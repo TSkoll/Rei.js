@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 const db = require('../utils/dbUtil.js');
 const defaultPrefix = require('../data/config.json').defaultPrefix;
 
+let prefixCache = require('../prefixCache');
+
 let cmdHandler;
 
 class msgHandler {
@@ -18,31 +20,17 @@ class msgHandler {
             return;
 
         return new Promise(async (resolve, reject) => {
-            if(await db.ifRowExists('prefixes', { guildid: message.guild.id })) {
-                let prefix = (await db.getRow('prefixes', { guildid: message.guild.id }))[0].prefix;
-                if (message.content.startsWith(prefix)) {
-                    const cmdData = message.content.split(' ', 2);
-                    const cmd = cmdData[0].substring(prefix.length, cmdData[0].length);
+            let prefix = await getPrefix(message.guild.id);
+            if (message.content.startsWith(prefix)) {
+                const cmdData = message.content.split(' ', 2);
+                const cmd = cmdData[0].substring(prefix.length, cmdData[0].length);
 
-                    try {
-                        await cmdHandler.run(message, cmd, cmdData[1]);
-                        resolve();
-                    } catch(err) {
-                        await throwErr(message, err);
-                        reject(err);
-                    }
-                }
-            } else {
-                if (message.content.startsWith(defaultPrefix)) {
-                    const cmdData = message.content.split(' ', 2);
-                    const cmd = cmdData[0].substring(defaultPrefix.length, cmdData[0].length);
-
-                    try {
-                        await cmdHandler.run(message, cmd, cmdData[1]);
-                    } catch (err) {
-                        await throwErr(message, err);
-                        reject(err);
-                    }
+                try {
+                    await cmdHandler.run(message, cmd, cmdData[1]);
+                    resolve();
+                } catch(err) {
+                    await throwErr(message, err);
+                    reject(err);
                 }
             }
         });
@@ -51,8 +39,33 @@ class msgHandler {
 module.exports = msgHandler;
 
 async function throwErr(message, err) {
-    message.channel.send(new Discord.RichEmbed()
-    .setTitle('Woops!')
-    .setDescription(err)
-    .setFooter('This is an error. You should not be seeing this.'));
+    return new Promise(async resolve => {
+        await message.channel.send(new Discord.RichEmbed()
+        .setTitle('Woops!')
+        .setDescription(err)
+        .setFooter('This is an error. You should not be seeing this.'));
+        resolve();
+    });
+}
+
+async function getPrefix(id) {
+    if (prefixCache.has(id))
+        return prefixCache.get(id);
+    else {
+        return new Promise(async resolve => {
+            if (await db.ifRowExists('prefixes', { guild: id })) {
+                let prefix = await db.getRow('prefixes', { guild: id })[0].prefix
+                // Update cache
+                prefixCache.set(id, prefix);
+
+                resolve(prefix);
+            }
+            else {
+                // Update cache, saves us from a db read
+                prefixCache.set(id, defaultPrefix);
+                
+                resolve(defaultPrefix);
+            }
+        });
+    }
 }
