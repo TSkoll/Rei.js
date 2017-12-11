@@ -8,6 +8,7 @@ class dbUtil {
         });
     }
 
+    // Add data to a specific table in the database
     static async addData(table, data) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -19,6 +20,7 @@ class dbUtil {
         });
     }
 
+    // Gets specific data from a table in the database
     static async getRow(table, searchPattern) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -33,6 +35,7 @@ class dbUtil {
         })
     }
 
+    // Gets a specific row from a table in the database
     static async getSpecificFromRow(table, select, searchPattern) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -47,6 +50,7 @@ class dbUtil {
         })
     }
 
+    // Update a specific row from a table in the database
     static async updateRow(table, searchPattern, updatedData) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -61,6 +65,7 @@ class dbUtil {
         });
     }
 
+    // Check if a row exists in a table
     static async ifRowExists(table, searchPattern) {
         return new Promise(async (resolve, reject) => {
             try {
