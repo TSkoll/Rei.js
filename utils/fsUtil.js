@@ -7,11 +7,14 @@ class fsUtil {
     static getFolders(folderPath) {
         return new Promise(resolve => {
             let retDirs = [];
+            
+            // Reads all files in a directory
             fs.readdir(folderPath, (err, files) => {
                 if (err)
                     throw err;
 
                 async.each(files, (file, callback) => {
+                    // Push only directories to return
                     fs.stat(Path.join(process.cwd(), folderPath, file), (err, stat) => {
                         if (stat.isDirectory()) {
                             retDirs.push(file);
@@ -21,7 +24,7 @@ class fsUtil {
                 }, (err) => {
                     if (err)
                         throw err;
-
+                    
                     resolve(retDirs);
                 });
             });
@@ -35,6 +38,7 @@ class fsUtil {
             fs.readdir(folderPath, (err, files) => {
                 async.each(files, (file, callback) => {
                     fs.stat(Path.join(process.cwd(), folderPath, file), (err, stat) => {
+                        // Push files only to return
                         if (!stat.isDirectory()) {
                             retFiles.push(file);
                         }
@@ -43,6 +47,7 @@ class fsUtil {
                 }, (err) => {
                     if (err)
                         throw err;
+                    
                     resolve(retFiles);
                 })
             });
