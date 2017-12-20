@@ -11,7 +11,7 @@ class Echo extends Command {
     run(bot, msg, args) {
         return new Promise(async (resolve, reject) => {
             try {
-                await super.sendBasicSuccess(msg, msg.content);
+                await super.sendBasicSuccess(msg, args);
             } catch(err) {
                 reject(err);
             }

@@ -24,12 +24,12 @@ class msgHandler {
             let prefix = await getPrefix(message.guild.id);
             if (message.content.startsWith(prefix)) {
                 // Split message into command and it's arguments
-                const cmdData = message.content.split(' ', 2);
-                const cmd = cmdData[0].substring(prefix.length, cmdData[0].length);
+                const cmd = message.content.substring(prefix.length, message.content.indexOf(' ') - (prefix.length - 1));
+                const argString = message.content.substring(message.content.indexOf(' ')+1);
 
                 try {
                     // Find and run command
-                    await cmdHandler.run(message, cmd, cmdData[1]);
+                    await cmdHandler.run(message, cmd, argString);
                     resolve();
                 } catch(err) {
                     // Command-scope error throwing.
