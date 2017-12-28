@@ -31,12 +31,11 @@ client.on('ready', () => {
 
 client.on('message', async message => {
     console.log(`[${message.author.username}] ${message.content}`);
-    try {
-        // Pass event to message handler
-        await msgHandler.onMessageEvent(message);
-    } catch (err) {
-        /* Log errors from here to dkboat.xyz statistics */
-    }
+    // Pass event to message handler
+    await msgHandler.onMessageEvent(message)
+    .catch(err => {
+        console.error(err);
+    });
 });
 
 if (config.token != null)
