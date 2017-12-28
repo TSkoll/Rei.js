@@ -18,13 +18,13 @@ class commandHandler {
     async run(msg, commandName, args) {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log(this.commands);
                 let cmd = this.getCommand(commandName.toLowerCase());
-                let parsedArgs = await argParser.parse(args, cmd.args);
+                let parsedArgs = (args) ? await argParser.parse(args, cmd.args) : null;
 
                 await cmd.run(this.client, msg, parsedArgs);
                 resolve();
             } catch (err) {
+                // Pass error to onMessageEvent handler
                 reject(err);
             }
         });

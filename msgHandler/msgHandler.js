@@ -1,17 +1,16 @@
 const Discord = require('discord.js');
 const db = require('../utils/dbUtil.js');
 const defaultPrefix = require('../data/config.json').defaultPrefix;
+const cmdHandler = require('../cmdHandler/cmdHandler.js');
 
 let prefixCache = require('../prefixCache');
-
-let cmdHandler;
 
 class msgHandler {
     constructor(client) {
         this.client = client;
 
         // Initialize command handler
-        cmdHandler = new (require('../cmdHandler/cmdHandler.js'))(client);
+        this.cmdHandler = new cmdHandler(client);
     }
 
     async onMessageEvent(message) {
@@ -24,13 +23,12 @@ class msgHandler {
             let prefix = await getPrefix(message.guild.id);
             if (message.content.startsWith(prefix)) {
                 // Split message into command and it's arguments
-                const cmd = message.content.substring(prefix.length, message.content.indexOf(' ') - (prefix.length - 1));
-                const argString = message.content.substring(message.content.indexOf(' ')+1);
+                const cmd = (message.content.indexOf(' ') > 0) ? message.content.substring(prefix.length, message.content.indexOf(' ') - (prefix.length - 1)) : message.content.substring(prefix.length);
+                const argString = (message.content.indexOf(' ') > 0) ? message.content.substring(message.content.indexOf(' ') + 1) : null;
 
                 try {
                     // Find and run command
-                    await cmdHandler.run(message, cmd, argString);
-                    resolve();
+                    await this.cmdHandler.run(message, cmd, argString);
                 } catch(err) {
                     // Command-scope error throwing.
                     await throwErr(message, err);
@@ -38,6 +36,7 @@ class msgHandler {
                     // Pass error into main
                     reject(err);
                 }
+                resolve();
             }
         });
     }
