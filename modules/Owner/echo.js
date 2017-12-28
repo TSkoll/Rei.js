@@ -8,14 +8,8 @@ class Echo extends Command {
         });
     }
 
-    run(bot, msg, args) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                await super.sendBasicSuccess(msg, args);
-            } catch(err) {
-                reject(err);
-            }
-        });
+    async run(bot, msg, args) {
+        await super.sendBasicSuccess(msg, args);
     }
 }
 module.exports = Echo;
