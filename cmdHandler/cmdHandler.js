@@ -33,6 +33,8 @@ class commandHandler {
                         return resolve();
                     } catch (err) {
                         console.error(`Tried to send a DM about not being able to deliver message to the specified channel but sending the DM failed! ${err}`);
+                        
+                        return resolve();
                     }
                 }
 
