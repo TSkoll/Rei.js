@@ -23,7 +23,20 @@ class commandHandler {
                 let cmd = this.getCommand(commandName.toLowerCase());
                 let parsedArgs = (args) ? await argParser.parse(args, cmd.args) : null;
 
-                // Check if all permissions 
+                // Check if we can send messages in the channel
+                if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) {
+                    try {
+                        await msg.author.send(new Discord.RichEmbed()
+                        .setColor('RED')
+                        .setDescription('It seems like I can\'t send messages in that channel!'));
+
+                        resolve();
+                    } catch (err) {
+                        console.error(`Tried to send a DM about not being able to deliver message to the specified channel but sending the DM failed! ${err}`);
+                    }
+                }
+
+                // Check if all permissions
                 if (cmd.checkFlags(msg)) {
                     await cmd.run(this.client, msg, parsedArgs);
 
