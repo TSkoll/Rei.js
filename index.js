@@ -2,12 +2,19 @@ const Discord = require("discord.js");
 const fs = require('fs');
 const client = new Discord.Client();
 
-let msgHandler = new (require('./msgHandler/msgHandler.js'))(client);
-let test = require('./msgHandler/msgHandler.js');
-msgHandler = new test(client);
+const dbUtil = require('./utils/dbUtil.js');
+
+// Initialize stat tracker
+let statTracker = require('./utils/statTracker.js');
+statTracker = new statTracker();
+
+// Initialize message handler
+let msgHandler = require('./msgHandler/msgHandler.js');
+msgHandler = new msgHandler(client, statTracker);
 
 // Database migration
-(require('./utils/dbUtil.js')).migrate();
+dbUtil.migrate();
+
 /*
     Config loading
 */
@@ -25,6 +32,9 @@ try {
     return 0;
 }
 
+/*
+    Discord.js events
+*/
 client.on('ready', () => {
     console.log(`Logged in as ${client.user.username} [${client.user.id}]`)
 });
@@ -40,3 +50,5 @@ client.on('message', async message => {
 
 if (config.token != null)
     client.login(config.token);
+else
+    console.error('Token could not be found!');
