@@ -28,11 +28,11 @@ class Command {
     /* Flag checks */
     checkFlags(msg) {
         // Returns true if all checks go through, otherwise false
-        const ownerCheck = (this.ownerOnly)         ? this.checkOwnerOnly(msg)     : true;
-        const userPermCheck = (this.userPerms)      ? this.checkUserPerms(msg)     : true;
-        const guildOwnerCheck = (this.guildOwner)   ? this.checkGuildOwner(msg)    : true;
-        const dmCheck = (this.disallowDM)           ? this.isInDM(msg)             : true; 
-        const botPermCheck = this.checkBotPerms(msg);
+        const ownerCheck = (this.ownerOnly)                         ? this.checkOwnerOnly(msg)  : true;
+        const userPermCheck = (this.userPerms && msg.guild)         ? this.checkUserPerms(msg)  : true;
+        const guildOwnerCheck = (this.guildOwner && msg.guild)      ? this.checkGuildOwner(msg) : true;
+        const dmCheck = (this.disallowDM)                           ? this.isInDM(msg)          : true; 
+        const botPermCheck = (msg.guild)                            ? this.checkBotPerms(msg)   : true;
 
         return ownerCheck && userPermCheck && guildOwnerCheck && dmCheck && botPermCheck;
     }

@@ -24,7 +24,7 @@ class msgHandler {
 
         return new Promise(async (resolve, reject) => {
             // Get server specific command prefix
-            let prefix = await getPrefix(message.guild.id);
+            let prefix = (message.guild) ? await getPrefix(message.guild.id) : defaultPrefix;
             if (message.content.startsWith(prefix)) {
                 // Split message into command and it's arguments
                 const cmd = (message.content.indexOf(' ') > 0) ? message.content.substring(prefix.length, message.content.indexOf(' ') - (prefix.length - 1)) : message.content.substring(prefix.length);
