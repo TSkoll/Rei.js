@@ -14,7 +14,7 @@ class Command {
         this.args = (info && info.hasOwnProperty('args'))               ? info.args         : 0;
         this.ignoreMin = (info && info.hasOwnProperty('ignoreMin'))     ? info.ignoreMin    : false;
         this.showOnHelp = (info && info.hasOwnProperty('showOnHelp'))   ? info.showOnHelp   : true;
-        this.botPerms = (info && info.hasOwnProperty('botPerms'))       ? info.botPerms     : 'SEND_MESSAGES';
+        this.botPerms = (info && info.hasOwnProperty('botPerms'))       ? info.botPerms     : null;
         this.userPerms = (info && info.hasOwnProperty('userPerms'))     ? info.userPerms    : null;
         this.guildOwner = (info && info.hasOwnProperty('guildOwner'))   ? info.guildOwner   : false;
         this.cost = (info && info.hasOwnProperty('cost'))               ? info.cost         : false;
@@ -32,7 +32,7 @@ class Command {
         const userPermCheck = (this.userPerms && msg.guild)         ? this.checkUserPerms(msg)  : true;
         const guildOwnerCheck = (this.guildOwner && msg.guild)      ? this.checkGuildOwner(msg) : true;
         const dmCheck = (this.disallowDM)                           ? this.isInDM(msg)          : true; 
-        const botPermCheck = (msg.guild)                            ? this.checkBotPerms(msg)   : true;
+        const botPermCheck = (this.botPerms && msg.guild)           ? this.checkBotPerms(msg)   : true;
 
         return ownerCheck && userPermCheck && guildOwnerCheck && dmCheck && botPermCheck;
     }
