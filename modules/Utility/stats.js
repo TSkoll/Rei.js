@@ -27,9 +27,15 @@ module.exports = Stats;
 
 function epochToTimeDifference(epoch) {
     const days = Math.floor(epoch / 86400000);
-    const hours = Math.floor((epoch % 86400000) / 3600000);
-    const minutes = Math.floor(((epoch % 86400000) % 3600000) / 60000);
-    const seconds = Math.floor((((epoch % 86400000) % 3600000) % 60000) / 1000);
+    const totalHours = epoch % 86400000;
+
+    const hours = Math.floor(totalHours / 3600000);
+    const totalMinutes = totalHours % 3600000;
+
+    const minutes = Math.floor(totalMinutes / 60000);
+    const totalSeconds = totalMinutes % 60000;
+
+    const seconds = Math.floor(totalSeconds / 1000);
 
     return `${(days > 0) ? days + 'd' : ''} ${(hours > 0) ? hours + 'h': ''} ${(minutes > 0) ? minutes + 'm' : ''} ${seconds}s`
 }
