@@ -30,7 +30,7 @@ class commandHandler {
                         .setColor('RED')
                         .setDescription('It seems like I can\'t send messages in that channel!'));
 
-                        resolve();
+                        return resolve();
                     } catch (err) {
                         console.error(`Tried to send a DM about not being able to deliver message to the specified channel but sending the DM failed! ${err}`);
                     }
