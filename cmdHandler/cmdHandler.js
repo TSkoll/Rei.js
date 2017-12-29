@@ -4,8 +4,10 @@ const argParser = require('./argParser.js');
 const cmdLoader = require('./cmdLoader.js');
 
 class commandHandler {
-    constructor(client) {
+    constructor(client, statTracker) {
         this.client = client;
+        this.statTracker = statTracker;
+
         this.commands = { };
         this.helpTexts = { };
 
@@ -22,6 +24,10 @@ class commandHandler {
                 let parsedArgs = (args) ? await argParser.parse(args, cmd.args) : null;
 
                 await cmd.run(this.client, msg, parsedArgs);
+
+                // Commands run +1
+                this.statTracker.commandsAdd();
+
                 resolve();
             } catch (err) {
                 // Pass error to onMessageEvent handler
@@ -35,7 +41,7 @@ class commandHandler {
     */
     async loadCommands() {
         return new Promise(async resolve => {
-            let ret = await cmdLoader.load();
+            let ret = await cmdLoader.load(this.statTracker);
             
             this.commands = ret.commands;
             this.helpTexts = ret.helpTexts;

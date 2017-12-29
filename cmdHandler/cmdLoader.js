@@ -5,7 +5,7 @@ const async = require('async');
 
 class Loader {
     /* Loads commands and builds the commands and help object */
-    static load() {
+    static load(statTracker) {
         return new Promise(async resolve => {
             // Full commands, returnable lists
             let moduleHelpTexts = {};
@@ -28,7 +28,9 @@ class Loader {
                         /* Require the found command file (e.g. modules/owner/setName.js)
                         Blocks, explore async options */
                         let commandObj = require(path.join(process.cwd(), 'modules', modulePath, cmdPath));
-                        let command = new commandObj();
+
+                        // Pass stat tracker to commands
+                        let command = new commandObj(statTracker);
 
                         /* Insert data */
                         if (command.helpText != null) {

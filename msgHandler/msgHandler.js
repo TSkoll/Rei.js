@@ -6,17 +6,21 @@ const cmdHandler = require('../cmdHandler/cmdHandler.js');
 let prefixCache = require('../prefixCache');
 
 class msgHandler {
-    constructor(client) {
+    constructor(client, statTracker) {
         this.client = client;
+        this.statTracker = statTracker;
 
         // Initialize command handler
-        this.cmdHandler = new cmdHandler(client);
+        this.cmdHandler = new cmdHandler(client, statTracker);
     }
 
     async onMessageEvent(message) {
         // Don't check bot's messages
         if (message.author.id == this.client.user.id)
             return;
+
+        // Messages received +1
+        this.statTracker.messageAdd();
 
         return new Promise(async (resolve, reject) => {
             // Get server specific command prefix
