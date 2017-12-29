@@ -1,4 +1,11 @@
 const Discord = require('discord.js');
+const ownerId = require('../data/config.json').ownerId;
+
+/* 
+    TODO
+
+    msg/message => this.msg
+*/
 
 class Command {
     constructor(info) {
@@ -7,7 +14,7 @@ class Command {
         this.args = (info && info.hasOwnProperty('args'))               ? info.args         : 0;
         this.ignoreMin = (info && info.hasOwnProperty('ignoreMin'))     ? info.ignoreMin    : false;
         this.showOnHelp = (info && info.hasOwnProperty('showOnHelp'))   ? info.showOnHelp   : true;
-        this.botPerms = (info && info.hasOwnProperty('botPerms'))       ? info.botPerms     : null;
+        this.botPerms = (info && info.hasOwnProperty('botPerms'))       ? info.botPerms     : 'SEND_MESSAGES';
         this.userPerms = (info && info.hasOwnProperty('userPerms'))     ? info.userPerms    : null;
         this.guildOwner = (info && info.hasOwnProperty('guildOwner'))   ? info.guildOwner   : false;
         this.cost = (info && info.hasOwnProperty('cost'))               ? info.cost         : false;
@@ -16,6 +23,18 @@ class Command {
         /* Help information */
         this.helpText = (info && info.hasOwnProperty('helpText'))       ? info.helpText     : null;
         this.helpArgs = (info && info.hasOwnProperty('helpArgs'))       ? info.helpArgs     : null;
+    }
+
+    /* Flag checks */
+    checkFlags(msg) {
+        // Returns true if all checks go through, otherwise false
+        const ownerCheck = (this.ownerOnly)         ? this.checkOwnerOnly(msg)     : true;
+        const userPermCheck = (this.userPerms)      ? this.checkUserPerms(msg)     : true;
+        const guildOwnerCheck = (this.guildOwner)   ? this.checkGuildOwner(msg)    : true;
+        const dmCheck = (this.disallowDM)           ? this.isInDM(msg)             : true; 
+        const botPermCheck = this.checkBotPerms(msg);
+
+        return ownerCheck && userPermCheck && guildOwnerCheck && dmCheck && botPermCheck;
     }
 
     /* Functions */
@@ -57,6 +76,27 @@ class Command {
                 reject(err);
             }
         });
+    }
+
+    /* Permission checking */
+    checkOwnerOnly(msg) {
+        return msg.author.id == ownerId;
+    }
+
+    checkBotPerms(msg) {
+        return msg.guild.me.permissions.has(this.botPerms);
+    }
+
+    checkUserPerms(msg) {
+        return msg.member.permissions.has(this.userPerms);
+    }
+
+    checkGuildOwner(msg) {
+        return msg.author.id == msg.guild.owner.id;
+    }
+
+    isInDM(msg) {
+        return msg.channel.type == 'dm';
     }
 }
 module.exports = Command;

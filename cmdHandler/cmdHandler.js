@@ -23,12 +23,19 @@ class commandHandler {
                 let cmd = this.getCommand(commandName.toLowerCase());
                 let parsedArgs = (args) ? await argParser.parse(args, cmd.args) : null;
 
-                await cmd.run(this.client, msg, parsedArgs);
+                // Check if all permissions 
+                if (cmd.checkFlags(msg)) {
+                    await cmd.run(this.client, msg, parsedArgs);
 
-                // Commands run +1
-                this.statTracker.commandsAdd();
+                    // Commands run +1
+                    this.statTracker.commandsAdd();
 
-                resolve();
+                    resolve();
+                }
+                else {
+                    cmd.sendBasicError(msg, 'Not enough permissions to run this command!')
+                    resolve();
+                }
             } catch (err) {
                 // Pass error to onMessageEvent handler
                 reject(err);
