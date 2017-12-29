@@ -22,7 +22,7 @@ let config = { };
 try {
     config = require('./data/config.json');
 } catch (err) {
-    config = { token: "", ownerid: "", defaultPrefix: "$" }
+    config = { token: "", ownerId: "", defaultPrefix: "$" }
 
     // Create files
     fs.mkdirSync('./data/');
