@@ -40,7 +40,6 @@ client.on('ready', () => {
 });
 
 client.on('message', async message => {
-    console.log(`[${message.author.username}] ${message.content}`);
     // Pass event to message handler
     await msgHandler.onMessageEvent(message)
     .catch(err => {
