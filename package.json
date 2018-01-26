@@ -22,8 +22,8 @@
   },
   "homepage": "https://github.com/DoubleKilled/Rei.js#readme",
   "dependencies": {
-    "async": "^2.5.0",
-    "discord.js": "^11.2.1",
+    "async": "^2.6.0",
+    "discord.js": "^11.3.0",
     "erlpack": "github:discordapp/erlpack",
     "knex": "^0.13.0",
     "node-vibrant": "^3.0.0",
