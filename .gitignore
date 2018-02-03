@@ -1,5 +1,5 @@
 node_modules/
 package-lock.json
-data
+data/config.json
+data/rei.sqlite3
 .vscode
-migrations

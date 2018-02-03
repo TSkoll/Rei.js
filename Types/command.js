@@ -110,6 +110,10 @@ class Command {
     }
 
     checkCooldown(msg) {
+        /**
+         * If user hasn't used the command return true,
+         * otherwise check if difference between last execution and current time is greater than allowed cooldown
+         */
         return !this.executed.has(msg.author) ? true : Date.now() - this.executed.get(msg.author) > this.rateLimit;
     }
 
