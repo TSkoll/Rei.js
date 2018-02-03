@@ -4,17 +4,6 @@ const client = new Discord.Client();
 
 const dbUtil = require('./utils/dbUtil.js');
 
-// Initialize stat tracker
-let statTracker = require('./utils/statTracker.js');
-statTracker = new statTracker();
-
-// Initialize message handler
-let msgHandler = require('./msgHandler/msgHandler.js');
-msgHandler = new msgHandler(client, statTracker);
-
-// Database migration
-dbUtil.migrate();
-
 /*
     Config loading
 */
@@ -31,6 +20,17 @@ try {
     console.log("I noticed that you don't have an existing config file. I've created it at /data/config.json!");
     return 0;
 }
+
+// Initialize stat tracker
+let statTracker = require('./utils/statTracker.js');
+statTracker = new statTracker();
+
+// Initialize message handler
+let msgHandler = require('./msgHandler/msgHandler.js');
+msgHandler = new msgHandler(client, statTracker);
+
+// Database migration
+dbUtil.migrate();
 
 /*
     Discord.js events

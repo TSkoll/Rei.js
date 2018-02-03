@@ -10,6 +10,7 @@ class commandHandler {
 
         this.commands = { };
         this.helpTexts = { };
+        this.executedCmds = new Map();
 
         this.loadCommands();
     }
@@ -38,18 +39,21 @@ class commandHandler {
                     }
                 }
 
-                // Check if all permissions
-                if (cmd.checkFlags(msg)) {
+                try {
+                    // Check if all permissions
+                    cmd.checkFlags(msg);
+
                     await cmd.run(this.client, msg, parsedArgs);
 
                     // Commands run +1
                     this.statTracker.commandsAdd();
+                    cmd.executionSuccess(msg);
 
-                    resolve();
+                    return resolve();
                 }
-                else {
-                    cmd.sendBasicError(msg, 'Not enough permissions to run this command!')
-                    resolve();
+                catch (err) {
+                    cmd.sendBasicError(msg, err.message); // 'Not enough permissions to run this command!')
+                    return resolve();
                 }
             } catch (err) {
                 // Pass error to onMessageEvent handler
