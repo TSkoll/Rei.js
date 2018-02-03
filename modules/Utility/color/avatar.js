@@ -3,23 +3,28 @@ const request = require('request-promise-native');
 
 const Discord = require('discord.js');
 
+const assign = require('./assign.js');
+
 module.exports = async function(msg) {
+    // User avatar url in png format
     const url = msg.author.displayAvatarURL.substr(0, msg.author.displayAvatarURL.lastIndexOf('.'));
+
     let img = await request.get({url: url, encoding: 'binary'});
 
-    const s = await vibrant.from(Buffer.from(img, 'binary')).getSwatches();
-    
-    // flush img after processing, so we don't have to keep it in memory for up to 5 minutes
+    // Generate swatches from image buffer
+    const swatches = await vibrant.from(Buffer.from(img, 'binary')).getSwatches();
+
+    // flush img from memory
     img = null;
 
+    let i = 0;
     let choices = [];
-    for (let key in s) {
-        choices.push(s[key]);
-    }
-
     choiceString = '';
-    for (let i = 0; i < choices.length; i++) {
-        choiceString += `${i + 1} -> ${choices[i].getHex().toUpperCase()}\n`;
+    for (let key in swatches) {
+        choices.push(swatches[key]);
+        choiceString += `${i + 1} -> ${swatches[key].getHex().toUpperCase()}\n`;
+
+        i++;
     }
 
     const choiceMsg = await msg.channel.send(new Discord.RichEmbed()
@@ -36,10 +41,11 @@ module.exports = async function(msg) {
                 if (choiceMsg.deletable)
                     choiceMsg.delete();
 
-                return cr;
+                assign(msg, cr);
+                return;
             } catch (err) {
                 throw err;
             }
         }
     });
-}
+};
