@@ -10,8 +10,13 @@ module.exports = async function(msg, cr) {
     const assignedUserColors = user.roles.filter(x => x.name[0] == '#');
     let userColor = assignedUserColors.first();
 
-    if (assignedUserColors.find('name', cr))
-        throw 'You already have this color!';
+    if (assignedUserColors.find('name', cr)) {
+        msg.channel.send(new Discord.RichEmbed()
+        .setColor('RED')
+        .setDescription('You already have this color!'))
+        
+        return;
+    }
 
     try {
         if (serverColorRoles.exists('name', cr)) {

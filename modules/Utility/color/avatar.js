@@ -33,19 +33,28 @@ module.exports = async function(msg) {
     .setDescription(choiceString));
 
     const msgC = new Discord.MessageCollector(msg.channel, a => a.author == msg.author, { time: 300000 });
-    msgC.on('collect', message => {
+    msgC.on('collect', async message => {
         if (!isNaN(message.content)) {
             try {
-                const cr = choices[Number(message.content) - 1].getHex();
-                
-                if (choiceMsg.deletable)
-                    choiceMsg.delete();
+                if (Number(message.content) > 0 && Number(message.content) <= choices.length) {
+                    const cr = choices[Number(message.content) - 1].getHex();
 
-                assign(msg, cr);
-                return;
+                    await assign(msg, cr);
+                    msgC.stop();
+                    return;
+                } else {
+                    await msg.channel.send(new Discord.RichEmbed()
+                    .setColor('RED')
+                    .setDescription('That\'s not a valid choice, is it'))
+                }
             } catch (err) {
                 throw err;
             }
         }
     });
+
+    msgC.on('end', () => {
+        if (choiceMsg.deletable)
+            choiceMsg.delete();
+    })
 };

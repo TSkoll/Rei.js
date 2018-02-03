@@ -13,7 +13,7 @@ class Color extends Command {
 
     async run(bot, msg, args) {
         // Possible choices
-        try {
+        try { 
             switch (args) {
                 case 'avatar':
                     const cr = await avatar(msg);
