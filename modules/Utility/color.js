@@ -1,5 +1,3 @@
-import { appendFile } from 'fs';
-
 const Command = require('../../Types/command.js');
 const c = require('./color/avatar.js');
 

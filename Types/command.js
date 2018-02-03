@@ -19,22 +19,32 @@ class Command {
         this.guildOwner = (info && info.hasOwnProperty('guildOwner'))   ? info.guildOwner   : false;
         this.cost = (info && info.hasOwnProperty('cost'))               ? info.cost         : false;
         this.disallowDM = (info && info.hasOwnProperty('disallowDM'))   ? info.disallowDM   : false;
+        this.rateLimit = (info && info.hasOwnProperty('rateLimit'))     ? info.rateLimit    : 0; //IN MILLISECONDS!
 
         /* Help information */
         this.helpText = (info && info.hasOwnProperty('helpText'))       ? info.helpText     : null;
         this.helpArgs = (info && info.hasOwnProperty('helpArgs'))       ? info.helpArgs     : null;
+
+        /* When command was executed and by whom? */
+        this.executed = this.rateLimit > 0                              ? new Map()         : null;
     }
 
     /* Flag checks */
     checkFlags(msg) {
-        // Returns true if all checks go through, otherwise false
-        const ownerCheck = (this.ownerOnly)                     ? this.checkOwnerOnly(msg)  : true;
-        const userPermCheck = (this.userPerms && msg.guild)     ? this.checkUserPerms(msg)  : true;
-        const guildOwnerCheck = (this.guildOwner && msg.guild)  ? this.checkGuildOwner(msg) : true;
-        const dmCheck = (this.disallowDM)                       ? this.isInDM(msg)          : true; 
-        const botPermCheck = (this.botPerms && msg.guild)       ? this.checkBotPerms(msg)   : true;
-
-        return ownerCheck && userPermCheck && guildOwnerCheck && dmCheck && botPermCheck;
+        // Throw if any check doesn't go through
+        if(this.ownerOnly && !this.checkOwnerOnly(msg))
+            throw 'You\'re not my master!';
+        
+        if( (this.userPerms && msg.guild && !this.checkUserPerms(msg)) ||
+            (this.guildOwner && msg.guild && !this.checkGuildOwner(msg)) ||
+            (this.botPerms && msg.guild && !this.checkBotPerms(msg)))
+            throw 'Not enough permissions';
+        
+        if(this.disallowDM && this.isInDM(msg))
+            throw 'I can\'t do that in a DM';
+        
+        if(this.rateLimit > 0 && !this.checkCooldown(msg))
+            throw 'STOP ABUSING ME >:C';
     }
 
     /* Functions */
@@ -97,6 +107,15 @@ class Command {
 
     isInDM(msg) {
         return msg.channel.type == 'dm';
+    }
+
+    checkCooldown(msg) {
+        return !this.executed.has(msg.author) ? true : Date.now() - this.executed.get(msg.author) > this.rateLimit;
+    }
+
+    executionSuccess(msg) {
+        if(this.executed)
+            this.executed.set(msg.author, Date.now());
     }
 }
 module.exports = Command;
