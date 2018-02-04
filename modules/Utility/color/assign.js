@@ -37,25 +37,32 @@ module.exports = async function(msg, cr) {
         throw err;
     }
 
+    await msg.channel.send(new Discord.RichEmbed()
+    .setColor('GREEN')  
+    .setDescription('Color set!'));
+
     if (userColor != null)
         await handleOldColor(msg, userColor);
 };
 
 async function assignColorToUser(msg, r = null) {
+    // Build a role list by removing every role starting with '#'
     let tempRoles = msg.member.roles.filter(x => x.name[0] != '#').array();
     tempRoles.push(r);
 
     try {
         await msg.member.setRoles(tempRoles);
-        console.log('Assigned color ' + r.name + ' to user ' + msg.author.username)
     } catch (err) {
         throw err;
     }
 }
 
 async function handleOldColor(msg, r) {
-    if (r.members.size == 0) {
-        await r.delete();
-        console.log('Deleted role '+ r.name);
-    }
+    /*  Check if we want to remove the role after a second to make sure everything is synced up.
+        Will not delete the role if a user assigns the same color to themselves. */
+    await setTimeout(async () => {
+        if (r.members.size < 1) {
+            await r.delete();
+        }
+    }, 1000);
 }

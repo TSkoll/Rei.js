@@ -3,7 +3,8 @@ const c = require('./color/avatar.js');
 
 const avatar = require('./color/avatar.js');
 const hex = require('./color/hex.js');
-const assign = require('./color/assign.js');
+const random = require('./color/random.js');
+const remove = require('./color/remove.js');
 
 class Color extends Command {
     constructor() {
@@ -17,10 +18,13 @@ class Color extends Command {
         try { 
             switch (args) {
                 case 'avatar':
-                    const cr = await avatar(msg);
+                    await avatar(msg);
+                    break;
+                case 'random':
+                    await random(msg);
                     break;
                 case null:
-                    await assign(msg, 'remove');
+                    await remove(msg);
                     break;
                 default:
                     await hex(msg, args);
