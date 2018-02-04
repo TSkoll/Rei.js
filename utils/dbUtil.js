@@ -75,7 +75,6 @@ class dbUtil {
     
                 resolve(((rows.length > 0) ? true : false));
             } catch (err) {
-                console.log(err);
                 reject(err);
             }
         });
