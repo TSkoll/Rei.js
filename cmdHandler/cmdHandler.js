@@ -57,7 +57,7 @@ class commandHandler {
                 }
             } catch (err) {
                 // Pass error to onMessageEvent handler
-                reject(err);
+                return reject(err);
             }
         });
     }
