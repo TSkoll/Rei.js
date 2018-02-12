@@ -24,6 +24,9 @@ class Command {
         /* Help information */
         this.helpText = (info && info.hasOwnProperty('helpText'))       ? info.helpText     : null;
         this.helpArgs = (info && info.hasOwnProperty('helpArgs'))       ? info.helpArgs     : null;
+
+        /* When command was executed and by whom? */
+        this.executed = this.rateLimit > 0                              ? new Map()         : null;
     }
 
     /* Flag checks */
