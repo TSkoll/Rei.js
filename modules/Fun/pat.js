@@ -36,12 +36,12 @@ class Pat extends Command {
 
         if (user) {
             await super.sendEmbed(msg, new Discord.RichEmbed()
-            .setColor('PINK')
+            .setColor('#FF69B4')
             .setDescription(`**${msg.author.username}#${msg.author.discriminator}** has patted **${user.user.username}#${user.user.discriminator}**`)
             .setImage(pat));
         } else {
             await super.sendEmbed(msg, new Discord.RichEmbed()
-            .setColor('PINK')
+            .setColor('#FF69B4')
             .setImage(pat));
         }
     }
