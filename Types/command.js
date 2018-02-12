@@ -42,9 +42,9 @@ class Command {
         
         if(this.disallowDM && this.isInDM(msg))
             throw 'I can\'t do that in a DM';
-        
+
         if(this.rateLimit > 0 && !this.checkCooldown(msg))
-            throw 'STOP ABUSING ME >:C';
+            throw `Command on cooldown! Please wait for **${Math.round((this.rateLimit - (Date.now() - this.executed.get(msg.author))) / 1000)}** more second(s).`;
     }
 
     /* Functions */

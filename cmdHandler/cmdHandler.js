@@ -52,7 +52,7 @@ class commandHandler {
                     return resolve();
                 }
                 catch (err) {
-                    cmd.sendBasicError(msg, err.message); // 'Not enough permissions to run this command!')
+                    cmd.sendBasicError(msg, err); // 'Not enough permissions to run this command!')
                     return resolve();
                 }
             } catch (err) {

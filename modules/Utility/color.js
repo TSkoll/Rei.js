@@ -6,22 +6,30 @@ const hex = require('./color/hex.js');
 const random = require('./color/random.js');
 const remove = require('./color/remove.js');
 
+let menusOpen = [];
+
 class Color extends Command {
     constructor() {
         super({
-            args: 1
+            args: 1,
+            rateLimit: 15000 // 15 second cooldown
         });
     }
 
     async run(bot, msg, args) {
+        if (menusOpen.includes(msg.author.id))
+            return;
+        else
+            menusOpen.push(msg.author.id);
+
         // Possible choices
         try { 
             switch (args) {
                 case 'avatar':
-                    await avatar(msg);
+                    await avatar(msg, menusOpen);
                     break;
                 case 'random':
-                    await random(msg);
+                    await random(msg, menusOpen);
                     break;
                 case null:
                     await remove(msg);
