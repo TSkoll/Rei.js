@@ -4,14 +4,22 @@ const Discord = require('discord.js');
 
 const assign = require('./assign.js');
 
-module.exports = async function(msg) {
+let menusOpen = [];
+
+module.exports = async function(msg, menusOpen) {
     const colors = randomcolor({ count: 6 });
 
     const choiceImg = await generateImage(colors, msg);
-    const choiceMsg = await msg.channel.send('Select a color', { files: [choiceImg] });
+    const choiceMsg = await msg.channel.send('Select a color\n"exit" to exit the menu', { files: [choiceImg] });
 
     const msgC = new Discord.MessageCollector(msg.channel, a => a.author == msg.author, { time: 300000 });
     msgC.on('collect', async message => {
+        // Allow exiting out of the menu
+        if (message.content.toLowerCase() == 'exit') {
+            msgC.stop();
+            return;
+        }
+
         if (!isNaN(message.content)) {
             try {
                 if (Number(message.content) > 0 && Number(message.content) <= colors.length) {
@@ -34,5 +42,7 @@ module.exports = async function(msg) {
     msgC.on('end', () => {
         if (choiceMsg.deletable)
             choiceMsg.delete();
-    })
+
+        menusOpen.splice(menusOpen.indexOf(msg.author.id), 1);
+    });
 }
