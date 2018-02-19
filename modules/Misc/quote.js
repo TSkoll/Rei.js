@@ -14,15 +14,15 @@ class Quote extends Command {
     async run(bot, msg, args) {
         if(args[0] == 'set') {
             if(args.length < 3)
-                throw new Error('Not enough arguments.');
+                throw 'Not enough arguments.';
             if(isNaN(args[1]))
-                throw new Error(args[1] + ' is not a valid message ID.');
+                throw args[1] + ' is not a valid message ID.';
             if(!isNaN(args[2]))
-                throw new Error('Quote names have to be alphanumeric.');
+                throw 'Quote names have to be alphanumeric.';
             try {
                 await msg.channel.fetchMessage(args[1]);
             } catch (e) {
-                throw new Error('I couldn\'t find the message that you\'re looking for');
+                throw 'I couldn\'t find the message that you\'re looking for';
             }
 
             await db.addData('quotes', {
@@ -37,14 +37,14 @@ class Quote extends Command {
             try {
                 await sendQuote(msg, await msg.channel.fetchMessage(args[0]));
             } catch (e) {
-                throw new Error('I couldn\'t find the message that you\'re looking for');
+                throw 'I couldn\'t find the message that you\'re looking for';
             }
         } else if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args[0] })) {
             const quoteObj = (await db.getRow('quotes', { 'guildid': msg.guild.id, 'name': args[0] }))[0];
             const channel = msg.guild.channels.get(quoteObj.channelid);
             return await sendQuote(msg, await channel.fetchMessage(quoteObj.messageid));
         } else
-            throw new Error('I haven\'t found the quote that you\'re looking for.');
+            throw 'I haven\'t found the quote that you\'re looking for.'
     }
 }
 
