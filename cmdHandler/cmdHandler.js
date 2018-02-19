@@ -10,7 +10,6 @@ class commandHandler {
 
         this.commands = { };
         this.helpTexts = { };
-        this.executedCmds = new Map();
 
         this.loadCommands();
     }
@@ -22,7 +21,7 @@ class commandHandler {
         return new Promise(async (resolve, reject) => {
             try {
                 let cmd = this.getCommand(commandName.toLowerCase());
-                let parsedArgs = (args) ? await argParser.parse(args, cmd.args) : null;
+                let parsedArgs = (args) ? await argParser.parse(args, cmd.args, cmd.ignoreMin) : null;
 
                 // Check if we can send messages in the channel
                 if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) {

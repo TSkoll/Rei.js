@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const Command = require('../../Types/command.js');
+const timeUtil = require('../../utils/timeUtil.js');
 
 class Stats extends Command {
     constructor(statTracker) {
@@ -26,18 +27,9 @@ class Stats extends Command {
 module.exports = Stats;
 
 function epochToTimeDifference(epoch) {
-    const days = Math.floor(epoch / 86400000);
-    const totalHours = epoch % 86400000;
+    const diff = timeUtil.calcTimeDifference(epoch);
 
-    const hours = Math.floor(totalHours / 3600000);
-    const totalMinutes = totalHours % 3600000;
-
-    const minutes = Math.floor(totalMinutes / 60000);
-    const totalSeconds = totalMinutes % 60000;
-
-    const seconds = Math.floor(totalSeconds / 1000);
-
-    return `${(days > 0) ? days + 'd' : ''} ${(hours > 0) ? hours + 'h': ''} ${(minutes > 0) ? minutes + 'm' : ''} ${seconds}s`
+    return `${(diff.years > 0) ? diff.years + 'y' : ''} ${(diff.months > 0) ? diff.months + 'm' : ''} ${(diff.days > 0) ? diff.days + 'd' : ''} ${(diff.hours > 0) ? diff.hours + 'h': ''} ${(diff.minutes > 0) ? diff.minutes + 'min' : ''} ${diff.seconds}s`
 }
 
 function getCpuUsagePercent() {
