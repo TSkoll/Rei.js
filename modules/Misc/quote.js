@@ -7,7 +7,8 @@ class Quote extends Command {
     constructor() {
         super({
             'args': 3,
-            'ignoreMin': true
+            'ignoreMin': true,
+            'disallowDM': true
         });
     }
 
@@ -24,29 +25,47 @@ class Quote extends Command {
             } catch (e) {
                 throw 'I couldn\'t find the message that you\'re looking for';
             }
+            if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args[2] }))
+                throw 'Such quote already exists!';
 
             await db.addData('quotes', {
                 'guildid': msg.guild.id,
                 'name': args[2],
                 'channelid': msg.channel.id,
-                'messageid': args[1]
+                'messageid': args[1],
+                'userid': msg.author.id
             });
 
-            return await this.sendBasicSuccess(msg, 'Quote saved!');
+            await this.sendBasicSuccess(msg, 'Quote saved!');
+        } else if(args[0] == 'remove') {
+            if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args.slice(1).join(' ') })) {
+                const quoteObj = (await db.getRow('quotes', { 'guildid': msg.guild.id, 'name': args.slice(1).join(' ') }))[0];
+                if(quoteObj.userid != msg.author.id)
+                    throw 'You aren\'t the person that saved this quote!';
+
+                await db.deleteRows('quotes', quoteObj);
+                await this.sendBasicSuccess(msg, 'Quote removed!');
+            } else
+                throw 'I can\'t delete a quote that doesn\'t exist.';
         } else if(!isNaN(args[0])) {
             try {
                 await sendQuote(msg, await msg.channel.fetchMessage(args[0]));
             } catch (e) {
                 throw 'I couldn\'t find the message that you\'re looking for';
             }
-        } else if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args[0] })) {
-            const quoteObj = (await db.getRow('quotes', { 'guildid': msg.guild.id, 'name': args[0] }))[0];
+        } else if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args.join(' ') })) {
+            const quoteObj = (await db.getRow('quotes', { 'guildid': msg.guild.id, 'name': args.join(' ') }))[0];
+            const channel = msg.guild.channels.get(quoteObj.channelid);
+            let quoteMsg;
             try {
-                const channel = msg.guild.channels.get(quoteObj.channelid);
-                return await sendQuote(msg, await channel.fetchMessage(quoteObj.messageid));
+                quoteMsg = await channel.fetchMessage(quoteObj.messageid);
             } catch (e) {
                 throw 'I couldn\'t find the message that you\'re looking for';
             }
+            if(channel.nsfw && !msg.channel.nsfw)
+                throw 'You can\'t quote nsfw things here!';
+
+            await sendQuote(msg, quoteMsg);
         } else
             throw 'I haven\'t found the quote that you\'re looking for.'
     }
@@ -68,6 +87,8 @@ async function sendQuote(msg, quoteMsg) {
         if(quoteMsg.content)
             content += `\n\n${quoteMsg.content}`;
         embed.setColor(quoteObj.color);
+        if(quoteObj.description)
+            embed.setDescription(quoteObj.description);
         if(quoteObj.author)
             embed.setAuthor(quoteObj.author.name, quoteObj.author.iconURL, quoteObj.author.url);
         if(quoteObj.title)
