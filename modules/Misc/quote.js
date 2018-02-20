@@ -41,8 +41,12 @@ class Quote extends Command {
             }
         } else if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args[0] })) {
             const quoteObj = (await db.getRow('quotes', { 'guildid': msg.guild.id, 'name': args[0] }))[0];
-            const channel = msg.guild.channels.get(quoteObj.channelid);
-            return await sendQuote(msg, await channel.fetchMessage(quoteObj.messageid));
+            try {
+                const channel = msg.guild.channels.get(quoteObj.channelid);
+                return await sendQuote(msg, await channel.fetchMessage(quoteObj.messageid));
+            } catch (e) {
+                throw 'I couldn\'t find the message that you\'re looking for';
+            }
         } else
             throw 'I haven\'t found the quote that you\'re looking for.'
     }
