@@ -69,6 +69,8 @@ class argParser {
         if (args.length > argAmount) {
             const spliced = args.splice(0, argAmount - 1);
             spliced.push(args.join(' '));
+
+            args = spliced;
         }
         
         // Check if we managed to build enough arguments for the command
