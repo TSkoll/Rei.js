@@ -6,7 +6,9 @@ class argParser {
 
         let quote = false;
         let quoteCache = [];
-        
+
+        let cached = 0;
+
         // We can just return unedited string if argument count is less than 2
         if (argAmount < 2)
             return input;
@@ -40,7 +42,7 @@ class argParser {
                     
                     // Join words in the cache and push it to returnable list
                     args.push(quoteCache.join(' '));
-                    
+
                     // Flush cache
                     quoteCache = [];
 
@@ -61,13 +63,20 @@ class argParser {
         // Handles cases like '"Hello World' without making the string vanish
         if (quoteCache.length > 0)
             args.push(quoteCache.join(' '));
+
+        // Check if the amount of parsed arguments is higher than the output argument amount
+        // If so, concat the array to the point the length matches with the argument amount
+        if (args.length > argAmount) {
+            const spliced = args.splice(0, argAmount - 1);
+            spliced.push(args.join(' '));
+        }
         
         // Check if we managed to build enough arguments for the command
         // Or if the command even needs a set amount in the first place
-        if (args.length == argAmount && !ignoreMin)
-            throw "Not enough arguments!";
-        else
+        if (args.length == argAmount || ignoreMin)
             return args;
+        else
+            throw "Not enough arguments!";
     }
 }
 module.exports = argParser;
