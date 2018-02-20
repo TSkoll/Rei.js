@@ -47,6 +47,19 @@ class Quote extends Command {
                 await this.sendBasicSuccess(msg, 'Quote removed!');
             } else
                 throw 'I can\'t delete a quote that doesn\'t exist.';
+        } else if(args[0] == 'list') {
+            if(!(await db.ifRowExists('quotes', { 'guildid': msg.guild.id })))
+                throw 'I can\'t find any quotes for this guild';
+
+            const quotes = await db.getRow('quotes', { 'guildid': msg.guild.id });
+            quotes.forEach(q => {
+                q.user = bot.users.get(q.userid).tag;
+                q.nsfw = msg.guild.channels.get(q.channelid).nsfw;
+            });
+            await msg.channel.send(new Discord.RichEmbed()
+                .setTitle(`A total of ${quotes.length} quotes were found for this guild`)
+                .setDescription(quotes.map(q => `__${q.name}__\n\tAdded by: **${q.user}** ${q.nsfw ? '*NSFW*' : ''}`).join('\n'))
+                .setColor('RANDOM'));
         } else if(!isNaN(args[0])) {
             try {
                 await sendQuote(msg, await msg.channel.fetchMessage(args[0]));
