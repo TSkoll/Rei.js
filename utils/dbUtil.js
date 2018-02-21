@@ -79,5 +79,19 @@ class dbUtil {
             }
         });
     }
+
+    static async deleteRows(table, searchPattern) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let rows = await knex(table)
+                .where(searchPattern)
+                .del();
+
+                resolve(rows);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
 }
 module.exports = dbUtil;

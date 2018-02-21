@@ -10,7 +10,6 @@ class commandHandler {
 
         this.commands = { };
         this.helpTexts = { };
-        this.executedCmds = new Map();
 
         this.loadCommands();
     }
