@@ -13,6 +13,8 @@ class Quote extends Command {
     }
 
     async run(bot, msg, args) {
+        if(args.length < 1)
+            throw 'Not enough arguments';
         if(args[0] == 'set') {
             if(args.length < 3)
                 throw 'Not enough arguments.';
