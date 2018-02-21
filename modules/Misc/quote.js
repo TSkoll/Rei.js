@@ -137,7 +137,7 @@ async function sendQuote(msg, quoteMsg) {
         }
     }
 
-    await msg.channel.send(content, { embed, disableEveryone: true });
+    await msg.channel.send(content, { embed });
 }
 
 module.exports = Quote;
