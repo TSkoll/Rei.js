@@ -20,13 +20,16 @@ class Quote extends Command {
                 throw args[1] + ' is not a valid message ID.';
             if(!isNaN(args[2]))
                 throw 'Quote names have to be alphanumeric.';
+            let quoteMsg;
             try {
-                await msg.channel.fetchMessage(args[1]);
+                quoteMsg = await msg.channel.fetchMessage(args[1]);
             } catch (e) {
                 throw 'I couldn\'t find the message that you\'re looking for';
             }
             if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args[2] }))
                 throw 'Such quote already exists!';
+            if(quoteMsg.type != 'DEFAULT')
+                throw 'You can only save users\'s messages';
 
             await db.addData('quotes', {
                 'guildid': msg.guild.id,
@@ -61,11 +64,15 @@ class Quote extends Command {
                 .setDescription(quotes.map(q => `__${q.name}__\n\tAdded by: **${q.user}** ${q.nsfw ? '*NSFW*' : ''}`).join('\n'))
                 .setColor('RANDOM'));
         } else if(!isNaN(args[0])) {
+            let quoteMsg;
             try {
-                await sendQuote(msg, await msg.channel.fetchMessage(args[0]));
+                quoteMsg = await msg.channel.fetchMessage(args[0]);
             } catch (e) {
                 throw 'I couldn\'t find the message that you\'re looking for';
             }
+            if(quoteMsg.type != 'DEFAULT')
+                throw 'You can only quote users\'s messages';
+            await sendQuote(msg, quoteMsg);
         } else if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args.join(' ') })) {
             const quoteObj = (await db.getRow('quotes', { 'guildid': msg.guild.id, 'name': args.join(' ') }))[0];
             const channel = msg.guild.channels.get(quoteObj.channelid);
