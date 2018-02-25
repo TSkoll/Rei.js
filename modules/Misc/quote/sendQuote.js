@@ -31,6 +31,8 @@ function quoteWithEmbed(msg, quoteMsg) {
     const quoteObj = quoteMsg.embeds.find(e => e.type == 'rich');
     //Declare content string so if message has its own, we can just concatenate them
     let content = `**${quoteMsg.author.tag}** sent this embed ${diffString(quoteMsg)}`;
+    if(quoteMsg.content)
+        content += `\n\n${quoteMsg.content}`;
 
     return sendQuote(msg, parseMessageEmbed(quoteObj), content);
 }
@@ -42,8 +44,6 @@ function parseMessageEmbed(quoteObj) {
     Check for each embed property, since they're optional,
     we have to check if an embed has them to not accidentally try to set something to undefined
     */
-   if(quoteMsg.content)
-        content += `\n\n${quoteMsg.content}`;
     if(quoteObj.description)
       embed.setDescription(quoteObj.description);
     if(quoteObj.author)
