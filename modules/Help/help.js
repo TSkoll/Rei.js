@@ -4,7 +4,12 @@ class Help extends Command {
     constructor(cmdPass) {
         super({
             args: 2,
-            ignoreMin: false
+            ignoreMin: false,
+
+            helpText: 'Helps you you use the bot',
+            helpArgs: {
+                'Command': 'Command to get help information from'
+            }
         });
 
         this.helpText = cmdPass.helpText;
