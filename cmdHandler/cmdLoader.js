@@ -35,7 +35,7 @@ class Loader {
                         /* Insert data */
                         if (command.helpText != null) {
                             // Insert help data of the command to the helptext object.
-                            moduleHelpTexts[modulePath][command.constructor.name] = {
+                            moduleHelpTexts[command.constructor.name] = {
                                 "description": command.helpText,
                                 "args": command.helpArgs
                             }
