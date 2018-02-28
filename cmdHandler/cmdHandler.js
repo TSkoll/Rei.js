@@ -18,49 +18,46 @@ class commandHandler {
     /*
         RUN
     */
-    async run(msg, commandName, args) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                let cmd = this.getCommand(commandName.toLowerCase());
-                let parsedArgs = (args) ? await argParser.parse(args, cmd.args, cmd.ignoreMin) : null;
+    async run(msg, cmdName, args) {
+        try {
+           // Get command and group arguments
+            const cmd = this.getCommand(cmdName.toLowerCase());
+            const parsedArgs = (args) ? argParser.parse(args, cmd.args, cmd.ignoreMin) : null;
 
-                // Check if we can send messages in the channel
-                if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) {
-                    try {
-                        await msg.author.send(new Discord.RichEmbed()
-                        .setColor('RED')
-                        .setDescription('It seems like I can\'t send messages in that channel!'));
-
-                        return resolve();
-                    } catch (err) {
-                        console.error(`Tried to send a DM about not being able to deliver message to the specified channel but sending the DM failed! ${err}`);
-                        
-                        return resolve();
-                    }
-                }
-
+            if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) {
                 try {
-                    // Check if all permissions
-                    cmd.checkFlags(msg);
+                    await msg.author.send(new Discord.RichEmbed()
+                    .setColor('RED')
+                    .setDescription('It seems like I can\'t send messages in that channel!'));
 
-                    await cmd.run(this.client, msg, parsedArgs);
-
-                    // Commands run +1
-                    this.statTracker.commandsAdd();
-                    cmd.executionSuccess(msg);
-
-                    return resolve();
+                    return;
+                } catch (err) {
+                    console.error(`Tried to send a DM about not being able to deliver message to the specified channel but sending the DM failed! ${err}`);
+                
+                    return;
                 }
-                catch (err) {
-                    cmd.sendBasicError(msg, err); // 'Not enough permissions to run this command!')
-                    return resolve();
-                }
-            } catch (err) {
-                // Pass error to onMessageEvent handler
-                reject(err);
             }
-        });
-    }
+
+            try {
+                // Check if all permissions
+                cmd.checkFlags(msg);
+            
+                await cmd.run(this.client, msg, parsedArgs);
+            
+                // Commands run +1
+                this.statTracker.commandsAdd();
+                cmd.executionSuccess(msg);
+            
+                return;
+            }
+            catch (err) {
+                cmd.sendBasicError(msg, err); // 'Not enough permissions to run this command!')
+                return;
+            }
+        } catch (err) {
+            throw err;
+        }
+   }
 
     /*
         LOADING
