@@ -4,15 +4,15 @@ const argParser = require('./argParser.js');
 const cmdLoader = require('./cmdLoader.js');
 
 class commandHandler {
-    constructor(client, statTracker) {
+    constructor(client, cmdPass) {
         this.client = client;
-        this.statTracker = statTracker;
+        this.statTracker = cmdPass.statTracker;
 
         this.commands = { };
         this.helpTexts = { };
         this.executedCmds = new Map();
 
-        this.loadCommands();
+        this.loadCommands(cmdPass);
     }
 
     /*
@@ -65,9 +65,9 @@ class commandHandler {
     /*
         LOADING
     */
-    async loadCommands() {
+    async loadCommands(cmdPass) {
         return new Promise(async resolve => {
-            let ret = await cmdLoader.load(this.statTracker);
+            let ret = await cmdLoader.load(cmdPass);
             
             this.commands = ret.commands;
             this.helpTexts = ret.helpTexts;

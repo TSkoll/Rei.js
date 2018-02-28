@@ -25,9 +25,18 @@ try {
 let statTracker = require('./utils/statTracker.js');
 statTracker = new statTracker();
 
+// Initialize prefixHandler
+let prefixHandler = require('./msgHandler/prefixHandler.js');
+prefixHandler = new prefixHandler();
+
+const cmdPass = {
+    prefixHandler,
+    statTracker
+}
+
 // Initialize message handler
 let msgHandler = require('./msgHandler/msgHandler.js');
-msgHandler = new msgHandler(client, statTracker);
+msgHandler = new msgHandler(client, cmdPass);
 
 // Database migration
 dbUtil.migrate();
