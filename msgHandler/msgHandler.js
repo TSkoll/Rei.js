@@ -2,15 +2,15 @@ const Discord = require('discord.js');
 const db = require('../utils/dbUtil.js');
 const defaultPrefix = require('../data/config.json').defaultPrefix;
 const cmdHandler = require('../cmdHandler/cmdHandler.js');
-const prefixHandler = new (require('./prefixHandler.js'))();
 
 class msgHandler {
-    constructor(client, statTracker) {
+    constructor(client, statTracker, cmdPass) {
         this.client = client;
-        this.statTracker = statTracker;
+        this.statTracker = cmdPass.statTracker;
+        this.prefixHandler = cmdPass.prefixHandler;
 
         // Initialize command handler
-        this.cmdHandler = new cmdHandler(client, statTracker);
+        this.cmdHandler = new cmdHandler(client, cmdPass);
     }
 
     async onMessageEvent(message) {
@@ -22,13 +22,11 @@ class msgHandler {
         this.statTracker.messageAdd();
 
         // Get guild's command prefix
-        const test = (message.guild) ? true : false;
-        const prefix = (message.guild) ? await prefixHandler.get(message.guild.id) : defaultPrefix;
+        const prefix = (message.guild) ? await this.prefixHandler.get(message.guild.id) : defaultPrefix;
+
         if (message.content.startsWith(prefix)) {
-            /*
-                Split the command and arguments from eachother
-            */
-            const cmd = (message.content.indexOf(' ') > 0) ? message.content.substring(prefix.length, message.content.indexOf(' ') - (prefix.length - 1)) : message.content.substring(prefix.length);
+            // Split the command and arguments from each other testprefix set !
+            const cmd = (message.content.indexOf(' ') > 0) ? message.content.substring(prefix.length, message.content.indexOf(' ')) : message.content.substring(prefix.length);
             const argString = (message.content.indexOf(' ') > 0) ? message.content.substring(message.content.indexOf(' ') + 1) : null;
 
             try {

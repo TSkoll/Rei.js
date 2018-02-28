@@ -31,6 +31,12 @@ class prefixHandler {
     }
 
     async set(id, prefix) {
+        if (prefix == null)
+            prefix = defaultPrefix;
+
+        if (prefix == this.prefixes.get(id))
+            throw 'The server already has this prefix!';
+
         this.prefixes.set(id, prefix);
 
         // If DB already contains information, update it
