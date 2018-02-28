@@ -3,6 +3,8 @@ const Discord = require('discord.js');
 const db = require('../../utils/dbUtil.js');
 const fs = require('fs');
 const request = require('request');
+const deleteImage = require('./tag/deleteImage.js');
+const loadImage = require('./tag/loadImage.js');
 
 class Tag extends Command {
     constructor() {
@@ -50,7 +52,7 @@ class Tag extends Command {
                 
                 const tags = await db.getRow('tags', { 'userid': msg.author.id });
                 await msg.channel.send(new Discord.RichEmbed()
-                    .setTitle(`So far you've saved ${tags.length} tags!`)
+                    .setTitle(`So far you've saved ${tags.length} ${tags.length > 1 ? 'tags' : 'tag'}!`)
                     .setColor('RANDOM')
                     .setDescription(
                         tags.map(t => `**${t.name}**\n\t${t.content ? t.content.substr(0, 20) : ''}${t.content && t.content.length > 20 ? '...' : ''}${t.imageid ? ' *(has an image)*' : ''}`).join('\n')
@@ -79,28 +81,6 @@ function saveImage(img) {
         request(img.url)
             .pipe(fs.createWriteStream('./data/tagImages/' + img.id + img.filename.slice(img.filename.lastIndexOf('.'))))
             .on('close', resolve);
-    });
-}
-
-function loadImage(id) {
-    return new Promise((resolve, reject) => {
-        fs.readFile('./data/tagImages/' + id, (err, buff) => {
-            if(err)
-                return reject(err);
-
-            resolve(buff);
-        });
-    });
-}
-
-function deleteImage(id) {
-    return new Promise((resolve, reject) => {
-        fs.unlink('./data/tagImages/' + id, err => {
-            if(err)
-                return reject(err);
-
-            resolve();
-        })
     });
 }
 
