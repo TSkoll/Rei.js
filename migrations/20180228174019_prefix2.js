@@ -1,9 +1,10 @@
 
-exports.up = function(knex, Promise) {
+exports.up = async function(knex, Promise) {
+    await knex.schema.dropTable('prefixes');
     return Promise.all([
         knex.schema.createTable('prefixes', table => {
-            table.string('guildid').notNullable(),
-            table.string('prefix').notNullable()
+            table.string('guild').primary(),
+            table.string('prefix')
         })
     ]);
 };

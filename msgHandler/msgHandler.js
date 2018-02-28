@@ -2,8 +2,7 @@ const Discord = require('discord.js');
 const db = require('../utils/dbUtil.js');
 const defaultPrefix = require('../data/config.json').defaultPrefix;
 const cmdHandler = require('../cmdHandler/cmdHandler.js');
-
-let prefixCache = require('../prefixCache');
+const prefixHandler = new (require('./prefixHandler.js'))();
 
 class msgHandler {
     constructor(client, statTracker) {
@@ -15,34 +14,30 @@ class msgHandler {
     }
 
     async onMessageEvent(message) {
-        // Don't check bot's messages
+        // Skip bot's messages
         if (message.author.id == this.client.user.id)
             return;
 
-        // Messages received +1
+        // Add 1 to messages received counter
         this.statTracker.messageAdd();
 
-        return new Promise(async (resolve, reject) => {
-            // Get server specific command prefix
-            let prefix = (message.guild) ? await getPrefix(message.guild.id) : defaultPrefix;
-            if (message.content.startsWith(prefix)) {
-                // Split message into command and it's arguments
-                const cmd = (message.content.indexOf(' ') > 0) ? message.content.substring(prefix.length, message.content.indexOf(' ') - (prefix.length - 1)) : message.content.substring(prefix.length);
-                const argString = (message.content.indexOf(' ') > 0) ? message.content.substring(message.content.indexOf(' ') + 1) : null;
+        // Get guild's command prefix
+        const test = (message.guild) ? true : false;
+        const prefix = (message.guild) ? await prefixHandler.get(message.guild.id) : defaultPrefix;
+        if (message.content.startsWith(prefix)) {
+            /*
+                Split the command and arguments from eachother
+            */
+            const cmd = (message.content.indexOf(' ') > 0) ? message.content.substring(prefix.length, message.content.indexOf(' ') - (prefix.length - 1)) : message.content.substring(prefix.length);
+            const argString = (message.content.indexOf(' ') > 0) ? message.content.substring(message.content.indexOf(' ') + 1) : null;
 
-                try {
-                    // Find and run command
-                    await this.cmdHandler.run(message, cmd, argString);
-                } catch(err) {
-                    // Command-scope error throwing.
-                    await throwErr(message, err);
-                    
-                    // Pass error into main
-                    reject(err);
-                }
-                resolve();
+            try {
+                await this.cmdHandler.run(message, cmd, argString);
+            } catch (err) {
+                await throwErr(message, err);
+                throw err;
             }
-        });
+        }
     }
 }
 module.exports = msgHandler;
@@ -57,30 +52,4 @@ async function throwErr(message, err) {
         .setFooter('This is an error. You should not be seeing this.'));
         resolve();
     });
-}
-
-/* Prefix checking */
-async function getPrefix(id) {
-    // Check if prefix exists in the cache and return it
-    if (prefixCache.has(id))
-        return prefixCache.get(id);
-    else {
-        return new Promise(async resolve => {
-            // Check if server has a custom prefix
-            if (await db.ifRowExists('prefixes', { guild: id })) {
-                let prefix = await db.getRow('prefixes', { guild: id })[0].prefix
-                // Update cache
-                prefixCache.set(id, prefix);
-                
-                resolve(prefix);
-            }
-            else {
-                // Update cache, saves us from a db read
-                prefixCache.set(id, defaultPrefix);
-                
-                // Return the default prefix if server specific one doesn't exist
-                resolve(defaultPrefix);
-            }
-        });
-    }
 }
