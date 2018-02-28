@@ -33,6 +33,7 @@ class msgHandler {
                 await this.cmdHandler.run(message, cmd, argString);
             } catch (err) {
                 await throwErr(message, err);
+
                 throw err;
             }
         }
@@ -42,12 +43,9 @@ module.exports = msgHandler;
 
 /* Error messaging */
 async function throwErr(message, err) {
-    return new Promise(async resolve => {
-        await message.channel.send(new Discord.RichEmbed()
-        .setColor('YELLOW')
-        .setTitle('Woops!')
-        .setDescription(err)
-        .setFooter('This is an error. You should not be seeing this.'));
-        resolve();
-    });
+    await message.channel.send(new Discord.RichEmbed()
+    .setColor('YELLOW')
+    .setTitle('Woops!')
+    .setDescription(err)
+    .setFooter('This is an error. You should not be seeing this.'));
 }
