@@ -9,7 +9,6 @@ class commandHandler {
         this.statTracker = cmdPass.statTracker;
 
         this.commands = { };
-        this.helpTexts = { };
         this.executedCmds = new Map();
 
         this.loadCommands(cmdPass);
@@ -52,6 +51,7 @@ class commandHandler {
             }
             catch (err) {
                 cmd.sendBasicError(msg, err); // 'Not enough permissions to run this command!')
+
                 return;
             }
         } catch (err) {
@@ -66,13 +66,13 @@ class commandHandler {
         let ret = await cmdLoader.load(cmdPass);
         
         this.commands = ret.commands;
-        this.helpTexts = ret.helpTexts;
+        cmdPass.helpTexts = ret.helpTexts;
         return;
     }
 
     async reloadCommands() {
         this.commands = { };
-        this.helpTexts = { };
+        cmdPass.helpTexts = { };
 
         await loadCommands();
         return;
@@ -87,29 +87,6 @@ class commandHandler {
         } else {
             throw "Command doesn't exist!";
         }
-    }
-
-    getCommandHelp(name) {
-        let keys = this.helpTexts.keys();
-        for (let i = 0; i < keys.length; i++) {
-            let mod = Keys[i];
-            if (this.helpTexts[mod].hasOwnProperty(name)) {
-                return this.helpTexts[mod][name];
-            }
-        }
-        throw "Command doesn't exist!";
-    }
-
-    getAllHelp() {
-        let keys = this.helpTexts.keys();
-        let ret = { };
-        for (let i = 0; i < keys.length; i++) {
-            let jkeys = this.helpTexts[keys[i]].keys();
-            for (let j = 0; j < jkeys.length; j++) {
-                ret[jkeys[j]] = this.helpTexts[keys[i]][jkeys[j]]; 
-            }
-        }
-        return ret;
     }
 }
 module.exports = commandHandler;
