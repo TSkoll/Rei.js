@@ -63,23 +63,19 @@ class commandHandler {
         LOADING
     */
     async loadCommands(cmdPass) {
-        return new Promise(async resolve => {
-            let ret = await cmdLoader.load(cmdPass);
-            
-            this.commands = ret.commands;
-            this.helpTexts = ret.helpTexts;
-            resolve();
-        });
+        let ret = await cmdLoader.load(cmdPass);
+        
+        this.commands = ret.commands;
+        this.helpTexts = ret.helpTexts;
+        return;
     }
 
     async reloadCommands() {
-        return new Promise(async resolve => {
-            this.commands = { };
-            this.helpTexts = { };
-    
-            await loadCommands();
-            resolve();
-        });
+        this.commands = { };
+        this.helpTexts = { };
+
+        await loadCommands();
+        return;
     }
 
     /*
