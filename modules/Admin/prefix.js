@@ -5,7 +5,13 @@ class Prefix extends Command {
         super({
             args: 2,
             ignoreMin: true,
-            userPerms: ['MANAGE_GUILD']
+            userPerms: ['MANAGE_GUILD'],
+
+            helpText: 'Allows setting and clearing the server specific prefix. Requires **Manage Server** permission.',
+            helpArgs: {
+                'Subcommand': '"Set": Sets the prefix.\n"Clear": Sets the prefix back to default.',
+                'Prefix': 'Prefix, which will be set for the server. Can\'t contain spaces.'
+            }
         });
 
         this.prefixHandler = cmdPass.prefixHandler;
@@ -15,7 +21,7 @@ class Prefix extends Command {
         if (args == null)
             throw 'Not enough arguments!';
 
-        switch(args[0]) {
+        switch(args[0].toLowerCase()) {
             case 'set':
                 // Don't allow for null input, empty input or input with spaces
                 if (args[1] && args[1].trim() != '' && !args[1].includes(' ')) {
