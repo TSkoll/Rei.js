@@ -36,7 +36,7 @@ const cmdPass = {
 
 // Initialize message handler
 let msgHandler = require('./msgHandler/msgHandler.js');
-msgHandler = new msgHandler(client, statTracker, cmdPass);
+msgHandler = new msgHandler(client, cmdPass);
 
 // Database migration
 dbUtil.migrate();

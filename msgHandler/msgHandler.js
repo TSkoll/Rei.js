@@ -4,7 +4,7 @@ const defaultPrefix = require('../data/config.json').defaultPrefix;
 const cmdHandler = require('../cmdHandler/cmdHandler.js');
 
 class msgHandler {
-    constructor(client, statTracker, cmdPass) {
+    constructor(client, cmdPass) {
         this.client = client;
         this.statTracker = cmdPass.statTracker;
         this.prefixHandler = cmdPass.prefixHandler;
