@@ -4,7 +4,12 @@ class Echo extends Command {
     constructor() {
         super({
             "ownerOnly": true,
-            "args": 1
+            "args": 1,
+
+            helpText: 'Echoes text to the chat.',
+            helpArgs: {
+                'Text': 'Text that will be echoed.'
+            }
         });
     }
 
