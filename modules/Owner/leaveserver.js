@@ -5,7 +5,12 @@ class Leaveserver extends Command {
         super({
             "ownerOnly": true,
             "args": 1,
-            "ignoreMin": true
+            "ignoreMin": true,
+
+            helpText: 'Leaves specified server',
+            helpArgs: {
+                'Server ID': 'ID of the server, from which the bot will leave. Blank for server where the command has been run from.'
+            }
         });
     }
 
