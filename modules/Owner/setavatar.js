@@ -4,12 +4,7 @@ class Setavatar extends Command {
     constructor() {
         super({
             "ownerOnly": true,
-            "args": 1,
-
-            helpText: 'Changes the bots avatar.',
-            helpArgs: {
-                'URL': 'URL to the new avatar.'
-            }
+            "args": 1
         });
     }
 

@@ -3,9 +3,7 @@ const Command = require('../../Types/command.js');
 
 class Stats extends Command {
     constructor(cmdPass) {
-        super({
-            helpText: 'Shows statistics about the bot.'
-        });
+        super();
 
         this.statTracker = cmdPass.statTracker;
 

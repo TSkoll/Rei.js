@@ -1,0 +1,107 @@
+{
+    "prefix": {
+        "description": "Allows setting and clearing the server specific prefix. Requires **Manage Server** permission.",
+        "args": {
+            "Subcommand": "\"Set:\" Sets the prefix.\n\"Clear\": Sets the prefix back to default.",
+            "Prefix": "Prefix, which will be set for the server. Can't contain spaces."
+        },
+        "usage": "prefix [subcommand] {prefix}"
+    },
+
+    "blush": {
+        "description": "Blushes at the mentioned user.",
+        "usage": "blush @user"
+    },
+
+    "hug": {
+        "description": "Hugs the mentioned user",
+        "usage": "hug @user"
+    },
+
+    "pat": {
+        "description": "Pats the mentioned user",
+        "usage": "pat @user"
+    },
+
+    "help": {
+        "description": "Helps you use the bot. Duh.",
+        "args": {
+            "Command": "Command to get the help information from."
+        },
+        "usage": "help {command}"
+    },
+
+    "feedback": {
+        "description": "Sends feedback to the developer server.",
+        "args": {
+            "Feedback": "Feedback that's left, can only be text."
+        },
+        "usage": "feedback [feedback]"
+    },
+
+    "echo": {
+        "hideFromHelp": true,
+        "description": "Echoes text to the chat.",
+        "args": {
+            "Text": "Text that will be echoed."
+        },
+        "usage": "echo [text]"
+    },
+
+    "leaveserver": {
+        "hideFromHelp": true,
+        "description": "Leaves the specified server.",
+        "args": {
+            "Server ID": "The ID of the server, from which the bot will leave.\nEmpty to leave the current server."
+        },
+        "usage": "leaveserver {server id}"
+    },
+
+    "setavatar": {
+        "hideFromHelp": true,
+        "description": "Changes the avatar of the bot.",
+        "args": {
+            "URL": "URL of the new avatar."
+        },
+        "usage": "setavatar [URL]"
+    },
+
+    "setgame": {
+        "hideFromHelp": true,
+        "description": "Sets the playing status of the bot.",
+        "args": {
+            "Game": "Text, which will be shown on the playing status."
+        },
+        "usage": "setgame [game]"
+    },
+
+    "setname": {
+        "hideFromHelp": true,
+        "description": "Changes the name of the bot.",
+        "args": {
+            "Name": "The new name of the bot."
+        },
+        "usage": "setname [name]"
+    },
+
+    "sleep": {
+        "hideFromHelp": true,
+        "description": "Shuts the bot down.",
+        "usage": "sleep"
+    },
+
+    "color": {
+        "description": "Sets your color to a specified hex value or opens a helper menu.\nWithout arguments, removes the current color.",
+        "args": {
+            "Hex": "A hex color. Choose your favorite color from https://htmlcolorcodes.com/color-picker/",
+            "\"Avatar\"": "Opens a menu with color suggestions based on your current avatar.",
+            "\"Random\"": "Opens a menu with random color suggestions."
+        },
+        "usage": "color {hex|\"avatar\"|\"\random\"}"
+    },
+
+    "stats": {
+        "description": "Shows statistics about the bot.",
+        "usage": "stats"
+    }
+}

@@ -21,11 +21,7 @@ const blushes = [
 
 class Blush extends Command {
     constructor() {
-        super({
-            args: 1,
-
-            helpText: 'Sends a blush into the channel. Mention someone to direct it at them.'
-        });
+        super();
      }
 
     async run(bot, msg, args) {

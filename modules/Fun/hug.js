@@ -29,9 +29,7 @@ const  hugs = [
 
 class Hug extends Command {
     constructor() {
-        super({
-            helpText: 'Sends a hug into the channel. Mention someone to direct it at them.'
-        });
+        super();
     }
 
     async run(bot, msg, args) {

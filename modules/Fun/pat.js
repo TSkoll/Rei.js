@@ -27,9 +27,7 @@ const Pats = [
 
 class Pat extends Command {
     constructor() {
-        super({
-            helpText: 'Sends a pat into the channel. Mention someone to direct it at them.'
-        });
+        super();
     }
 
     async run(bot, msg, args) {

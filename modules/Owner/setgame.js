@@ -4,12 +4,7 @@ class Setgame extends Command {
     constructor() {
         super({
             "ownerOnly": true,
-            "args": 1,
-
-            helpText: 'Sets the playing status of the bot.',
-            helpArgs: {
-                'Game': 'Text, which is shown on the playing status.'
-            }
+            "args": 1
         });
     }
 

@@ -4,12 +4,7 @@ class Setname extends Command {
     constructor() {
         super({
             "ownerOnly": true,
-            "args": 1,
-
-            helpText: 'Changes the name of the bot.',
-            helpArgs: {
-                'Name': 'The new name of the bot.'
-            }
+            "args": 1
         });
     }
 

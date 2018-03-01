@@ -5,13 +5,7 @@ class Prefix extends Command {
         super({
             args: 2,
             ignoreMin: true,
-            userPerms: ['MANAGE_GUILD'],
-
-            helpText: 'Allows setting and clearing the server specific prefix. Requires **Manage Server** permission.',
-            helpArgs: {
-                'Subcommand': '"Set": Sets the prefix.\n"Clear": Sets the prefix back to default.',
-                'Prefix': 'Prefix, which will be set for the server. Can\'t contain spaces.'
-            }
+            userPerms: ['MANAGE_GUILD']
         });
 
         this.prefixHandler = cmdPass.prefixHandler;
