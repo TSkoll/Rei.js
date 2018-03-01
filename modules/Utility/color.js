@@ -12,7 +12,14 @@ class Color extends Command {
     constructor() {
         super({
             args: 1,
-            rateLimit: 15000 // 15 second cooldown
+            rateLimit: 15000, // 15 second cooldown
+
+            helpText: 'Sets your color to a specified value or opens a helper menu.\nLeave blank to remove current color.',
+            helpArgs: {
+                'Hex': 'A hex color. Choose your favourite color from https://htmlcolorcodes.com/color-picker/',
+                '"Avatar"': 'Opens up a menu with color suggestions based on your current avatar.',
+                '"Random"': 'Opens up a menu with random color suggestions.'
+            }
         });
     }
 
