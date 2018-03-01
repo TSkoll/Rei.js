@@ -4,7 +4,12 @@ const feedbackChannelId = '396583338116120576';
 class Feedback extends Command {
     constructor() {
         super({
-            "args": 1
+            "args": 1,
+
+            helpText: 'Leaves feedback to the developer server.',
+            helpArgs: {
+                'Feedback': 'Feedback that\'s left, can only be text.'
+            }
         });
     }
 
