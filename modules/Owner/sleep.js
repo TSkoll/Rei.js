@@ -4,7 +4,9 @@ const Discord = require('discord.js');
 class Sleep extends Command {
     constructor() {
         super({
-            "ownerOnly": true
+            "ownerOnly": true,
+
+            helpText: 'Shuts the bot down.'
         });
     }
 
