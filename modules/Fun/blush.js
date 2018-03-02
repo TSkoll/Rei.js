@@ -21,9 +21,7 @@ const blushes = [
 
 class Blush extends Command {
     constructor() {
-        super({
-            args: 1
-        });
+        super();
      }
 
     async run(bot, msg, args) {

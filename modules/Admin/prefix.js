@@ -15,7 +15,7 @@ class Prefix extends Command {
         if (args == null)
             throw 'Not enough arguments!';
 
-        switch(args[0]) {
+        switch(args[0].toLowerCase()) {
             case 'set':
                 // Don't allow for null input, empty input or input with spaces
                 if (args[1] && args[1].trim() != '' && !args[1].includes(' ')) {

@@ -65,14 +65,12 @@ class commandHandler {
     async loadCommands(cmdPass) {
         let ret = await cmdLoader.load(cmdPass);
         
-        this.commands = ret.commands;
-        cmdPass.helpTexts = ret.helpTexts;
+        this.commands = ret;
         return;
     }
 
     async reloadCommands() {
         this.commands = { };
-        cmdPass.helpTexts = { };
 
         await loadCommands();
         return;

@@ -3,9 +3,7 @@ const Discord = require('discord.js');
 
 class Sleep extends Command {
     constructor() {
-        super({
-            "ownerOnly": true
-        });
+        super();
     }
 
     async run(bot, msg, args) {
