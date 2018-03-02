@@ -1,4 +1,5 @@
 const Command = require('../../Types/command.js');
+const Discord = require('discord.js');
 
 class Help extends Command {
     constructor(cmdPass) {
@@ -23,6 +24,33 @@ class Help extends Command {
 
             return;
         }
+
+        // Command specific help
+        const cmd = this.helpTexts[args.toLowerCase()];
+        
+        if (!cmd) {
+            super.sendBasicError(msg, 'This command doesn\'t seem to exist!');
+            return;
+        }
+
+        let embed = new Discord.RichEmbed()
+        .setColor('BLUE')
+        .setTitle(args.toLowerCase())
+        .setDescription(cmd.description)
+        .setFooter(cmd.usage);
+
+        if (cmd.args) {
+            // If arguments have been found, build it into the embed
+            const keys = Object.keys(cmd.args);
+
+            for (let i = 0; i < keys.length; i++) {
+                const arg = cmd.args[keys[i]];
+
+                embed.addField(keys[i], arg, true);
+            }
+        }
+
+        await super.sendEmbed(msg, embed);
     }
 }
 module.exports = Help;
