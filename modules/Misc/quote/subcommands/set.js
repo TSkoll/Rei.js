@@ -1,6 +1,8 @@
 const db = require('../../../../utils/dbUtil.js');
 
-module.exports = async (msg, args) => {
+const bannedWords = [ 'list', 'set', 'remove' ]
+
+module.exports = async function(msg, args) {
     //Check all of the flags
     await checkFlags(msg, args);
 
@@ -21,15 +23,19 @@ async function checkFlags(msg, args) {
     if(isNaN(args[1]))
         throw args[1] + ' is not a valid message ID.';
 
+    // Check if the user is trying to overwrite subcommands
+    if (bannedWords.includes(args[2]))
+        throw 'You can\'t use this tag name!'
+
     let quoteMsg;
     try {
         quoteMsg = await msg.channel.fetchMessage(args[1]);
-    } catch (e) {
+    } catch (err) {
         throw 'I couldn\'t find the message that you\'re looking for';
     }
 
     if(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args[2] }))
-        throw 'Such quote already exists!';
+        throw 'A quote with that name already exists!';
 
     //Check if this isn't a alert message (for example 'nrabulinski pinned a message to this channel.')
     if(quoteMsg.type != 'DEFAULT')

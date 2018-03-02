@@ -1,5 +1,5 @@
 const sendQuote = require('../sendQuote.js');
 
-module.exports = (msg, args) => {
+module.exports = function(msg, args) {
     return sendQuote(msg, args[0], msg.channel);
 }

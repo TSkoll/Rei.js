@@ -17,6 +17,7 @@ class Tag extends Command {
     async run(bot, msg, args) {
         if(args.length < 1)
             throw 'Not enough arguments';
+            
         switch(args[0]) {
             case 'set':
                 if(await db.ifRowExists('tags', { 'userid': msg.author.id, 'name': args[1] }))
@@ -29,6 +30,7 @@ class Tag extends Command {
                     'content': args[2] ? args[2] : null,
                     'imageid': msg.attachments.size > 0 ? img.id + img.filename.slice(img.filename.lastIndexOf('.')) : null
                 });
+                
                 if(msg.attachments.size > 0)
                     await saveImage(msg.attachments.values().next().value);
 

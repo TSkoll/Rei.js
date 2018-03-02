@@ -29,6 +29,7 @@ module.exports = async (msg, id, channel) => {
 function quoteWithEmbed(msg, quoteMsg) {
     //Find rich embed in messages' embeds
     const quoteObj = quoteMsg.embeds.find(e => e.type == 'rich');
+    
     //Declare content string so if message has its own, we can just concatenate them
     let content = `**${quoteMsg.author.tag}** sent this embed ${diffString(quoteMsg)}`;
     if(quoteMsg.content)

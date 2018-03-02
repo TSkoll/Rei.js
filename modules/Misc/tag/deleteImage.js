@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-modules.exports = (id) => {
+module.exports = function(id) {
     return new Promise((resolve, reject) => {
         fs.unlink('./data/tagImages/' + id, err => {
             if(err)

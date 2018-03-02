@@ -5,7 +5,7 @@ module.exports = async (msg, args) => {
         throw 'Not enough arguments.';
 
     if(!(await db.ifRowExists('quotes', { 'guildid': msg.guild.id, 'name': args.slice(1).join(' ') })))
-        throw 'I can\'t delete a quote that doesn\'t exist.';
+        throw 'That quote doesn\'t seem to exist!';
 
     const quoteObj = (await db.getRow('quotes', { 'guildid': msg.guild.id, 'name': args.slice(1).join(' ') }))[0];
 

@@ -15,32 +15,31 @@ class Quote extends Command {
     }
 
     async run(bot, msg, args) {
-        //User has to pass at least one argument
-        if(args.length < 1)
-            throw 'Not enough arguments';
+        if (args.length < 1)
+            throw 'Not enough arguments!';
 
-        //Check if any of the arguments contains non-alphanumeric character
-        if( /[^\w ]/.test(args[0]) ||
-            (args[1] ? /[^\w ]/.test(args[1]) : false) ||
-            (args[2] ? /[^\w ]/.test(args[2]) : false))
-            throw 'Quote names have to be alphanumeric'
+        switch (args[0]) {
+            case 'set':
+                await set(msg, args);
+                await this.sendBasicSuccess(msg, 'Quote saved!');
 
-        if(args[0] == 'set') {
-            await set(msg, args);
+                break;
+            case 'remove':
+                await remove(msg, args);
+                await this.sendBasicSuccess(msg, 'Quote removed!');
 
-            //Inform the user about the success
-            await this.sendBasicSuccess(msg, 'Quote saved!');
-        } else if(args[0] == 'remove') {
-            await remove(msg, args);
-
-            //Inform the user about the success
-            await this.sendBasicSuccess(msg, 'Quote removed!');
-        } else if(args[0] == 'list') 
-            await list(msg, args);
-        else if(!isNaN(args[0]))
-            await quoteByID(msg, args);
-        else
-            await quoteByName(msg, args);
+                break;
+            case 'list':
+                await list(msg, args);
+                break;
+            default:
+                // If we're just getting numbers, assume that pulling by id is wanted, if else check if we have something saved.
+                if (!isNaN(args[0]))
+                    await quoteByID(msg, args);
+                else
+                    await quoteByName(msg, args);
+                break;
+        }
     }
 }
 
