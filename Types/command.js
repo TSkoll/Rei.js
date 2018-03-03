@@ -44,44 +44,32 @@ class Command {
     }
 
     /* Functions */
-    sendBasicSuccess(message, content) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                let msg = await message.channel.send(new Discord.RichEmbed()
-                .setColor('GREEN')
-                .setDescription(content));
-
-                resolve(msg);
-            } catch (err) {
-                reject(err);
-            }
-        });
+    async sendBasicSuccess(message, content) {
+        try {
+            let msg = await message.channel.send(new Discord.RichEmbed()
+            .setColor('GREEN')
+            .setDescription(content));
+        } catch (err) {
+            reject(err);
+        }
     }
 
-    sendBasicError(message, content) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                let msg = await message.channel.send(new Discord.RichEmbed()
-                .setColor('RED')
-                .setDescription(content));
-
-                resolve(msg);
-            } catch (err) {
-                reject(err);
-            }
-        })
+    async sendBasicError(message, content) {
+        try {
+            let msg = await message.channel.send(new Discord.RichEmbed()
+            .setColor('RED')
+            .setDescription(content));
+        } catch (err) {
+            throw err;
+        }
     }
 
-    sendEmbed(message, embed) {
-        return new Promise(async (resolve, reject) => {
-            try {
-                let msg = await message.channel.send(embed);
-                
-                resolve(msg);
-            } catch (err) {
-                reject(err);
-            }
-        });
+    async sendEmbed(message, embed) {
+        try {
+            let msg = await message.channel.send(embed);
+        } catch (err) {
+            throw err;
+        }
     }
 
     /* Permission checking */

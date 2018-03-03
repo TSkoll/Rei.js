@@ -10,6 +10,10 @@ module.exports = async function(msg, cr) {
     const assignedUserColors = user.roles.filter(x => x.name[0] == '#');
     let userColor = assignedUserColors.first();
 
+    // Check if the guild is about to hit the max role count
+    if (msg.member.guild.roles.size > 225 && !serverColorRoles.exists('name', cr))
+        throw 'Due to a Discord limitation of 250 roles you may not pick a color of your own.\nYou can still assign a color some other user has by copying the hex.'
+
     if (assignedUserColors.find('name', cr)) {
         msg.channel.send(new Discord.RichEmbed()
         .setColor('RED')

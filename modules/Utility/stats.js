@@ -17,7 +17,7 @@ class Stats extends Command {
         .setColor('BLUE')
         .setAuthor(bot.user.username, bot.user.avatarURL, 'https://rei.dkboat.xyz')
         .addField('Uptime', epochToTimeDifference(Date.now() - this.statTracker.startTime), true)
-        .addField('Servers', bot.guilds.size.toString(), true)
+        .addField('Servers | Users', bot.guilds.size.toString() + ' | ' + bot.users.size.toString(), true)
         .addField('Memory usage', Math.round(process.memoryUsage().heapUsed / 1049000) + ' MiB', true)
         .addField('Commands run', this.statTracker.commands, true)
         .addField('Messages received', this.statTracker.messages, true)
