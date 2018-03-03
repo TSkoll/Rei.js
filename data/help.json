@@ -104,5 +104,25 @@
     "stats": {
         "description": "Shows statistics about the bot.",
         "usage": "stats"
+    },
+
+    "tag": {
+        "description": "Use and manage dummy commands.",
+        "args": {
+            "Subcommand": "\"Set\": Requires name and content. Create's a new tag you can use on any server.\n\"Remove\": Requires name, removes tag you've created.\n\"List\": lists all tags you've created.",
+            "Name": "Name of the tag. Used to call the tags you've created.",
+            "Content": "Content shown when tag has been run. Can include text and an image."
+        },
+        "usage": "tag [subcommand|name] {name} {content}"
+    },
+
+    "quote": {
+        "description": "Gets a message from the same channel with ID or a saved message from the server.",
+        "args": {
+            "Subcommand": "Either a message id, saved quote name or follow subcommand:\n\"set\": Saves a quote for use later. Allows for the quote to be called from any channel (NSFW limitations exist). Requires message id and name.\n\"Remove\": Removes a saved quote. You must be the creator of the tag or must have **Manage Messages** permission to remove quotes. Requires name.\n\"List\": Lists all quotes on the server.",
+            "Message ID": "Id of the message you want to quote.",
+            "Name": "Name of the saved quote."
+        },
+        "usage": "quote [subcommand|message id|name] {message id|name} {name}"
     }
 }

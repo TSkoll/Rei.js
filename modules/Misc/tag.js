@@ -8,8 +8,8 @@ const tag = require('./tag/tag.js');
 class Tag extends Command {
     constructor() {
         super({
-            'args': 3,
-            'ignoreMin': true
+            args: 3,
+            ignoreMin: true
         });
     }
 

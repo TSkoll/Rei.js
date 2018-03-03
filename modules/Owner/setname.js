@@ -3,8 +3,8 @@ const Command = require('../../Types/command.js');
 class Setname extends Command {
     constructor() {
         super({
-            "ownerOnly": true,
-            "args": 1
+            ownerOnly: true,
+            args: 1
         });
     }
 

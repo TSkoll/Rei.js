@@ -3,9 +3,9 @@ const Command = require('../../Types/command.js');
 class Leaveserver extends Command {
     constructor() {
         super({
-            "ownerOnly": true,
-            "args": 1,
-            "ignoreMin": true
+            ownerOnly: true,
+            args: 1,
+            ignoreMin: true
         });
     }
 

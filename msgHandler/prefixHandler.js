@@ -13,7 +13,7 @@ class prefixHandler {
         else {
             // Doesn't exist, get from the database
             if (await db.ifRowExists('prefixes', { guild: id })) {
-                const rows = await db.getRow('prefixes', { guild: id });
+                const rows = await db.getRows('prefixes', { guild: id });
                 const prefix = rows[0].prefix;
 
 
