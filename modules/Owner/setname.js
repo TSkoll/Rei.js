@@ -9,7 +9,7 @@ class Setname extends Command {
     }
 
     async run(bot, msg, args) {
-        await bot.user.setName(args);
+        await bot.user.setUsername(args);
         await super.sendBasicSuccess(msg, 'New name set!');
     }
 }
