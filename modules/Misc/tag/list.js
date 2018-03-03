@@ -23,7 +23,7 @@ module.exports = async function(msg, args) {
             ? row.content.substring(0, 10) + '...' 
             : row.content;
         
-        description += `**${row.name}**: ${content} ${row.imageid ? '🖼️' : ''}`;
+        description += `**${row.name}**: ${content} ${row.imageid ? '🖼️' : ''}\n`;
     }
     embed.setDescription(description);
 

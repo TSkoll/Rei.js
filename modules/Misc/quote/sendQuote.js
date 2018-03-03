@@ -110,10 +110,3 @@ function diffString (quoteMsg) {
     //If somehow someone tries to quote a message that was sent less than a second ago, just return 'now' (doubt that this could ever happen)
     return 'now';
 }
-
-    // return `${timeDiff.years > 0 ? timeDiff.years > 1 ? timeDiff.years + ' years ago' : '1 year ago' 
-    //     : timeDiff.months > 0 ? timeDiff.months > 1 ? timeDiff.months + ' months ago' : '1 month ago'
-    //     : timeDiff.days > 0 ? timeDiff.days > 1 ? timeDiff.days + ' days ago' : 'yesterday'
-    //     : timeDiff.hours > 0 ? timeDiff.hours > 1 ? timeDiff.hours + ' hours ago' : '1 hour ago'
-    //     : timeDiff.minutes > 0 ? timeDiff.minutes > 1 ? timeDiff.minutes + ' minutes ago' : 'a minute ago'
-    //     : timeDiff.seconds > 10 ? timeDiff.seconds + ' seconds ago' : 'just now'}`;

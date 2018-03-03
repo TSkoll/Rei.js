@@ -1,5 +1,4 @@
 const Command = require('../../Types/command.js');
-const Discord = require('discord.js');
 
 const set = require('./tag/set.js');
 const remove = require('./tag/remove.js');

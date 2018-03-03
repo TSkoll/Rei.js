@@ -1,23 +1,25 @@
 const Discord = require('discord.js');
 const db = require('../../../../utils/dbUtil.js');
 
-module.exports = async (msg, args) => {
-    if(!(await db.ifRowExists('quotes', { 'guildid': msg.guild.id })))
+module.exports = async function(msg, args) {
+    const rows = await db.getRows('quotes', { 'guildid': msg.guild.id });
+
+    if (rows.length < 1)
         throw 'I can\'t find any quotes for this guild';
 
-    const quotes = await db.getRows('quotes', { 'guildid': msg.guild.id });
+   let embed = new Discord.RichEmbed()
+   .setTitle(`There are ${rows.length} quotes saved on this server!`)
+   .setColor('BLUE');
 
-    // Turn userids from quotes to usable data
-    quotes.forEach(q => {
-        q.user = msg.guild.members.get(q.userid).user.tag;
-        q.nsfw = msg.guild.channels.get(q.channelid).nsfw;
-    });
-    
-    await msg.channel.send(new Discord.RichEmbed()
-    .setTitle(`A total of ${quotes.length} quotes were found for this guild`)
-    .setDescription(
-        quotes.map(q => 
-            `__${q.name}__\n\tAdded by: **${q.user}** ${q.nsfw ? '*NSFW*' : ''}`
-        ).join('\n'))
-    .setColor('RANDOM'));
+   let description = '';
+   for (let i = 0; i < rows.length; i++) {
+       const row = rows[i];
+       const userName = msg.guild.members.get(row.userid).user.tag;
+       const isNsfw = msg.guild.channels.get(row.channelid).nsfw;
+
+       description += `${userName}: **${row.name}** ${(isNsfw) ? '*(NSFW)*' : ''}\n`;
+   }
+   embed.setDescription(description);
+
+   await msg.channel.send(embed);
 }
