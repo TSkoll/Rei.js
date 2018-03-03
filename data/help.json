@@ -66,13 +66,14 @@
         "usage": "setavatar [URL]"
     },
 
-    "setgame": {
+    "activity": {
         "hideFromHelp": true,
-        "description": "Sets the playing status of the bot.",
+        "description": "Sets the activity of the bot",
         "args": {
-            "Game": "Text, which will be shown on the playing status."
+            "Status": "Status type",
+            "Name": "Text, which will be shown on the status."
         },
-        "usage": "setgame [game]"
+        "usage": "setgame [status] [game]"
     },
 
     "setname": {
