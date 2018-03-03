@@ -1,6 +1,6 @@
 const Discord = require("discord.js");
 const fs = require('fs');
-const client = new Discord.Client();
+const client = new Discord.Client({ disableEveryone: true });
 
 const dbUtil = require('./utils/dbUtil.js');
 

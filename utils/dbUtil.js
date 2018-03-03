@@ -21,7 +21,7 @@ class dbUtil {
     }
 
     // Gets specific data from a table in the database
-    static async getRow(table, searchPattern) {
+    static async getRows(table, searchPattern) {
         return new Promise(async (resolve, reject) => {
             try {
                 let data = await knex(table)
@@ -74,6 +74,20 @@ class dbUtil {
                 .where(searchPattern);
     
                 resolve(((rows.length > 0) ? true : false));
+            } catch (err) {
+                reject(err);
+            }
+        });
+    }
+
+    static async deleteRows(table, searchPattern) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let rows = await knex(table)
+                .where(searchPattern)
+                .del();
+
+                resolve(rows);
             } catch (err) {
                 reject(err);
             }

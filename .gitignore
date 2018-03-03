@@ -3,3 +3,4 @@ package-lock.json
 data/config.json
 data/rei.sqlite3
 .vscode
+data/tagImages/*

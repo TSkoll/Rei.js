@@ -9,7 +9,6 @@ class commandHandler {
         this.statTracker = cmdPass.statTracker;
 
         this.commands = { };
-        this.executedCmds = new Map();
 
         this.loadCommands(cmdPass);
     }
