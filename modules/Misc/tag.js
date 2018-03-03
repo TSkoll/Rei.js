@@ -20,12 +20,12 @@ class Tag extends Command {
         switch (args[0]) {
             case 'set':
                 await set(msg, args);
-                await this.sendBasicSuccess(msg, 'Tag saved!');
+                await super.sendBasicSuccess(msg, 'Tag saved!');
 
                 break;
             case 'remove':
                 await remove(msg, args);
-                await this.sendBasicSuccess(msg, 'Tag removed!');
+                await super.sendBasicSuccess(msg, 'Tag removed!');
 
                 break;
             case 'list':

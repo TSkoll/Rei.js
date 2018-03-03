@@ -53,5 +53,38 @@ class fsUtil {
             });
         });
     }
+
+    static readFile(path) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(path, (err, data) => {
+                if (err) 
+                    reject(err);
+                else
+                    resolve(data);
+            })
+        });
+    }
+
+    static unlink(path) {
+        return new Promise((resolve, reject) => {
+            fs.unlink(path, err => {
+                if (err)
+                    reject(err);
+                else
+                    resolve();
+            });
+        });
+    }
+
+    static writeFile(path, data, options) {
+        return new Promise((resolve, reject) => {
+            fs.writeFile(path, data, options, err => {
+                if (err)
+                    reject(err);
+                else
+                    resolve();
+            });
+        })
+    }
 }
 module.exports = fsUtil;

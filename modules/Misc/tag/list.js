@@ -19,11 +19,13 @@ module.exports = async function(msg, args) {
         // Build the description of tags from found rows
         const row = rows[i];
 
-        const content = (row.content > 10) 
-            ? row.content.substring(0, 10) + '...' 
-            : row.content;
+        let content = '';
+        if (row.content)
+            content = (row.content.length > 17)
+                ? row.content.substring(0, 17) + '...'
+                : content;
         
-        description += `**${row.name}**: ${content} ${row.imageid ? '🖼️' : ''}\n`;
+        description += `**${row.name}**: ${content} ${row.imageid ? ':frame_photo:' : ''}\n`;
     }
     embed.setDescription(description);
 

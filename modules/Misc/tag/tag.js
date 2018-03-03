@@ -2,7 +2,7 @@ const db = require('../../../utils/dbUtil.js');
 const tagUtils = require('./tagUtils.js');
 
 module.exports = async function(msg, args) {
-    const rows = await await db.getRows('tags', { 'userid': msg.author.id, 'name': args[0] });
+    const rows = await db.getRows('tags', { 'userid': msg.author.id, 'name': args.join(' ') });
 
     if (rows.length < 1)
         throw 'This tag doesn\'t seem to exist!';
@@ -15,6 +15,6 @@ module.exports = async function(msg, args) {
 
     if (rows[0].imageid)
         files.push(await tagUtils.loadImage(rows[0].imageid));
-
+    
     await msg.channel.send(content, { files });
 }
