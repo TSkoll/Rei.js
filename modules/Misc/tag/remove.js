@@ -3,7 +3,7 @@ const tagUtils = require('./tagUtils.js');
 
 module.exports = async function(msg, args) {
     // Get the row user wants to delete
-    const rows = await db.getRows('tags', { 'userid': msg.author.id, 'name': args[1] });
+    const rows = await db.getRows('tags', { 'userid': msg.author.id, 'name': args.slice(1).join(' ') });
     
     if (rows.length < 1)
         throw 'I can\'t delete a tag that doesn\'t exist!';
