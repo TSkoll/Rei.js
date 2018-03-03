@@ -10,7 +10,7 @@ module.exports = async (msg, id, channel) => {
     }
 
     if(quoteMsg.type != 'DEFAULT')
-        throw 'You can only quote users\'s messages';
+        throw 'You can only quote messages sent by other users!';
 
     if(channel.nsfw && !msg.channel.nsfw)
         throw 'You can\'t quote nsfw things here!';
@@ -47,16 +47,22 @@ function parseMessageEmbed(quoteObj) {
     */
     if(quoteObj.description)
       embed.setDescription(quoteObj.description);
+
     if(quoteObj.author)
        embed.setAuthor(quoteObj.author.name, quoteObj.author.iconURL, quoteObj.author.url);
+
     if(quoteObj.title)
        embed.setTitle(quoteObj.title);
+
     if(quoteObj.thumbnail)
        embed.setThumbnail(quoteObj.thumbnail.url);
+
     if(quoteObj.image)
        embed.setImage(quoteObj.image.url);
+
     if(quoteObj.createdTimestamp)
        embed.setTimestamp(quoteObj.createdTimestamp);
+
     if(quoteObj.footer)
        embed.setFooter(quoteObj.footer.text, quoteObj.footer.iconURL);
 
@@ -107,6 +113,6 @@ function diffString (quoteMsg) {
         }
     }
 
-    //If somehow someone tries to quote a message that was sent less than a second ago, just return 'now' (doubt that this could ever happen)
+    //If somehow someone tries to quote a message that was sent less than a second ago, just return 'now'
     return 'now';
 }
