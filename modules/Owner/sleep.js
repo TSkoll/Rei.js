@@ -11,6 +11,7 @@ class Sleep extends Command {
         .setColor('DARK_BLUE')
         .setDescription('Good night!'));
         
+        await bot.destroy();
         process.exit();
     }
 }
