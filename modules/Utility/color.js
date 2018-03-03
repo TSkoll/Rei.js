@@ -18,18 +18,18 @@ class Color extends Command {
 
     async run(bot, msg, args) {
         if (menusOpen.includes(msg.author.id))
-            return;
-        else
-            menusOpen.push(msg.author.id);
+            throw 'You can\'t use this command while you have a color menu open!';
 
         // Possible choices
         try { 
             switch (args) {
                 case 'avatar':
                     await avatar(msg, menusOpen);
+                    menusOpen.push(msg.author.id);
                     break;
                 case 'random':
                     await random(msg, menusOpen);
+                    menusOpen.push(msg.author.id);
                     break;
                 case null:
                     await remove(msg);

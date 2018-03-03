@@ -21,10 +21,6 @@ class Command {
         this.disallowDM = (info && info.hasOwnProperty('disallowDM'))   ? info.disallowDM   : false;
         this.rateLimit = (info && info.hasOwnProperty('rateLimit'))     ? info.rateLimit    : 0; //IN MILLISECONDS!
 
-        /* Help information */
-        this.helpText = (info && info.hasOwnProperty('helpText'))       ? info.helpText     : null;
-        this.helpArgs = (info && info.hasOwnProperty('helpArgs'))       ? info.helpArgs     : null;
-
         /* When command was executed and by whom? */
         this.executed = this.rateLimit > 0                              ? new Map()         : null;
     }

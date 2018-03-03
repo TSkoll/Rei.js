@@ -3,10 +3,10 @@ const Command = require('../../Types/command.js');
 const timeUtil = require('../../utils/timeUtil.js');
 
 class Stats extends Command {
-    constructor(statTracker) {
+    constructor(cmdPass) {
         super();
 
-        this.statTracker = statTracker;
+        this.statTracker = cmdPass.statTracker;
 
         this.cpuStartTime = process.hrtime();
         this.cpuStartUsage = process.cpuUsage();
