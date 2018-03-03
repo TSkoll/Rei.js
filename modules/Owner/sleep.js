@@ -7,9 +7,10 @@ class Sleep extends Command {
     }
 
     async run(bot, msg, args) {
-        await super.sendEmbed(new Discord.RichEmbed()
+        await super.sendEmbed(msg, new Discord.RichEmbed()
         .setColor('DARK_BLUE')
         .setDescription('Good night!'));
+        
         process.exit();
     }
 }

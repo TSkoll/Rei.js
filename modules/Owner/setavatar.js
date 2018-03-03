@@ -10,7 +10,7 @@ class Setavatar extends Command {
 
     async run(bot, msg, args) {
         await bot.user.setAvatar(args);
-        await super.sendBasicSuccess('New avatar set!');
+        await super.sendBasicSuccess(msg, 'New avatar set!');
     }
 }
 module.exports = Setavatar;
