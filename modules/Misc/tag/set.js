@@ -10,9 +10,10 @@ module.exports = async function(msg, args) {
         'userid': msg.author.id,
         'name': args[1],
         'content': args[2] ? args[2] : null,
-        'imageid': (msg.attachments.size > 0) ? img.id + img.filename.slice(img.filename.lastIndexOf('.')) : null
+        'imageid': (img) ? img.id + img.filename.slice(img.filename.lastIndexOf('.')) : null
     });
 
-    if (msg.attachments.size > 0)
+    // If image exists, save it to disk
+    if (img)
         await tagUtils.saveImage(img);
 }
