@@ -3,8 +3,8 @@ const Command = require('../../Types/command.js');
 class Activity extends Command {
     constructor() {
         super({
-            "ownerOnly": true,
-            "args": 2
+            ownerOnly: true,
+            args: 2
         });
     }
 

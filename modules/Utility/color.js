@@ -12,6 +12,7 @@ class Color extends Command {
     constructor() {
         super({
             args: 1,
+            disallowDM: true,
             rateLimit: 15000 // 15 second cooldown
         });
     }

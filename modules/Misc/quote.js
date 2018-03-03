@@ -8,9 +8,9 @@ const quoteByName = require('./quote/subcommands/quoteByName.js');
 class Quote extends Command {
     constructor() {
         super({
-            'args': 3,
-            'ignoreMin': true,
-            'disallowDM': true
+            args: 3,
+            ignoreMin: true,
+            disallowDM: true
         });
     }
 

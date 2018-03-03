@@ -4,7 +4,7 @@ const feedbackChannelId = '396583338116120576';
 class Feedback extends Command {
     constructor() {
         super({
-            "args": 1
+            args: 1
         });
     }
 
