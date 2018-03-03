@@ -5,7 +5,7 @@ module.exports = async (msg, args) => {
     if(!(await db.ifRowExists('quotes', { 'guildid': msg.guild.id })))
         throw 'I can\'t find any quotes for this guild';
 
-    const quotes = await db.getRow('quotes', { 'guildid': msg.guild.id });
+    const quotes = await db.getRows('quotes', { 'guildid': msg.guild.id });
 
     // Turn userids from quotes to usable data
     quotes.forEach(q => {

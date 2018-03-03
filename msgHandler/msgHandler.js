@@ -68,7 +68,7 @@ async function getPrefix(id) {
         return new Promise(async resolve => {
             // Check if server has a custom prefix
             if (await db.ifRowExists('prefixes', { guild: id })) {
-                let prefix = await db.getRow('prefixes', { guild: id })[0].prefix
+                let prefix = await db.getRows('prefixes', { guild: id })[0].prefix
                 // Update cache
                 prefixCache.set(id, prefix);
                 

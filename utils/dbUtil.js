@@ -21,7 +21,7 @@ class dbUtil {
     }
 
     // Gets specific data from a table in the database
-    static async getRow(table, searchPattern) {
+    static async getRows(table, searchPattern) {
         return new Promise(async (resolve, reject) => {
             try {
                 let data = await knex(table)
