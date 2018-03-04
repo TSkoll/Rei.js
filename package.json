@@ -27,6 +27,7 @@
     "discord.js": "^11.3.0",
     "erlpack": "github:discordapp/erlpack",
     "knex": "^0.13.0",
+    "long": "^4.0.0",
     "node-vibrant": "^3.0.0",
     "randomcolor": "^0.5.3",
     "request": "^2.83.0",

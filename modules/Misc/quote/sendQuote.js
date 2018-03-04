@@ -1,10 +1,26 @@
 const Discord = require('discord.js');
+const Long = require('long');
 const { calcTimeDifference } = require('../../../utils/timeUtil.js');
+
+function pad(v, n, c = '0') {
+    return String(v).length >= n ? String(v) : (String(c).repeat(n) + v).slice(-n);
+}
 
 module.exports = async (msg, id, channel) => {
     let quoteMsg;
     try {
-        quoteMsg = await channel.fetchMessage(id);
+		if (id === 'rei is a shit bot') {
+            const EPOCH = 1420070400000;
+            let min = channel.createdTimestamp;
+            let max = Date.now();
+            let timestamp = Math.floor(Math.random() * (max - min)) + min - EPOCH;
+            let snowflakeBinary = `${pad((timestamp).toString(2), 42)}0000100000${pad((1).toString(2), 12)}`;
+            let sf = Long.fromString(snowflakeBinary, 2).toString();
+
+			quoteMsg = (await channel.fetchMessages({ limit: 10, after: sf })).random();
+		} else {
+    	    quoteMsg = await channel.fetchMessage(id);
+		}
     } catch (e) {
         throw 'I couldn\'t find the message that you\'re looking for';
     }
