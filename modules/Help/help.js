@@ -16,10 +16,10 @@ class Help extends Command {
             // Send the generic response
 
             if (msg.channel.type != 'dm') {
-                msg.author.send(generateGenericResponse(this.helpTexts));
+                msg.author.send(generateGenericResponse(this.helpTexts, bot.user.username));
                 await super.sendBasicSuccess(msg, 'Sent a DM!');
             } else {
-                msg.author.send(generateGenericResponse(this.helpTexts));
+                msg.author.send(generateGenericResponse(this.helpTexts, bot.user.username));
             }
 
             return;
@@ -55,9 +55,9 @@ class Help extends Command {
 }
 module.exports = Help;
 
-function generateGenericResponse(helpTexts) {
-    let ret = 'Hi! I\'m Rei and I\'m here to help you!\n\n' 
-    + 'Want to add me to your server? Check out https://rei.dkboat.xyz/ for more information!\n\n'
+function generateGenericResponse(helpTexts, name) {
+    let ret = 'Hi! I\'m ' + name + ' and I\'m here to help you!\n\n' 
+    + 'Invite: <https://discordapp.com/oauth2/authorize?client_id=280619682703212544&permissions=66186303&scope=bot>\n\n'
     + 'Need help? Got ideas? Just want to hang out? Come over to The Order of Spoon!\nhttps://discord.gg/Qr89Wav\n\n'
     + '▼ Commands (Default prefix "!")';
 

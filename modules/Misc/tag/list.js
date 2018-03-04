@@ -23,7 +23,7 @@ module.exports = async function(msg, args) {
         if (row.content)
             content = (row.content.length > 17)
                 ? row.content.substring(0, 17) + '...'
-                : content;
+                : row.content;
         
         description += `**${row.name}**: ${content} ${row.imageid ? ':frame_photo:' : ''}\n`;
     }
