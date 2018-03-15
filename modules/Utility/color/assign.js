@@ -1,31 +1,38 @@
-const Discord = require('discord.js');
-const validator = require('validator');
+const Discord = require("discord.js");
+const validator = require("validator");
 
 module.exports = async function(msg, cr) {
     // Server
-    const serverColorRoles = msg.member.guild.roles.filter(x => x.name[0] == '#');
+    const serverColorRoles = msg.member.guild.roles.filter(
+        (x) => x.name[0] == "#"
+    );
 
     // User
     const user = msg.guild.members.get(msg.author.id);
-    const assignedUserColors = user.roles.filter(x => x.name[0] == '#');
+    const assignedUserColors = user.roles.filter((x) => x.name[0] == "#");
     let userColor = assignedUserColors.first();
 
     // Check if the guild is about to hit the max role count
-    if (msg.member.guild.roles.size > 225 && !serverColorRoles.exists('name', cr))
-        throw 'Due to a Discord limitation of 250 roles you may not pick a color of your own.\nYou can still assign a color some other user has by copying the hex.'
+    if (
+        msg.member.guild.roles.size > 225 &&
+        !serverColorRoles.exists("name", cr)
+    )
+        throw "Due to a Discord limitation of 250 roles you may not pick a color of your own.\nYou can still assign a color some other user has by copying the hex.";
 
-    if (assignedUserColors.find('name', cr)) {
-        msg.channel.send(new Discord.RichEmbed()
-        .setColor('RED')
-        .setDescription('You already have this color!'))
-        
+    if (assignedUserColors.find("name", cr)) {
+        msg.channel.send(
+            new Discord.RichEmbed()
+                .setColor("RED")
+                .setDescription("You already have this color!")
+        );
+
         return;
     }
 
     try {
-        if (serverColorRoles.exists('name', cr)) {
+        if (serverColorRoles.exists("name", cr)) {
             // Color role exists on server, use old one
-            const r = serverColorRoles.find('name', cr);
+            const r = serverColorRoles.find("name", cr);
 
             await assignColorToUser(msg, r);
         } else {
@@ -34,24 +41,23 @@ module.exports = async function(msg, cr) {
                 name: cr,
                 color: cr
             });
-    
+
             await assignColorToUser(msg, r);
         }
     } catch (err) {
         throw err;
     }
 
-    await msg.channel.send(new Discord.RichEmbed()
-    .setColor('GREEN')  
-    .setDescription('Color set!'));
+    await msg.channel.send(
+        new Discord.RichEmbed().setColor("GREEN").setDescription("Color set!")
+    );
 
-    if (userColor != null)
-        await handleOldColor(msg, userColor);
+    if (userColor != null) await handleOldColor(msg, userColor);
 };
 
 async function assignColorToUser(msg, r = null) {
     // Build a role list by removing every role starting with '#'
-    let tempRoles = msg.member.roles.filter(x => x.name[0] != '#').array();
+    let tempRoles = msg.member.roles.filter((x) => x.name[0] != "#").array();
     tempRoles.push(r);
 
     try {
