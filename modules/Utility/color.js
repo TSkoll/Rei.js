@@ -1,10 +1,10 @@
-const Command = require('../../Types/command.js');
-const c = require('./color/avatar.js');
+const Command = require("../../Types/command.js");
+const c = require("./color/avatar.js");
 
-const avatar = require('./color/avatar.js');
-const hex = require('./color/hex.js');
-const random = require('./color/random.js');
-const remove = require('./color/remove.js');
+const avatar = require("./color/avatar.js");
+const hex = require("./color/hex.js");
+const random = require("./color/random.js");
+const remove = require("./color/remove.js");
 
 let menusOpen = [];
 
@@ -19,16 +19,16 @@ class Color extends Command {
 
     async run(bot, msg, args) {
         if (menusOpen.includes(msg.author.id))
-            throw 'You can\'t use this command while you have a color menu open!';
+            throw "You can't use this command while you have a color menu open!";
 
         // Possible choices
-        try { 
+        try {
             switch (args) {
-                case 'avatar':
+                case "avatar":
                     await avatar(msg, menusOpen);
                     menusOpen.push(msg.author.id);
                     break;
-                case 'random':
+                case "random":
                     await random(msg, menusOpen);
                     menusOpen.push(msg.author.id);
                     break;
@@ -40,10 +40,8 @@ class Color extends Command {
                     break;
             }
         } catch (err) {
-            if (err.expected)
-                await super.sendBasicError(msg, err.message);
-            else
-                throw err;
+            if (err.expected) await super.sendBasicError(msg, err.message);
+            else throw err;
         }
     }
 }
