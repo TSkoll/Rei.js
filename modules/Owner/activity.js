@@ -1,4 +1,4 @@
-const Command = require('../../Types/command.js');
+const Command = require("../../Types/command.js");
 
 class Activity extends Command {
     constructor() {
@@ -13,7 +13,7 @@ class Activity extends Command {
             type: args[0]
         });
 
-        await super.sendBasicSuccess(msg, 'Activity set!');
+        await super.sendBasicSuccess(msg, "Activity set!");
     }
 }
 module.exports = Activity;
