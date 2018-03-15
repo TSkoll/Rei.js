@@ -1,4 +1,4 @@
-const knex = require('knex')((require('../knexfile.js'))['development']);
+const knex = require("knex")(require("../knexfile.js")["development"]);
 
 class dbUtil {
     static async migrate() {
@@ -27,8 +27,8 @@ class dbUtil {
     static async getRows(table, searchPattern) {
         try {
             const data = await knex(table)
-            .select()
-            .where(searchPattern);
+                .select()
+                .where(searchPattern);
 
             return data;
         } catch (err) {
@@ -40,8 +40,8 @@ class dbUtil {
     static async getSpecificFromRow(table, select, searchPattern) {
         try {
             const data = await knex(table)
-            .select(select)
-            .where(searchPattern);
+                .select(select)
+                .where(searchPattern);
 
             return data;
         } catch (err) {
@@ -53,12 +53,12 @@ class dbUtil {
     static async updateRow(table, searchPattern, updatedData) {
         try {
             const row = await knex(table)
-            .where(searchPattern)
-            .update(updatedData);
+                .where(searchPattern)
+                .update(updatedData);
 
             return row;
         } catch (err) {
-            throw err
+            throw err;
         }
     }
 
@@ -66,10 +66,10 @@ class dbUtil {
     static async ifRowExists(table, searchPattern) {
         try {
             const rows = await knex(table)
-            .select()
-            .where(searchPattern);
+                .select()
+                .where(searchPattern);
 
-            return (rows.length > 0) ? true : false;
+            return rows.length > 0 ? true : false;
         } catch (err) {
             throw err;
         }
@@ -78,8 +78,8 @@ class dbUtil {
     static async deleteRows(table, searchPattern) {
         try {
             const rows = await knex(table)
-            .where(searchPattern)
-            .del();
+                .where(searchPattern)
+                .del();
 
             return rows;
         } catch (err) {
