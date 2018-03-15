@@ -1,9 +1,9 @@
-const Command = require('../../Types/command.js');
+const Command = require("../../Types/command.js");
 
-const set = require('./tag/set.js');
-const remove = require('./tag/remove.js');
-const list = require('./tag/list.js');
-const tag = require('./tag/tag.js');
+const set = require("./tag/set.js");
+const remove = require("./tag/remove.js");
+const list = require("./tag/list.js");
+const tag = require("./tag/tag.js");
 
 class Tag extends Command {
     constructor() {
@@ -14,21 +14,20 @@ class Tag extends Command {
     }
 
     async run(bot, msg, args) {
-        if (args.length < 1)
-            throw 'Not enough arguments!';
+        if (args.length < 1) throw "Not enough arguments!";
 
         switch (args[0]) {
-            case 'set':
+            case "set":
                 await set(msg, args);
-                await super.sendBasicSuccess(msg, 'Tag saved!');
+                await super.sendBasicSuccess(msg, "Tag saved!");
 
                 break;
-            case 'remove':
+            case "remove":
                 await remove(msg, args);
-                await super.sendBasicSuccess(msg, 'Tag removed!');
+                await super.sendBasicSuccess(msg, "Tag removed!");
 
                 break;
-            case 'list':
+            case "list":
                 await list(msg, args);
                 break;
             default:
