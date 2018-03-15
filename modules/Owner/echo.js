@@ -1,4 +1,4 @@
-const Command = require('../../Types/command.js');
+const Command = require("../../Types/command.js");
 
 class Echo extends Command {
     constructor() {
