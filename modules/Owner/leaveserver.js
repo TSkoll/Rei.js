@@ -1,4 +1,4 @@
-const Command = require('../../Types/command.js');
+const Command = require("../../Types/command.js");
 
 class Leaveserver extends Command {
     constructor() {
@@ -13,10 +13,10 @@ class Leaveserver extends Command {
         if (args.length == 0) {
             await msg.guild.leave();
         } else {
-            const guild = await bot.user.guild.find('id', args);
-            
+            const guild = await bot.user.guild.find("id", args);
+
             await guild.leave();
-            await super.sendBasicSuccess('Left server!');
+            await super.sendBasicSuccess("Left server!");
         }
     }
 }
