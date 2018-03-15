@@ -8,15 +8,15 @@ class timeUtil {
 
         const days = Math.floor(totalDays / 86400000);
         const totalHours = totalDays % 86400000;
-    
+
         const hours = Math.floor(totalHours / 3600000);
         const totalMinutes = totalHours % 3600000;
-    
+
         const minutes = Math.floor(totalMinutes / 60000);
         const totalSeconds = totalMinutes % 60000;
-    
+
         const seconds = Math.floor(totalSeconds / 1000);
-    
+
         return { years, months, days, hours, minutes, seconds };
     }
 }
