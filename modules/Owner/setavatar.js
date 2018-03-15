@@ -1,4 +1,4 @@
-const Command = require('../../Types/command.js');
+const Command = require("../../Types/command.js");
 
 class Setavatar extends Command {
     constructor() {
@@ -10,7 +10,7 @@ class Setavatar extends Command {
 
     async run(bot, msg, args) {
         await bot.user.setAvatar(args);
-        await super.sendBasicSuccess(msg, 'New avatar set!');
+        await super.sendBasicSuccess(msg, "New avatar set!");
     }
 }
 module.exports = Setavatar;
