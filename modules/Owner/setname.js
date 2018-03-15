@@ -1,4 +1,4 @@
-const Command = require('../../Types/command.js');
+const Command = require("../../Types/command.js");
 
 class Setname extends Command {
     constructor() {
@@ -10,7 +10,7 @@ class Setname extends Command {
 
     async run(bot, msg, args) {
         await bot.user.setUsername(args);
-        await super.sendBasicSuccess(msg, 'New name set!');
+        await super.sendBasicSuccess(msg, "New name set!");
     }
 }
 module.exports = Setname;
