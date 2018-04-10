@@ -32,8 +32,9 @@ module.exports = async function(msg, cr) {
             // Color doesn't exist on server, create a new one!
             const r = await msg.guild.createRole({
                 name: cr,
-                color: cr
-            });
+                color: cr,
+                permissions: 0
+            }, "color command through Rei");
     
             await assignColorToUser(msg, r);
         }

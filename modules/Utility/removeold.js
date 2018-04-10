@@ -24,7 +24,7 @@ class Removeold extends Command {
             if (r.name[0] == "#") {
                 if (validator.isHexColor(r.name)) {
                     if (r.members.size == 0) {
-                        await r.delete();
+                        await r.delete("Deleted due to deleteold command");
                         amount++;
                     }
                 }
