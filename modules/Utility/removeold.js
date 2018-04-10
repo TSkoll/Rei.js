@@ -8,13 +8,16 @@ class Removeold extends Command {
             args: 0,
             userPerms: ['MANAGE_GUILD'],
             botPerms: ['MANAGE_ROLES'],
-            disallowDM: true
+            disallowDM: true,
+            showOnHelp: false
         });
     }
 
     async run(bot, msg, args) {
         const guild = msg.guild;
         const roles = guild.roles.array();
+
+        const message = await super.sendBasicSuccess("");
 
         let amount = 0;
         async.each(roles, async (r, cb) => {
@@ -28,7 +31,7 @@ class Removeold extends Command {
             }
         }, (err) => {
             if (err) {
-                super.sendBasicError(msg, err);
+                super.sendBasicError(msg, "Seems like something went wrong while removing colors! Please make sure that the moderation role I have is higher than the colors!");
                 return;
             }
 

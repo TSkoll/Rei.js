@@ -49,12 +49,13 @@ class commandHandler {
                 return;
             }
             catch (err) {
-                cmd.sendBasicError(msg, err); // 'Not enough permissions to run this command!')
+                await cmd.sendBasicError(msg, err); // 'Not enough permissions to run this command!')
 
                 return;
             }
         } catch (err) {
-            throw err;
+            if (err != "Command doesn't exist!")
+                throw err;
         }
    }
 
