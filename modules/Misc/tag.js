@@ -18,14 +18,14 @@ class Tag extends Command {
             throw 'Not enough arguments!';
 
         switch (args[0]) {
-            case 'set':
+            case 'create':
                 await set(msg, args);
-                await super.sendBasicSuccess(msg, 'Tag saved!');
+                await super.sendBasicSuccess(msg, 'Tag created!');
 
                 break;
-            case 'remove':
+            case 'delete':
                 await remove(msg, args);
-                await super.sendBasicSuccess(msg, 'Tag removed!');
+                await super.sendBasicSuccess(msg, 'Tag deleted!');
 
                 break;
             case 'list':

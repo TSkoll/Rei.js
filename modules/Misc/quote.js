@@ -19,14 +19,14 @@ class Quote extends Command {
             throw 'Not enough arguments!';
 
         switch (args[0]) {
-            case 'set':
+            case 'create':
                 await set(msg, args);
-                await this.sendBasicSuccess(msg, 'Quote saved!');
+                await this.sendBasicSuccess(msg, 'Quote created!');
 
                 break;
-            case 'remove':
+            case 'delete':
                 await remove(msg, args);
-                await this.sendBasicSuccess(msg, 'Quote removed!');
+                await this.sendBasicSuccess(msg, 'Quote deleted!');
 
                 break;
             case 'list':

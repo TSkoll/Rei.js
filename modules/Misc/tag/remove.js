@@ -2,6 +2,9 @@ const db = require('../../../utils/dbUtil.js');
 const tagUtils = require('./tagUtils.js');
 
 module.exports = async function(msg, args) {
+    if (args.length < 2)
+        throw 'Not enough arguments!';
+
     // Get the row user wants to delete
     const rows = await db.getRows('tags', { 'userid': msg.author.id, 'name': args.slice(1).join(' ') });
     

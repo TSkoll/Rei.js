@@ -2,6 +2,9 @@ const db = require('../../../utils/dbUtil.js');
 const tagUtils = require('./tagUtils.js');
 
 module.exports = async function(msg, args) {
+    if (args.length < 2)
+        throw 'Not enough arguments!';
+
     if (await db.ifRowExists('tags', { 'userid': msg.author.id, 'name': args[1] }))
         throw 'A tag with that name already exists!';
 
