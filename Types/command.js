@@ -28,18 +28,22 @@ class Command {
     /* Flag checks */
     checkFlags(msg) {
         // Throw if any check doesn't go through
-        if(this.ownerOnly && !this.checkOwnerOnly(msg))
+        if (this.ownerOnly && !this.checkOwnerOnly(msg))
             throw 'You\'re not my master!';
+
+        if (this.userPerms && msg.guild && !this.checkUserPerms(msg))
+            throw 'You don\'t have enough permissions to run this command!';
+
+        if (this.guildOwner && msg.guild && !this.checkGuildOwner(msg))
+            throw 'This command can only be run by the server owner!'
+
+        if (this.botPerms && msg.guild && !this.checkBotPerms(msg))
+            throw 'I don\'t have enough permissions to run this command!'
         
-        if( (this.userPerms && msg.guild && !this.checkUserPerms(msg)) ||
-            (this.guildOwner && msg.guild && !this.checkGuildOwner(msg)) ||
-            (this.botPerms && msg.guild && !this.checkBotPerms(msg)))
-            throw 'Not enough permissions';
-        
-        if(this.disallowDM && this.isInDM(msg))
+        if (this.disallowDM && this.isInDM(msg))
             throw 'I can\'t do that in a DM';
 
-        if(this.rateLimit > 0 && !this.checkCooldown(msg))
+        if (this.rateLimit > 0 && !this.checkCooldown(msg))
             throw `Command on cooldown! Please wait for **${Math.round((this.rateLimit - (Date.now() - this.executed.get(msg.author))) / 1000)}** more second(s).`;
     }
 
@@ -49,6 +53,8 @@ class Command {
             let msg = await message.channel.send(new Discord.RichEmbed()
             .setColor('GREEN')
             .setDescription(content));
+
+            return msg;
         } catch (err) {
             reject(err);
         }
@@ -59,6 +65,8 @@ class Command {
             let msg = await message.channel.send(new Discord.RichEmbed()
             .setColor('RED')
             .setDescription(content));
+
+            return msg;
         } catch (err) {
             throw err;
         }
@@ -67,6 +75,8 @@ class Command {
     async sendEmbed(message, embed) {
         try {
             let msg = await message.channel.send(embed);
+
+            return msg;
         } catch (err) {
             throw err;
         }

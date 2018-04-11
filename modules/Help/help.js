@@ -29,7 +29,7 @@ class Help extends Command {
         const cmd = this.helpTexts[args.toLowerCase()];
         
         if (!cmd) {
-            super.sendBasicError(msg, 'This command doesn\'t seem to exist!');
+            super.sendBasicError(msg, 'There doesn\'t seem to be any help text for this command!');
             return;
         }
 
@@ -43,11 +43,18 @@ class Help extends Command {
             // If arguments have been found, build it into the embed
             const keys = Object.keys(cmd.args);
 
-            for (let i = 0; i < keys.length; i++) {
-                const arg = cmd.args[keys[i]];
-
-                embed.addField(keys[i], arg, true);
+            let args = `**${keys[0]}**: ${cmd.args[keys[0]]}`;
+            for (let i = 1; i < keys.length; i++) {
+                args += `\n\n**${keys[i]}**: ${cmd.args[keys[i]]}`
             }
+
+            let examples = "";
+            for (let i = 0; i < cmd.example.length; i++) {
+                examples += '\n' + cmd.example[i];
+            }
+
+            embed.addField('arguments', args);
+            embed.addField('examples', examples);
         }
 
         await super.sendEmbed(msg, embed);
@@ -73,5 +80,6 @@ function generateGenericResponse(helpTexts, name) {
         ret += '\n' + keys[i];
     }
 
+    ret += '\n\nYou can do `!help (command)` to get more information about the specific command.'
     return ret;
 }

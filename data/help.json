@@ -5,22 +5,35 @@
             "Subcommand": "\"Set:\" Sets the prefix.\n\"Clear\": Sets the prefix back to default.",
             "Prefix": "Prefix, which will be set for the server. Can't contain spaces."
         },
-        "usage": "prefix [subcommand] {prefix}"
+        "usage": "prefix [subcommand] {prefix}",
+        "example": [
+            "prefix set !",
+            "prefix clear"
+        ]
     },
 
     "blush": {
         "description": "Blushes at the mentioned user.",
-        "usage": "blush @user"
+        "usage": "blush @user",
+        "example": [
+            "blush @Skoll"
+        ]
     },
 
     "hug": {
         "description": "Hugs the mentioned user",
-        "usage": "hug @user"
+        "usage": "hug @user",
+        "example": [
+            "hug @Skoll"
+        ]
     },
 
     "pat": {
         "description": "Pats the mentioned user",
-        "usage": "pat @user"
+        "usage": "pat @user",
+        "example": [
+            "pat @Skoll"
+        ]
     },
 
     "help": {
@@ -28,7 +41,11 @@
         "args": {
             "Command": "Command to get the help information from."
         },
-        "usage": "help {command}"
+        "usage": "help {command}",
+        "example": [
+            "help",
+            "help color"
+        ]
     },
 
     "feedback": {
@@ -36,7 +53,10 @@
         "args": {
             "Feedback": "Feedback that's left, can only be text."
         },
-        "usage": "feedback [feedback]"
+        "usage": "feedback [feedback]",
+        "example": [
+            "feedback what a great bot!"
+        ]
     },
 
     "echo": {
@@ -45,7 +65,10 @@
         "args": {
             "Text": "Text that will be echoed."
         },
-        "usage": "echo [text]"
+        "usage": "echo [text]",
+        "example": [
+            "echo hello!"
+        ]
     },
 
     "leaveserver": {
@@ -54,7 +77,10 @@
         "args": {
             "Server ID": "The ID of the server, from which the bot will leave.\nEmpty to leave the current server."
         },
-        "usage": "leaveserver {server id}"
+        "usage": "leaveserver {server id}",
+        "example": [
+            "leaveserver 12345678"
+        ]
     },
 
     "setavatar": {
@@ -63,7 +89,10 @@
         "args": {
             "URL": "URL of the new avatar."
         },
-        "usage": "setavatar [URL]"
+        "usage": "setavatar [URL]",
+        "example": [
+            "setavatar https://i.imgur.com/SocBkqh.jpg"
+        ]
     },
 
     "activity": {
@@ -73,7 +102,12 @@
             "Status": "Status type",
             "Name": "Text, which will be shown on the status."
         },
-        "usage": "setgame [status] [game]"
+        "usage": "activity [status] [game]",
+        "example": [
+            "activity PLAYING Minecraft",
+            "activity LISTENING Music",
+            "activity WATCHING Movies"
+        ]
     },
 
     "setname": {
@@ -82,13 +116,19 @@
         "args": {
             "Name": "The new name of the bot."
         },
-        "usage": "setname [name]"
+        "usage": "setname [name]",
+        "example": [
+            "setname Rei"
+        ]
     },
 
     "sleep": {
         "hideFromHelp": true,
         "description": "Shuts the bot down.",
-        "usage": "sleep"
+        "usage": "sleep",
+        "example": [
+            "sleep"
+        ]
     },
 
     "color": {
@@ -98,12 +138,21 @@
             "\"Avatar\"": "Opens a menu with color suggestions based on your current avatar.",
             "\"Random\"": "Opens a menu with random color suggestions."
         },
-        "usage": "color {hex|\"avatar\"|\"\random\"}"
+        "usage": "color {hex|\"avatar\"|\"random\"}",
+        "example": [
+            "color #FF0060",
+            "color FF0060",
+            "color avatar",
+            "color random"
+        ]
     },
 
     "stats": {
         "description": "Shows statistics about the bot.",
-        "usage": "stats"
+        "usage": "stats",
+        "example": [
+            "stats"
+        ]
     },
 
     "tag": {
@@ -113,7 +162,13 @@
             "Name": "Name of the tag. Used to call the tags you've created.",
             "Content": "Content shown when tag has been run. Can include text and an image."
         },
-        "usage": "tag [subcommand|name] {name} {content}"
+        "usage": "tag [subcommand|name] {name} {content}",
+        "example": [
+            "tag set MyAwesomeTag My even more awesome tag content!",
+            "tag MyAwesomeTag",
+            "tag remove MyAwesomeTag",
+            "tag list"
+        ]
     },
 
     "quote": {
@@ -123,6 +178,28 @@
             "Message ID": "Id of the message you want to quote.",
             "Name": "Name of the saved quote."
         },
-        "usage": "quote [subcommand|message id|name] {message id|name} {name}"
+        "usage": "quote [subcommand|message id|name] {message id|name} {name}",
+        "example": [
+            "quote 433598802809585667",
+            "quote set 433598802809585667 something I should remember",
+            "quote remove something I should remember",
+            "quote list"
+        ]
+    },
+
+    "removeold": {
+        "description": "Deletes all old unused color roles. Requires **Manage Server** permission.",
+        "usage": "removeold",
+        "example": [
+            "removeold"
+        ]
+    },
+
+    "colorme": {
+        "description": "Reminds people of the relic from the past.\nSeriously though, just use `color`.",
+        "usage": "colorme",
+        "example": [
+            "colorme"
+        ]
     }
 }
