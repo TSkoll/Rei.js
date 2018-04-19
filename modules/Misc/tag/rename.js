@@ -4,12 +4,19 @@ module.exports = async function(msg, args) {
     if (args.length < 3)
         throw 'Not enough arguments!';
 
+    const rows = 
+        (await db.raw('tags')
+        .where({ 'userid': msg.author.id })
+        .andWhere(builder => {
+            builder.where({'name': args[1]}).orWhere({ 'name': args[2] })
+        }).select('name')).map(row => row.name);
+
     // If row doesn't exist - throw
-    if (!(await db.ifRowExists('tags', { 'userid': msg.author.id, 'name': args[1] })))
+    if (!rows.includes(args[1]))
         throw 'I can\'t rename a tag that doesn\'t exist!';
 
     // Check if user doesn't have a tag with the same name
-    if(await db.ifRowExists('tags', { 'userid': msg.author.id, 'name': args[2] }))
+    if(rows.includes(args[2]))
         throw 'A tag with that name already exists!';
 
     // Row exists, we can edit it
