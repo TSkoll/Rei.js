@@ -52,9 +52,6 @@ module.exports = async function(msg, args) {
             msgC.stop();
     });
 
-    // Get user strings so we can mention all people who we are sharing tag to
-    const allUsers = awaitingUsers.map(u => u.toString());
-
     const shareMsg = await msg.channel.send(`Please confirm if you want to recieve this tag by typing \`${code}\` in the chat!`);
 
     msgC.on('end', async() => {
