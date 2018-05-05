@@ -181,8 +181,8 @@
         "usage": "quote [subcommand|message id|name] {message id|name} {name}",
         "example": [
             "quote 433598802809585667",
-            "quote set 433598802809585667 something I should remember",
-            "quote remove something I should remember",
+            "quote create 433598802809585667 something I should remember",
+            "quote delete something I should remember",
             "quote list"
         ]
     },
