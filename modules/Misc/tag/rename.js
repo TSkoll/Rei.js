@@ -5,7 +5,7 @@ module.exports = async function(msg, args) {
         throw 'Not enough arguments!';
 
     const rows = 
-        (await db.raw('tags')
+        (await db.table('tags')
         .where({ 'userid': msg.author.id })
         .andWhere(builder => {
             builder.where({'name': args[1]}).orWhere({ 'name': args[2] })

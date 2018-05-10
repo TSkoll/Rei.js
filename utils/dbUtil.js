@@ -87,7 +87,7 @@ class dbUtil {
         }
     }
 
-    static raw(table) {
+    static table(table) {
         return knex(table);
     }
 }
