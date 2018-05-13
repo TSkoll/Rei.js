@@ -32,8 +32,9 @@ class Color extends Command {
                     await random(msg, menusOpen);
                     menusOpen.push(msg.author.id);
                     break;
-                case null:
+                case 'remove':
                     await remove(msg);
+                    await super.sendBasicSuccess(msg, "Color removed!");
                     break;
                 default:
                     await hex(msg, args);

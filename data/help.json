@@ -132,16 +132,18 @@
     },
 
     "color": {
-        "description": "Sets your color to a specified hex value or opens a helper menu.\nWithout arguments, removes the current color.",
+        "description": "Sets your color to a specified hex value or opens a helper menu.",
         "args": {
             "Hex": "A hex color. Choose your favorite color from https://htmlcolorcodes.com/color-picker/",
+            "\"Remove\"": "Removes your current color.",
             "\"Avatar\"": "Opens a menu with color suggestions based on your current avatar.",
             "\"Random\"": "Opens a menu with random color suggestions."
         },
-        "usage": "color {hex|\"avatar\"|\"random\"}",
+        "usage": "color [hex|\"avatar\"|\"random\"]",
         "example": [
             "color #FF0060",
             "color FF0060",
+            "color remove",
             "color avatar",
             "color random"
         ]
