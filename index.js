@@ -11,7 +11,7 @@ let config = { };
 try {
     config = require('./data/config.json');
 } catch (err) {
-    config = { token: "", ownerId: "", defaultPrefix: "$" }
+    config = { token: "", ownerId: "", defaultPrefix: "$", saucenaoKey: "" }
 
     // Create files
     fs.mkdirSync('./data/');
@@ -29,9 +29,12 @@ statTracker = new statTracker();
 let prefixHandler = require('./msgHandler/prefixHandler.js');
 prefixHandler = new prefixHandler();
 
+const saucenaoKey = config.saucenaoKey;
+
 const cmdPass = {
     prefixHandler,
-    statTracker
+    statTracker,
+    saucenaoKey
 }
 
 // Initialize message handler
