@@ -203,5 +203,13 @@
         "example": [
             "colorme"
         ]
+    },
+
+    "source": {
+        "descriptions": "Looks up the source for the newest image in the channel within the last 10 messages.",
+        "usage": "source",
+        "example": [
+            "source"
+        ]
     }
 }
