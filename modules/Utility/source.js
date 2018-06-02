@@ -56,6 +56,44 @@ class Source extends Command {
     }
 }
 
+async function getSauce(filename, buffer, saucenaoKey) {
+    const form = new FormData();
+
+    form.append('output_type', 2);
+    form.append('api_key', saucenaoKey);
+    
+    const t = fileType(buffer);
+
+    form.append('file', buffer, {
+        filename: 'file.' + t.ext,
+        contentType: t.mime
+    });
+
+    const resp = await new Promise((resolve, reject) => {
+        form.submit('https://saucenao.com/search.php', (err, res) => {
+            if (err)
+                reject(err);
+            else
+                resolve(res);
+        })
+    });
+
+    let json;
+    try {
+        resp.body = '';
+        resp.setEncoding('utf8');
+        resp.on('data', c => resp.body += c);
+
+        await new Promise(e => resp.on('end', e));
+
+        json = JSON.parse(resp.body);
+    } catch (err) {
+        throw resp;
+    }
+
+    return json;
+}
+
 function sortSauce(json) {
     const results = json.results;
 
