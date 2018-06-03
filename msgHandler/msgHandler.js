@@ -29,6 +29,9 @@ class msgHandler {
             const cmd = (message.content.indexOf(' ') > 0) ? message.content.substring(prefix.length, message.content.indexOf(' ')) : message.content.substring(prefix.length);
             const argString = (message.content.indexOf(' ') > 0) ? message.content.substring(message.content.indexOf(' ') + 1) : null;
 
+            // Have perfix stored in message
+            message.prefix = prefix;
+
             try {
                 await this.cmdHandler.run(message, cmd, argString);
             } catch (err) {
