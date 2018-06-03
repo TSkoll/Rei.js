@@ -146,6 +146,9 @@
             "color remove",
             "color avatar",
             "color random"
+        ],
+        "aliases": [
+            "colorme"
         ]
     },
 

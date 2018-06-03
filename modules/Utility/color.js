@@ -13,6 +13,7 @@ class Color extends Command {
         super({
             args: 1,
             disallowDM: true,
+            aliases: [ 'colorme' ],
             rateLimit: 15000 // 15 second cooldown
         });
     }
