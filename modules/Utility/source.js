@@ -10,6 +10,7 @@ class Source extends Command {
         super({
             args: 0,
             disallowDM: true,
+            aliases: [ 'sauce' ],
             rateLimit: 30000 // 30s cooldown
         });
 

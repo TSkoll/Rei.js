@@ -34,10 +34,10 @@ class Help extends Command {
         }
 
         let embed = new Discord.RichEmbed()
-        .setColor('BLUE')
+        .setColor('BLUE')   
         .setTitle(args.toLowerCase())
         .setDescription(cmd.description)
-        .setFooter(cmd.usage);
+        .setFooter(msg.prefix + cmd.usage);
 
         if (cmd.args) {
             // If arguments have been found, build it into the embed
@@ -50,7 +50,7 @@ class Help extends Command {
 
             let examples = "";
             for (let i = 0; i < cmd.example.length; i++) {
-                examples += '\n' + cmd.example[i];
+                examples += '\n' + msg.prefix + cmd.example[i];
             }
 
             embed.addField('arguments', args);
