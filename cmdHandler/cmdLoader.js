@@ -18,6 +18,12 @@ class Loader {
 
                     const cmd = new cmdObj(cmdPass);
                     commandRet[cmd.constructor.name.toLowerCase()] = cmd;
+
+                    if (cmd.aliases) {
+                        for (let k = 0; k < cmd.aliases.length; k++) {
+                            commandRet[cmd.aliases[k].toLowerCase()] = cmd;
+                        }
+                    }
                 }
             }
 

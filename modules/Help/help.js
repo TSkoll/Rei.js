@@ -57,6 +57,10 @@ class Help extends Command {
             embed.addField('examples', examples);
         }
 
+        if (cmd.aliases) {
+            embed.addField('aliases', cmd.aliases.join(', '));
+        }
+
         await super.sendEmbed(msg, embed);
     }
 }

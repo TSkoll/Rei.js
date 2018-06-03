@@ -19,6 +19,7 @@ class Command {
         this.guildOwner = (info && info.hasOwnProperty('guildOwner'))   ? info.guildOwner   : false;
         this.cost = (info && info.hasOwnProperty('cost'))               ? info.cost         : false;
         this.disallowDM = (info && info.hasOwnProperty('disallowDM'))   ? info.disallowDM   : false;
+        this.aliases = (info && info.hasOwnProperty('aliases'))         ? info.aliases      : null;
         this.rateLimit = (info && info.hasOwnProperty('rateLimit'))     ? info.rateLimit    : 0; //IN MILLISECONDS!
 
         /* When command was executed and by whom? */
