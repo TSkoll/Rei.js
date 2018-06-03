@@ -29,35 +29,50 @@ class Source extends Command {
 
                // Height does not exist unless attachment is an image
                if (img.height) {
-                   const buf = await request.get({ url: img.url, encoding: 'binary' });
+                    const buf = await request.get({ url: img.url, encoding: 'binary' });
+                    const rawSauce = await getSauce(Buffer.from(buf, 'binary'), this.saucenaoKey);
+                    const sortedSauce = sortSauce(rawSauce);
+                
+                    await super.sendEmbed(msg, embedify(sortedSauce));
+                    return;
+                } 
+            } else if (message.embeds.length > 0) {
+                const e = message.embeds[0];
+                const embedImageUrl = e.url || (e.image && e.image.url)
 
-                   const rawSauce = await getSauce(img.filename, Buffer.from(buf, 'binary'), this.saucenaoKey);
-                   const sortedSauce = sortSauce(rawSauce);
+                if (embedImageUrl) {
+                    const buf = await request.get({ url: embedImageUrl, encoding: 'binary' });
+                    const rawSauce = await getSauce(Buffer.from(buf, 'binary'), this.saucenaoKey);
+                    const sortedSauce = sortSauce(rawSauce);
 
-                    let desc = `**#1: ${textify(sortedSauce[0])}**\n\n`;
-
-                    for (let j = 1; j < sortedSauce.length; j++) {
-                        desc += `#${j + 1} ${textify(sortedSauce[j])}\n\n`;
-                    }
-
-                   let retMsg = new Discord.RichEmbed()
-                   .setColor('BLUE')
-                   .setThumbnail(sortedSauce[0].thumbnailURL)
-                   .setTitle(`Found ${sortedSauce.length} matches!`)
-                   .setDescription(desc)
-                   .setFooter('Powered by saucenao');
-
-                   await super.sendEmbed(msg, retMsg);
-                   return;
-               }
-           }
+                    await super.sendEmbed(msg, embedify(sortedSauce));
+                    return;
+                }
+            }
         }
 
         await super.sendBasicError(msg, 'I couldn\'t find images in the last 10 messages!');
     }
 }
 
-async function getSauce(filename, buffer, saucenaoKey) {
+function embedify(sortedSauce) {
+    let desc = `**#1: ${textify(sortedSauce[0])}**\n\n`;
+
+    for (let j = 1; j < sortedSauce.length; j++) {
+        desc += `#${j + 1} ${textify(sortedSauce[j])}\n\n`;
+    }
+
+    let retMsg = new Discord.RichEmbed()
+    .setColor('BLUE')
+    .setThumbnail(sortedSauce[0].thumbnailURL)
+    .setTitle(`Found ${sortedSauce.length} matches!`)
+    .setDescription(desc)
+    .setFooter('Powered by saucenao');
+
+    return retMsg;
+}
+
+async function getSauce(buffer, saucenaoKey) {
     const form = new FormData();
 
     form.append('output_type', 2);
@@ -110,8 +125,8 @@ function sortSauce(json) {
         const thumbnailURL = h.thumbnail;
 
         // Title prioritisation
-        const title = (d.title) ? d.title : ((d.jp_name) ? d.jp_name : ((d.source) ? d.source : null));
-        const creator = (d.creator) ? ((d.creator instanceof Array) ? d.creator[0] : ((d.creator.length > 0) ? d.creator : null)) : ((d.member_name) ? d.member_name : ((d.author_name) ? d.author_name : null)); 
+        const title = d.title || d.jp_name || d.source;
+        const creator = (d.creator instanceof Array && d.creator[0]) || d.creator || d.member_name || d.author_name
 
         const sim = Number(h.similarity);
 
