@@ -197,14 +197,6 @@
         ]
     },
 
-    "colorme": {
-        "description": "Reminds people of the relic from the past.\nSeriously though, just use `color`.",
-        "usage": "colorme",
-        "example": [
-            "colorme"
-        ]
-    },
-
     "source": {
         "description": "Looks up the source for the newest image in the channel within the last 10 messages.",
         "usage": "source",
