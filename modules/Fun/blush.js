@@ -26,12 +26,12 @@ class Blush extends Command {
 
     async run(bot, msg, args) {
         const blush = blushes[Math.floor(Math.random() * blushes.length)];
-        const user = msg.mentions.members.first();
+        const member = msg.mentions.members.first();
 
-        if (user) {
+        if (member) {
             await super.sendEmbed(msg, new Discord.RichEmbed()
             .setColor('#F9CCCA')
-            .setDescription(`Awwwww, you shouldn't have **${user.user.username}#${user.user.discriminator}**!`)
+            .setDescription(`Awwwww, you shouldn't have **${member.user.username}#${member.user.discriminator}**!`)
             .setImage(blush));
         } else {
             await super.sendEmbed(msg, new Discord.RichEmbed()

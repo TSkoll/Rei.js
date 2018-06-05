@@ -40,12 +40,12 @@ class Pat extends Command {
 
     async run(bot, msg, args) {
         const pat = Pats[Math.floor(Math.random() * Pats.length)];
-        const user = msg.mentions.members.first();
+        const member = msg.mentions.members.first();
 
-        if (user) {
+        if (member) {
             await super.sendEmbed(msg, new Discord.RichEmbed()
             .setColor('#FF69B4')
-            .setDescription(`**${msg.author.username}#${msg.author.discriminator}** has patted **${user.user.username}#${user.user.discriminator}**`)
+            .setDescription(`**${msg.author.username}#${msg.author.discriminator}** has patted **${member.user.username}#${member.user.discriminator}**`)
             .setImage(pat));
         } else {
             await super.sendEmbed(msg, new Discord.RichEmbed()

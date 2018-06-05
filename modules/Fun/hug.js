@@ -43,12 +43,12 @@ class Hug extends Command {
 
     async run(bot, msg, args) {
         const hug = hugs[Math.floor(Math.random() * hugs.length)];
-        const user = msg.mentions.members.first();
+        const member = msg.mentions.members.first();
 
-        if (user) {
+        if (member) {
             await super.sendEmbed(msg, new Discord.RichEmbed()
             .setColor('#FF69B4')
-            .setDescription(`**${msg.author.username}#${msg.author.discriminator}** has hugged **${user.user.username}#${user.user.discriminator}**`)
+            .setDescription(`**${msg.author.username}#${msg.author.discriminator}** has hugged **${member.user.username}#${member.user.discriminator}**`)
             .setImage(hug));
         } else {
             await super.sendEmbed(msg, new Discord.RichEmbed()
