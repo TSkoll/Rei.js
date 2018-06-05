@@ -5,6 +5,7 @@ const avatar = require('./color/avatar.js');
 const hex = require('./color/hex.js');
 const random = require('./color/random.js');
 const remove = require('./color/remove.js');
+const history = require('./color/history.js');
 
 let menusOpen = [];
 
@@ -37,6 +38,9 @@ class Color extends Command {
                 case 'clear':
                     await remove(msg);
                     await super.sendBasicSuccess(msg, "Color removed!");
+                    break;
+                case 'history':
+                    await history(msg);
                     break;
                 default:
                     await hex(msg, args);

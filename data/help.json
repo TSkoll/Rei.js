@@ -137,15 +137,17 @@
             "Hex": "A hex color. Choose your favorite color from https://htmlcolorcodes.com/color-picker/",
             "\"Remove\"": "Removes your current color. Alias: \"clear\"",
             "\"Avatar\"": "Opens a menu with color suggestions based on your current avatar.",
-            "\"Random\"": "Opens a menu with random color suggestions."
+            "\"Random\"": "Opens a menu with random color suggestions.",
+            "\"History\"": "Pastes hex color codes that you've used before."
         },
-        "usage": "color [hex|\"avatar\"|\"random\"|[\"remove\"|\"clear\"]]",
+        "usage": "color [hex|\"avatar\"|\"random\"|[\"remove\"|\"clear\"]|\"history\"]",
         "example": [
             "color #FF0060",
             "color FF0060",
             "color remove",
             "color avatar",
-            "color random"
+            "color random",
+            "color history"
         ],
         "aliases": [
             "colorme"

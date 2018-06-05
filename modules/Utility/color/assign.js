@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const validator = require('validator');
 
+const db = require('../../../utils/dbUtil.js');
+
 module.exports = async function(msg, cr) {
     // Server
     const serverColorRoles = msg.member.guild.roles.filter(x => x.name[0] == '#');
@@ -63,6 +65,8 @@ async function assignColorToUser(msg, r = null) {
 }
 
 async function handleOldColor(msg, r) {
+    await addColorToHistory(msg.author.id, r.name);
+
     /*  Check if we want to remove the role after a second to make sure everything is synced up.
         Will not delete the role if a user assigns the same color to themselves. */
     await setTimeout(async () => {
@@ -70,4 +74,11 @@ async function handleOldColor(msg, r) {
             await r.delete();
         }
     }, 1000);
+}
+
+async function addColorToHistory(userid, cr) {
+    await db.addData('colorhistory', {
+        userid,
+        color: cr
+    });
 }
