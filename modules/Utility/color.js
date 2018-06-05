@@ -34,6 +34,7 @@ class Color extends Command {
                     menusOpen.push(msg.author.id);
                     break;
                 case 'remove':
+                case 'clear':
                     await remove(msg);
                     await super.sendBasicSuccess(msg, "Color removed!");
                     break;
