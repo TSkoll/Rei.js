@@ -4,6 +4,7 @@ const set = require('./tag/set.js');
 const remove = require('./tag/remove.js');
 const list = require('./tag/list.js');
 const tag = require('./tag/tag.js');
+const rename = require('./tag/rename.js');
 
 class Tag extends Command {
     constructor() {
@@ -30,9 +31,16 @@ class Tag extends Command {
                 break;
             case 'list':
                 await list(msg, args);
+
+                break;
+            case 'rename':
+                await rename(msg, args);
+                await super.sendBasicSuccess(msg, 'Tag renamed!');
+
                 break;
             default:
                 await tag(msg, args);
+                
                 break;
         }
     }

@@ -86,5 +86,9 @@ class dbUtil {
             throw err;
         }
     }
+
+    static table(table) {
+        return knex(table);
+    }
 }
 module.exports = dbUtil;

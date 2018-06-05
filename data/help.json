@@ -165,7 +165,7 @@
     "tag": {
         "description": "Use and manage dummy commands.",
         "args": {
-            "Subcommand": "\"Create\": Requires name and content. Create's a new tag you can use on any server.\n\"Delete\": Requires name, removes tag you've created.\n\"List\": lists all tags you've created.",
+            "Subcommand": "\"Create\": Requires name and content. Create's a new tag you can use on any server.\n\"Delete\": Requires name, removes tag you've created.\n\"List\": lists all tags you've created.\n\"Rename\": Requires name and content (i.e. new name). Renames an existing tag",
             "Name": "Name of the tag. Used to call the tags you've created.",
             "Content": "Content shown when tag has been run. Can include text and an image."
         },
@@ -174,7 +174,8 @@
             "tag create MyAwesomeTag My even more awesome tag content!",
             "tag MyAwesomeTag",
             "tag delete MyAwesomeTag",
-            "tag list"
+            "tag list",
+            "tag rename MyAwsomeTag MyAwesomeTag"
         ]
     },
 
