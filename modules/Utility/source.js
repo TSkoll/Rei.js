@@ -8,8 +8,8 @@ class Source extends Command {
         super({
             args: 0,
             disallowDM: true,
-            aliases: [ 'sauce' ]
-            //rateLimit: 30000 // 30s cooldown
+            aliases: [ 'sauce' ],
+            rateLimit: 30000 // 30s cooldown
         });
 
         this.saucenaoKey = cmdPass.saucenaoKey;
