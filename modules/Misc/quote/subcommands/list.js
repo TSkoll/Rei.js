@@ -8,18 +8,31 @@ module.exports = async function(msg, args) {
         throw 'I can\'t find any quotes for this guild';
 
    let embed = new Discord.RichEmbed()
-   .setTitle(`There are ${rows.length} quotes saved on this server!`)
    .setColor('BLUE');
 
     let description = '';
+    let realFinds = 0;
+
     for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
-        const userName = msg.guild.members.get(row.userid).user.tag;
-        const isNsfw = msg.guild.channels.get(row.channelid).nsfw;
+        const channel = msg.guild.channels.get(row.channelid);
+        const member = msg.guild.members.get(row.userid);
 
-        description += `${userName}: **${row.name}** ${(isNsfw) ? '*(NSFW)*' : ''}\n`;
+        // Ignore deleted channels
+        if (channel) {
+            const userName = (member && member.user.tag) || row.userid;
+            const isNsfw = channel.nsfw;
+    
+            description += `${userName}: **${row.name}** ${(isNsfw) ? '*(NSFW)*' : ''}\n`;
+            realFinds++;
+        }
     }
-    embed.setDescription(description);
+
+    if (realFinds < 1)
+        throw 'I can\'t find any quotes for this guild';
+
+    embed.setTitle(`There ${((realFinds == 1) ? 'is 1 quote' : 'are ' + realFinds + ' quotes')} saved on this server!`)
+    .setDescription(description);
 
    await msg.channel.send(embed);
 }
