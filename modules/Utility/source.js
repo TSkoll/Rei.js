@@ -1,8 +1,6 @@
 const Command = require('../../Types/command.js');
 const Discord = require('discord.js');
 
-const fileType = require('file-type');
-const request = require('request-promise-native');
 const FormData = require('form-data');
 
 class Source extends Command {
@@ -10,8 +8,8 @@ class Source extends Command {
         super({
             args: 0,
             disallowDM: true,
-            aliases: [ 'sauce' ],
-            rateLimit: 30000 // 30s cooldown
+            aliases: [ 'sauce' ]
+            //rateLimit: 30000 // 30s cooldown
         });
 
         this.saucenaoKey = cmdPass.saucenaoKey;
@@ -29,8 +27,7 @@ class Source extends Command {
 
                // Height does not exist unless attachment is an image
                if (img.height) {
-                    const buf = await request.get({ url: img.url, encoding: 'binary' });
-                    const rawSauce = await getSauce(Buffer.from(buf, 'binary'), this.saucenaoKey);
+                    const rawSauce = await getSauce(img.url, this.saucenaoKey);
                     const sortedSauce = sortSauce(rawSauce);
                 
                     await super.sendEmbed(msg, embedify(sortedSauce));
@@ -38,11 +35,10 @@ class Source extends Command {
                 } 
             } else if (message.embeds.length > 0) {
                 const e = message.embeds[0];
-                const embedImageUrl = e.url || (e.image && e.image.url)
+                const imageURL =  (e.thumbnail && e.thumbnail.url) || e.url || (e.image && e.image.url)
 
-                if (embedImageUrl) {
-                    const buf = await request.get({ url: embedImageUrl, encoding: 'binary' });
-                    const rawSauce = await getSauce(Buffer.from(buf, 'binary'), this.saucenaoKey);
+                if (imageURL) {
+                    const rawSauce = await getSauce(imageURL, this.saucenaoKey);
                     const sortedSauce = sortSauce(rawSauce);
 
                     await super.sendEmbed(msg, embedify(sortedSauce));
@@ -72,19 +68,13 @@ function embedify(sortedSauce) {
     return retMsg;
 }
 
-async function getSauce(buffer, saucenaoKey) {
+async function getSauce(url, saucenaoKey) {
     const form = new FormData();
 
     form.append('output_type', 2);
     form.append('api_key', saucenaoKey);
-    
-    const t = fileType(buffer);
 
-    form.append('file', buffer, {
-        filename: 'file.' + t.ext,
-        contentType: t.mime
-    });
-
+    form.append('url', url);
     const resp = await new Promise((resolve, reject) => {
         form.submit('https://saucenao.com/search.php', (err, res) => {
             if (err)
@@ -104,7 +94,7 @@ async function getSauce(buffer, saucenaoKey) {
 
         json = JSON.parse(resp.body);
     } catch (err) {
-        throw resp;
+        throw 'Saucenao API returned an error!';
     }
 
     return json;
