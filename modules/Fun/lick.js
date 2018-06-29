@@ -12,6 +12,7 @@ const licks = [
     'https://i.imgur.com/xt3aS.gif',
     'https://i.imgur.com/5tTmSv3.gif',
     'https://i.imgur.com/qUYHuO7.gif',
+    'https://i.imgur.com/8HLMJk2.gif'
 ]
 
 class Lick extends Command {
