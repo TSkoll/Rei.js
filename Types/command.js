@@ -19,6 +19,7 @@ class Command {
         this.guildOwner = (info && info.hasOwnProperty('guildOwner'))   ? info.guildOwner   : false;
         this.cost = (info && info.hasOwnProperty('cost'))               ? info.cost         : false;
         this.disallowDM = (info && info.hasOwnProperty('disallowDM'))   ? info.disallowDM   : false;
+        this.nsfw = (info && info.hasOwnProperty('nsfw'))               ? info.nsfw         : false;
         this.aliases = (info && info.hasOwnProperty('aliases'))         ? info.aliases      : null;
         this.rateLimit = (info && info.hasOwnProperty('rateLimit'))     ? info.rateLimit    : 0; //IN MILLISECONDS!
 
@@ -31,6 +32,9 @@ class Command {
         // Throw if any check doesn't go through
         if (this.ownerOnly && !this.checkOwnerOnly(msg))
             throw 'You\'re not my master!';
+
+        if (this.nsfw && msg.guild && this.channelIsNSFW(msg))
+            throw 'This command cannot be used outside NSFW channels!'
 
         if (this.userPerms && msg.guild && !this.checkUserPerms(msg))
             throw 'You don\'t have enough permissions to run this command!';
@@ -102,6 +106,10 @@ class Command {
 
     isInDM(msg) {
         return msg.channel.type == 'dm';
+    }
+
+    channelIsNSFW(msg) {
+        return !msg.channel.nsfw
     }
 
     checkCooldown(msg) {
