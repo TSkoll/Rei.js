@@ -29,7 +29,7 @@ class Hentai extends Command {
 }
 module.exports = Hentai;
 
-async function getLewd(api, tags, lewdlevel = 'questionable') {
+async function getLewd(api, tags, lewdlevel = 'explicit') {
     let uri = `${api}?tags=rating:${lewdlevel}+order:random`;
 
     if (tags)
