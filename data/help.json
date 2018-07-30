@@ -211,5 +211,17 @@
         "aliases": [
             "sauce"
         ]
+    },
+
+    "hentai": {
+        "description": "Searches a lewd picture from boorus. Add booru tags to limit search.\n**Currently limited to questionable rating images!**\n**Only usable in NSFW channels!**",
+        "args": {
+            "tag": "Tag to limit the given search, replace spaces with underscore when searching: Azur Lane -> azur_lane."
+        },
+        "usage": "hentai {tags}",
+        "example": [
+            "hentai",
+            "hentai wet"
+        ]
     }
 }
