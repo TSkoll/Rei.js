@@ -21,6 +21,8 @@ class Buildhentai extends Command {
             buildKona(),
             buildYande()
         ]);
+
+        await super.sendBasicSuccess('Successfully built hentai tag table!');
     }
 }
 module.exports = Buildhentai;
