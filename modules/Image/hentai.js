@@ -66,7 +66,7 @@ async function sendLewd(msg, lewd) {
         .setColor('RANDOM')
         .setImage(lewd.file_url));
     else
-        throw 'Couldn\'t find any lewds with this tag combination! This could be due to the tag being misstyped or you having too fine of a taste!'
+        throw 'Couldn\'t find any lewds with this tag combination! This could be due to the tag being mistyped or you having too fine of a taste!'
 }
 
 async function getLewd(api, tags) {
