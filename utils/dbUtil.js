@@ -86,5 +86,14 @@ class dbUtil {
             throw err;
         }
     }
+
+    static async query(query) {
+        try {
+            const ret = await knex.raw(query);
+            return ret
+        } catch (err) {
+            throw err;
+        }
+    }
 }
 module.exports = dbUtil;
