@@ -23,14 +23,37 @@ class Hentai extends Command {
             let rows = await db.getRows('hentaitags', { "tagname": args })
 
             if (rows.length > 0) {
-                const lewd = await getLewd(apis[rows[Math.floor(Math.random() * rows.length)].serviceid], args, null);
+                const ind = Math.floor(Math.random() * rows.length);
+                const row = rows[ind];
+
+                let lewd = await getLewd(apis[row.serviceid], args, null);
+
+                if (!lewd) {
+                    // Api had a tag which had empty content, make sure to remove that from local database and try other services
+                    // for backup
+                    await db.deleteRows('hentaitags', { id: row.id })
+                    console.log('Removed empty content tag ' + row.tagname + ' for service ' + apis[row.serviceid]);
+
+                    let newArr = apis.slice(0);
+                    newArr.splice(row.serviceid, 1);
+
+                    for (let i = 0; i < newArr.length; i++) {
+                        let api = newArr[i];
+                        
+                        lewd = await getLewd(api, args)
+
+                        if (lewd)
+                            break;
+                    }
+                }
+
                 await sendLewd(msg, lewd);
             } else {
-                const lewd = await getLewd(apis[Math.floor(Math.random() * apis.length)], args, null);
+                const lewd = await getLewd(apis[Math.floor(Math.random() * apis.length)], args);
                 await sendLewd(msg, lewd);
             }
         } else {
-            const lewd = await getLewd(apis[Math.floor(Math.random() * apis.length)], null);
+            const lewd = await getLewd(apis[Math.floor(Math.random() * apis.length)]);
             await sendLewd(msg, lewd);
         }
     }
@@ -46,8 +69,8 @@ async function sendLewd(msg, lewd) {
         throw 'Couldn\'t find any lewds with this tag combination! This could be due to the tag being misstyped or you having too fine of a taste!'
 }
 
-async function getLewd(api, tags, lewdlevel = 'explicit') {
-    let uri = `${api}?tags=rating:${lewdlevel}+order:random`;
+async function getLewd(api, tags) {
+    let uri = `${api}?tags=rating:e+order:random`;
 
     if (tags)
         uri += `+${tags}`;
