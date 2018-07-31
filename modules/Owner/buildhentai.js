@@ -22,7 +22,7 @@ class Buildhentai extends Command {
             buildYande()
         ]);
 
-        await super.sendBasicSuccess('Successfully built hentai tag table!');
+        await super.sendBasicSuccess(msg, 'Successfully built hentai tag table!');
     }
 }
 module.exports = Buildhentai;
