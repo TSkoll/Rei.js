@@ -15,7 +15,7 @@ class ReactionCommand extends Command {
         if (mentionedUser)
             await super.sendEmbed(msg, new Discord.RichEmbed()
             .setColor('RANDOM')
-            .setDescription(reactMessage.replace('%target%', mentionedUser.username))
+            .setDescription(reactMessage.replace('%target%', mentionedUser.username)) 
             .setImage(reaction));
         else
             await super.sendEmbed(msg, new Discord.RichEmbed()
