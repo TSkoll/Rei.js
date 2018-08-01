@@ -8,13 +8,12 @@ class Help extends Command {
             ignoreMin: false
         });
 
-        this.helpTexts = require('../../data/help.json');
+        this.helpTexts = generateCompleteHelp(require('../../data/help.json'));
     }
 
     async run(bot, msg, args) {
         if (args == null) {
             // Send the generic response
-
             if (msg.channel.type != 'dm') {
                 msg.author.send(generateGenericResponse(this.helpTexts, bot.user.username));
                 await super.sendBasicSuccess(msg, 'Sent a DM!');
@@ -86,4 +85,22 @@ function generateGenericResponse(helpTexts, name) {
 
     ret += '\n\nYou can do `!help (command)` to get more information about the specific command.'
     return ret;
+}
+
+function generateCompleteHelp(helpObjects) {
+    const keys = Object.keys(helpObjects);
+
+    for (let i = 0; i < keys.length; i++) {
+        let key = keys[i];
+        let helpObj = helpObjects[key];
+
+        if (helpObj.aliases) {
+            for (let j = 0; j < helpObj.aliases.length; j++) {
+                let alias = helpObj.aliases[j];
+                helpObjects[alias] = helpObj;
+            }
+        }
+    }
+
+    return helpObjects;
 }
