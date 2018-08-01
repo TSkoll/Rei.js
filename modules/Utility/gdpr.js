@@ -13,7 +13,7 @@ class GDPR extends Command {
         const rows = await db.getRows('colorhistory', { 'userid': userid })
         const crh = rows.map(r => r.color);
 
-        super.sendBasicSuccess(msg, 'Following information is stored about you:\nColor history:\n' + crh.join('\n'));
+        super.sendBasicSuccess(msg, 'Following information is stored about you (other than tags and quotes you\'ve created):\nColor history:\n' + crh.join('\n'));
     }
 }
 module.exports = GDPR;
