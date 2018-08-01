@@ -1,5 +1,5 @@
-const Command = require('../../Types/command.js');
-const Discord = require('discord.js');
+const ReactionCommand = require('./reactioncommand');
+
 const hugs = [
     'https://i.imgur.com/16daUkb.gif',
     'https://i.imgur.com/HMJzcgl.gif',
@@ -36,25 +36,13 @@ const hugs = [
     'https://i.imgur.com/Jku7S9D.gif'
 ]
 
-class Hug extends Command {
+class Hug extends ReactionCommand {
     constructor() {
-        super();
+        super(hugs);
     }
 
     async run(bot, msg, args) {
-        const hug = hugs[Math.floor(Math.random() * hugs.length)];
-        const member = msg.mentions.members.first();
-
-        if (member) {
-            await super.sendEmbed(msg, new Discord.RichEmbed()
-            .setColor('#FF69B4')
-            .setDescription(`**${msg.author.username}#${msg.author.discriminator}** has hugged **${member.user.username}#${member.user.discriminator}**`)
-            .setImage(hug));
-        } else {
-            await super.sendEmbed(msg, new Discord.RichEmbed()
-            .setColor('#FF69B4')
-            .setImage(hug));
-        }
+        await super.sendReaction(msg, `**${msg.author.username}** hugs **%target%**!`);
     }
 }
 module.exports = Hug;

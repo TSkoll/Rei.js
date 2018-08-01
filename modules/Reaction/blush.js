@@ -1,5 +1,4 @@
-const Command = require('../../Types/command.js');
-const Discord = require('discord.js');
+const ReactionCommand = require('./reactioncommand');
 
 const blushes = [
     'https://i.imgur.com/h5HYmF1.gif',
@@ -25,25 +24,13 @@ const blushes = [
     'https://i.imgur.com/3pXSb0M.gif'
 ]
 
-class Blush extends Command {
+class Blush extends ReactionCommand {
     constructor() {
-        super();
+        super(blushes);
      }
 
     async run(bot, msg, args) {
-        const blush = blushes[Math.floor(Math.random() * blushes.length)];
-        const member = msg.mentions.members.first();
-
-        if (member) {
-            await super.sendEmbed(msg, new Discord.RichEmbed()
-            .setColor('#F9CCCA')
-            .setDescription(`Awwwww, you shouldn't have **${member.user.username}#${member.user.discriminator}**!`)
-            .setImage(blush));
-        } else {
-            await super.sendEmbed(msg, new Discord.RichEmbed()
-            .setColor('#F9CCCA')
-            .setImage(blush));
-        }
+        await super.sendReaction(msg, 'Aww you shouldn\'t have **%target%**!');
     }
 }
 module.exports = Blush;

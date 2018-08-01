@@ -1,6 +1,6 @@
-const Command = require('../../Types/command.js');
-const Discord = require('discord.js');
-const Pats = [
+const ReactionCommand = require('./reactioncommand');
+
+const pats = [
     'https://i.imgur.com/FoKYpLO.gif',
     'https://i.imgur.com/cDEudw8.gif',
     'https://i.imgur.com/iQba6l1.gif',
@@ -33,25 +33,13 @@ const Pats = [
 ]
 
 
-class Pat extends Command {
+class Pat extends ReactionCommand {
     constructor() {
-        super();
+        super(pats);
     }
 
     async run(bot, msg, args) {
-        const pat = Pats[Math.floor(Math.random() * Pats.length)];
-        const member = msg.mentions.members.first();
-
-        if (member) {
-            await super.sendEmbed(msg, new Discord.RichEmbed()
-            .setColor('#FF69B4')
-            .setDescription(`**${msg.author.username}#${msg.author.discriminator}** has patted **${member.user.username}#${member.user.discriminator}**`)
-            .setImage(pat));
-        } else {
-            await super.sendEmbed(msg, new Discord.RichEmbed()
-            .setColor('#FF69B4')
-            .setImage(pat));
-        }
+        await super.sendReaction(msg, `**${msg.author.username}** pats **%target%**!`)
     }
 }
 module.exports = Pat;
