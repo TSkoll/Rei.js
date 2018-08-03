@@ -15,13 +15,18 @@ class Color extends Command {
             args: 1,
             disallowDM: true,
             aliases: [ 'colorme' ],
-            rateLimit: 15000 // 15 second cooldown
+            rateLimit: 5000 // 5 second cooldown
         });
     }
 
     async run(bot, msg, args) {
         if (menusOpen.includes(msg.author.id))
             throw 'You can\'t use this command while you have a color menu open!';
+
+        if (!args) {
+            super.sendBasicSuccess(msg, 'Possible submenus:\n-avatar\n-random\n-remove\n-history')
+            return;
+        }
 
         // Possible choices
         try { 

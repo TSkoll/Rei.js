@@ -79,6 +79,8 @@ function generateGenericResponse(helpTexts, name) {
         if (cmd.hideFromHelp)
             continue;
 
+        if (cmd.aliases && cmd.aliases.includes(keys[i]))
+            continue;
 
         ret += '\n' + keys[i];
     }
