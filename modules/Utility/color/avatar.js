@@ -1,5 +1,4 @@
 const vibrant = require('node-vibrant');
-const request = require('request-promise-native');
 const Discord = require('discord.js');
 
 const generateImage = require('./image/image.js');
@@ -10,13 +9,11 @@ module.exports = async function(msg, menusOpen) {
     // User avatar url in png format
     const url = msg.author.displayAvatarURL.substr(0, msg.author.displayAvatarURL.lastIndexOf('.'));
 
-    let img = await request.get({url: url, encoding: 'binary'});
+    const vBuilder = new vibrant.Builder(url, {
+        colorCount: 128
+    });
 
-    // Generate swatches from image buffer
-    const swatches = await vibrant.from(Buffer.from(img, 'binary')).getSwatches();
-
-    // flush img from memory
-    img = null;
+    const swatches = await vBuilder.getSwatches();
 
     // Go through swatches and select non-null colors
     let i = 0;
