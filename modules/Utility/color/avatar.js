@@ -10,7 +10,7 @@ module.exports = async function(msg, menusOpen) {
     const url = msg.author.displayAvatarURL.substr(0, msg.author.displayAvatarURL.lastIndexOf('.'));
 
     const vBuilder = new vibrant.Builder(url, {
-        colorCount: 128
+        colorCount: 64
     });
 
     const swatches = await vBuilder.getSwatches();
