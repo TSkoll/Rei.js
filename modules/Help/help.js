@@ -67,7 +67,8 @@ module.exports = Help;
 
 function generateGenericResponse(helpTexts, name) {
     let ret = 'Hi! I\'m ' + name + ' and I\'m here to help you!\n\n' 
-    + 'Invite: <https://discordapp.com/oauth2/authorize?client_id=280619682703212544&permissions=66186303&scope=bot>\n\n'
+    + 'Invite: <https://discordapp.com/oauth2/authorize?client_id=278819964851322880&scope=bot&permissions=2146958591>\n'
+    + 'Website: <https://rei.dkboat.xyz>\n\n'
     + 'Need help? Got ideas? Just want to hang out? Come over to The Order of Spoon!\nhttps://discord.gg/Qr89Wav\n\n'
     + '▼ Commands (Default prefix "!")';
 
