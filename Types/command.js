@@ -88,6 +88,9 @@ class Command {
     }
 
     searchUser(message, query) {
+        if (!query)
+            return null;
+
         const normalizedQuery = query.toLowerCase();
 
         if (message.mentions.members && message.mentions.members.size > 0)
