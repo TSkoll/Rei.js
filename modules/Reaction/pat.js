@@ -30,8 +30,7 @@ const pats = [
     'https://i.imgur.com/mFSuQ4x.gif',
     'https://i.imgur.com/ZoMkUic.gif',
     'https://i.imgur.com/OjWBGkW.gif'
-]
-
+];
 
 class Pat extends ReactionCommand {
     constructor() {

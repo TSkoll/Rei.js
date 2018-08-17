@@ -1,15 +1,14 @@
 const ReactionCommand = require('./reactioncommand');
 
-const eskimo = [
+const eskimos = [
     'https://i.imgur.com/5YhTwcd.gif',
     'https://i.imgur.com/giZdJTR.gif',
     'https://i.imgur.com/B1u7ErN.gif'
-]
-
+];
 
 class Eskimo extends ReactionCommand {
     constructor() {
-        super(eskimo);
+        super(eskimos);
     }
 
     async run(bot, msg, args) {

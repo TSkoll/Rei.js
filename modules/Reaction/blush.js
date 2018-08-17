@@ -22,7 +22,7 @@ const blushes = [
     'https://i.imgur.com/Zww1n0X.gif',
     'https://i.imgur.com/k52seSs.gif',
     'https://i.imgur.com/3pXSb0M.gif'
-]
+];
 
 class Blush extends ReactionCommand {
     constructor() {
