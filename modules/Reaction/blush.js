@@ -30,7 +30,7 @@ class Blush extends ReactionCommand {
      }
 
     async run(bot, msg, args) {
-        await super.sendReaction(msg, 'Aww you shouldn\'t have **%target%**!');
+        await super.sendReaction(msg, 'Aww you shouldn\'t have **%target%**!', args);
     }
 }
 module.exports = Blush;

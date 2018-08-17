@@ -87,6 +87,31 @@ class Command {
         }
     }
 
+    searchUser(message, query) {
+        const normalizedQuery = query.toLowerCase();
+
+        if (message.mentions.members && message.mentions.members.size > 0)
+            return message.mentions.members.first();
+
+        if (message.guild && message.guild.available)
+        {
+            // Prioritize usernames (or tags!) over nicknames
+
+            const foundUsername = message.guild.members.find(x => 
+                x.user.username.toLowerCase().includes(normalizedQuery) 
+                || x.user.tag.toLowerCase() === normalizedQuery);
+            if (foundUsername)
+                return foundUsername;
+
+            const foundNickname = message.guild.members.find(x => 
+                (x.nickname && x.nickname.toLowerCase().includes(normalizedQuery)));
+            if (foundNickname)
+                return foundNickname;
+        }
+
+        return null;
+    }
+
     /* Permission checking */
     checkOwnerOnly(msg) {
         return msg.author.id == ownerId;

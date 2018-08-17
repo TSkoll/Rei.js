@@ -8,14 +8,14 @@ class ReactionCommand extends Command {
         this.imgUrls = imageUrls;
     }
 
-    async sendReaction(msg, reactMessage) {
+    async sendReaction(msg, reactMessage, query) {
         const reaction = this.imgUrls[Math.floor(Math.random() * this.imgUrls.length)];
-        const mentionedUser = msg.mentions.users.first();
+        const mentionedUser = super.searchUser(msg, query);
         
         if (mentionedUser)
             await super.sendEmbed(msg, new Discord.RichEmbed()
             .setColor('RANDOM')
-            .setDescription(reactMessage.replace('%target%', mentionedUser.username)) 
+            .setDescription(reactMessage.replace('%target%', mentionedUser.user.username)) 
             .setImage(reaction));
         else
             await super.sendEmbed(msg, new Discord.RichEmbed()

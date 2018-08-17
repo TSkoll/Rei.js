@@ -42,7 +42,7 @@ class Hug extends ReactionCommand {
     }
 
     async run(bot, msg, args) {
-        await super.sendReaction(msg, `**${msg.author.username}** hugs **%target%**!`);
+        await super.sendReaction(msg, `**${msg.author.username}** hugs **%target%**!`, args);
     }
 }
 module.exports = Hug;

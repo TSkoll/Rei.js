@@ -21,7 +21,7 @@ class Lick extends ReactionCommand {
     }
 
     async run(bot, msg, args) {
-        await super.sendReaction(msg, `**${msg.author.username}** licks **%target%**!`)
+        await super.sendReaction(msg, `**${msg.author.username}** licks **%target%**!`, args)
     }
 }
 module.exports = Lick;

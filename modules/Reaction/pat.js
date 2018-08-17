@@ -39,7 +39,7 @@ class Pat extends ReactionCommand {
     }
 
     async run(bot, msg, args) {
-        await super.sendReaction(msg, `**${msg.author.username}** pats **%target%**!`)
+        await super.sendReaction(msg, `**${msg.author.username}** pats **%target%**!`, args)
     }
 }
 module.exports = Pat;
