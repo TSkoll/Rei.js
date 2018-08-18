@@ -12,7 +12,8 @@ const confuses = [
     'https://i.imgur.com/jFIFlO2.gif',
     'https://i.imgur.com/3s2fQ5S.gif',
     'https://i.imgur.com/XzDUOGe.gif',
-    'https://i.imgur.com/jYr7Kjk.gif'
+    'https://i.imgur.com/jYr7Kjk.gif',
+    'https://i.imgur.com/cg0Erfn.gif'
 ];
 
 class Confuse extends ReactionCommand {

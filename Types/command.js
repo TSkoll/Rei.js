@@ -102,7 +102,8 @@ class Command {
 
             const foundUsername = message.guild.members.find(x => 
                 x.user.username.toLowerCase().includes(normalizedQuery) 
-                || x.user.tag.toLowerCase() === normalizedQuery);
+                || x.user.tag.toLowerCase() === normalizedQuery
+                || x.id === normalizedQuery);
             if (foundUsername)
                 return foundUsername;
 
