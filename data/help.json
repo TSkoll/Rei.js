@@ -122,12 +122,12 @@
         ]
     },
 
-    "sleep": {
+    "close": {
         "hideFromHelp": true,
         "description": "Shuts the bot down.",
-        "usage": "sleep",
+        "usage": "close",
         "example": [
-            "sleep"
+            "close"
         ]
     },
 

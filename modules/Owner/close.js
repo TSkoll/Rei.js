@@ -1,7 +1,7 @@
 const Command = require('../../Types/command.js');
 const Discord = require('discord.js');
 
-class Sleep extends Command {
+class Close extends Command {
     constructor() {
         super({
             ownerOnly: true
@@ -17,4 +17,4 @@ class Sleep extends Command {
         process.exit();
     }
 }
-module.exports = Sleep;
+module.exports = Close;
