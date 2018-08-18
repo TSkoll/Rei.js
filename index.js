@@ -13,7 +13,6 @@ try {
 } catch (err) {
     config = { token: "", ownerId: "", defaultPrefix: "$", saucenaoKey: "" }
 
-    // Create files
     fs.mkdirSync('./data/');
     fs.writeFileSync('./data/config.json', JSON.stringify(config));
 
@@ -21,11 +20,10 @@ try {
     return 0;
 }
 
-// Initialize stat tracker
+
 let statTracker = require('./utils/statTracker.js');
 statTracker = new statTracker();
 
-// Initialize prefixHandler
 let prefixHandler = require('./msgHandler/prefixHandler.js');
 prefixHandler = new prefixHandler();
 
@@ -37,11 +35,9 @@ const cmdPass = {
     saucenaoKey
 }
 
-// Initialize message handler
 let msgHandler = require('./msgHandler/msgHandler.js');
 msgHandler = new msgHandler(client, cmdPass);
 
-// Database migration
 dbUtil.migrate();
 
 /*
@@ -52,7 +48,7 @@ client.on('ready', () => {
 });
 
 client.on('message', async message => {
-    // Pass event to message handler
+    // Pass event to message handler for handling
     await msgHandler.onMessageEvent(message)
     .catch(err => {
         console.error(err);

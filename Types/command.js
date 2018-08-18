@@ -98,8 +98,7 @@ class Command {
 
         if (message.guild && message.guild.available)
         {
-            // Prioritize usernames (or tags!) over nicknames
-
+            // Prioritize username, tag and user id over nickname
             const foundUsername = message.guild.members.find(x => 
                 x.user.username.toLowerCase().includes(normalizedQuery) 
                 || x.user.tag.toLowerCase() === normalizedQuery

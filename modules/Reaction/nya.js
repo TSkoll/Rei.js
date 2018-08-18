@@ -11,7 +11,10 @@ const nyaas = [
     'https://i.imgur.com/XljwKcc.gif',
     'https://i.imgur.com/UsDdkYV.gif',
     'https://i.imgur.com/mKvUQVh.gif',
-    'https://i.imgur.com/ovL461q.gif'
+    'https://i.imgur.com/ovL461q.gif',
+    'https://i.imgur.com/AfGTuEr.gif',
+    'https://i.imgur.com/mXmt1GZ.gif',
+    'https://i.imgur.com/tjhQrZ3.gif'
 ];
 
 class Nya extends ReactionCommand {
