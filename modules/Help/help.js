@@ -70,7 +70,7 @@ function generateGenericResponse(helpTexts, name) {
     + 'Invite: <https://discordapp.com/oauth2/authorize?client_id=278819964851322880&scope=bot&permissions=2146958591>\n'
     + 'Website: <https://rei.dkboat.xyz>\n\n'
     + 'Need help? Got ideas? Just want to hang out? Come over to The Order of Spoon!\nhttps://discord.gg/Qr89Wav\n\n'
-    + '▼ Commands (Default prefix "!")';
+    + '▼ Commands (Default prefix "$")';
 
     const keys = Object.keys(helpTexts);
 
