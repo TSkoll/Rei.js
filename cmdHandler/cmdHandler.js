@@ -22,6 +22,9 @@ class commandHandler {
             const cmd = this.getCommand(cmdName.toLowerCase());
             const parsedArgs = (args) ? argParser.parse(args, cmd.args, cmd.ignoreMin) : null;
 
+            // Flag the message as a command run attempt
+            msg.isCommand = true;
+
             if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) {
                 try {
                     await msg.author.send(new Discord.RichEmbed()

@@ -48,11 +48,25 @@ client.on('ready', () => {
 });
 
 client.on('message', async message => {
-    // Pass event to message handler for handling
-    await msgHandler.onMessageEvent(message)
-    .catch(err => {
+    try {
+        await msgHandler.onMessageEvent(message);
+    } catch (err) {
         console.error(err);
-    });
+    }
+});
+
+client.on('messageUpdate', async (oldMessage, newMessage) => {
+    if (oldMessage.author.id == client.user.id || oldMessage.isCommand)
+        return;
+
+    // If update happens within a minute of the original message
+    if ((Date.now() - newMessage.createdTimestamp) < 60000) {
+        try {
+            await msgHandler.onMessageEvent(newMessage);
+        } catch (err) {
+            console.error(err);
+        }
+    }
 });
 
 if (config.token != null)
