@@ -20,7 +20,7 @@ class Urban extends Command {
             return;
         }
 
-        data.sort((a, b) => a.thumbs_up - b.thumbs_up);
+        data.sort((a, b) => b.thumbs_up - a.thumbs_up);
 
         const top = data[0];
 
@@ -28,7 +28,7 @@ class Urban extends Command {
         .setColor('RANDOM')
         .setAuthor(top.word, null, top.permalink)
         .addField('Definition', top.definition)
-        .addField('Example', top.example)
+        .addField('Example', top.example || 'No example')
         .setFooter(`Author: ${top.author} | ${top.thumbs_up}👍 ${top.thumbs_down}👎`));
     }
 }
