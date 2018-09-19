@@ -13,7 +13,7 @@ class Urban extends Command {
         if (!args)
             throw 'Not enough arguments!'
 
-        const data = await request.get(`http://api.urbandictionary.com/v0/define?term=${args}`);
+        const data = JSON.parse(await request.get(`http://api.urbandictionary.com/v0/define?term=${args}`)).list;
 
         if (data.length == 0) {
             await super.sendBasicError('Urban Dictionary returned nothing for this query!')
@@ -24,7 +24,7 @@ class Urban extends Command {
 
         const top = data[0];
 
-        await super.sendEmbed(new Discord.RichEmbed()
+        await super.sendEmbed(msg, new Discord.RichEmbed()
         .setColor('RANDOM')
         .setAuthor(top.word, null, top.permalink)
         .addField('Definition', top.definition)
