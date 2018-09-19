@@ -13,7 +13,6 @@ try {
 } catch (err) {
     config = { token: "", ownerId: "", defaultPrefix: "$", saucenaoKey: "" }
 
-    fs.mkdirSync('./data/');
     fs.writeFileSync('./data/config.json', JSON.stringify(config));
 
     console.log("I noticed that you don't have an existing config file. I've created it at /data/config.json!");
