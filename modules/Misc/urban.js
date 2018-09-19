@@ -16,7 +16,7 @@ class Urban extends Command {
         const data = JSON.parse(await request.get(`http://api.urbandictionary.com/v0/define?term=${args}`)).list;
 
         if (data.length == 0) {
-            await super.sendBasicError('Urban Dictionary returned nothing for this query!')
+            await super.sendBasicError(msg, 'Urban Dictionary returned nothing for this query!')
             return;
         }
 
