@@ -19,11 +19,11 @@ class ReactionCommand extends Command {
             for (let i = 0; i < keys.length; i++) {
                 const val = keys[i];
 
-                mentionUserString += val.user.username + ', ';
+                mentionUserString += val.user.username + '**,** ';
             }
 
 
-            mentionUserString += `${rest[0].user.username} and ${rest[1].user.username}`;
+            mentionUserString += `${rest[0].user.username} **and** ${rest[1].user.username}`;
 
             await super.sendEmbed(msg, new Discord.RichEmbed()
             .setColor('RANDOM')
