@@ -99,12 +99,16 @@ class Command {
         if (message.guild && message.guild.available)
         {
             // Prioritize username, tag and user id over nickname
-            const foundUsername = message.guild.members.find(x => 
-                x.user.username.toLowerCase().includes(normalizedQuery) 
+            const foundUsers = message.guild.members.filter(x => x.user.username.toLowerCase().includes(normalizedQuery)
                 || x.user.tag.toLowerCase() === normalizedQuery
-                || x.id === normalizedQuery);
-            if (foundUsername)
-                return foundUsername;
+                || x.id === normalizedQuery).sort((a, b) => 
+                    b.highestRole.calculatedPosition - a.highestRole.calculatedPosition
+                );
+
+            const foundUser = foundUsers.first();
+
+            if (foundUser)
+                return foundUser;
 
             const foundNickname = message.guild.members.find(x => 
                 (x.nickname && x.nickname.toLowerCase().includes(normalizedQuery)));
