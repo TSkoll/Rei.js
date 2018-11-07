@@ -13,6 +13,7 @@ class Testpriority extends Command {
         const nQ = args.toLowerCase();
 
         const foundUsers = msg.guild.members.filter(x => x.user.username.toLowerCase().includes(nQ)
+            || x.nickname && x.nickname.toLowerCase().includes(nQ)
             || x.user.tag.toLowerCase() === nQ);
 
         const idk = foundUsers.map(el => `${el.user.username} - ${el.highestRole.calculatedPosition}`);

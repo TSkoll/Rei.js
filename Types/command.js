@@ -100,6 +100,7 @@ class Command {
         {
             // Prioritize username, tag and user id over nickname
             const foundUsers = message.guild.members.filter(x => x.user.username.toLowerCase().includes(normalizedQuery)
+                || x.nickname && x.nickname.toLowerCase().includes(normalizedQuery)
                 || x.user.tag.toLowerCase() === normalizedQuery
                 || x.id === normalizedQuery).sort((a, b) => 
                     b.highestRole.calculatedPosition - a.highestRole.calculatedPosition
