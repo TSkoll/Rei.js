@@ -24,7 +24,7 @@ class Sleep extends ReactionCommand {
     }
 
     async run(bot, msg, args) {
-        await super.sendReaction(msg, `**${msg.author.username}** puts **%target%** to sleep!`, args)
+        await super.sendReaction(msg, `**${msg.author.username}** puts **%target%** to sleep!`, args);
     }
 }
 module.exports = Sleep;
