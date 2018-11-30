@@ -27,11 +27,13 @@ let prefixHandler = require('./msgHandler/prefixHandler.js');
 prefixHandler = new prefixHandler();
 
 const saucenaoKey = config.saucenaoKey;
+const webApiKey = config.webApiKey;
 
 const cmdPass = {
     prefixHandler,
     statTracker,
-    saucenaoKey
+    saucenaoKey,
+    webApiKey
 }
 
 let msgHandler = require('./msgHandler/msgHandler.js');

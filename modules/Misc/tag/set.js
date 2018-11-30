@@ -1,23 +1,33 @@
 const db = require('../../../utils/dbUtil.js');
 const tagUtils = require('./tagUtils.js');
+const request = require('request-promise-native');
 
-module.exports = async function(msg, args) {
+module.exports = async function(msg, args, webApiKey) {
     if (args.length < 2 || (args.length == 2 && msg.attachments.size == 0))
         throw 'Not enough arguments!';
 
-    if (await db.ifRowExists('tags', { 'userid': msg.author.id, 'name': args[1] }))
-        throw 'A tag with that name already exists!';
-
     const img = (msg.attachments.size > 0) ? msg.attachments.first() : null;
 
-    await db.addData('tags', {
-        'userid': msg.author.id,
-        'name': args[1],
-        'content': args[2] ? args[2] : null,
-        'imageid': (img) ? img.id + img.filename.slice(img.filename.lastIndexOf('.')) : null
-    });
+    let form = {
+        k: webApiKey,
+        u: msg.author.id,
+        tagName: args[1],
+    };
 
-    // If image exists, save it to disk
+    if (args[2])
+        form.tagContent = args[2];
+
     if (img)
-        await tagUtils.saveImage(img);
+        form.fileContent = request(img.url);
+
+    try {
+        const resp = await request.post('http://localhost:3000/tag/upload?k=' + webApiKey, {formData: form});
+
+        if (resp == "OK")
+            return;
+        else
+            throw resp;
+    } catch (err) {
+        throw err;
+    }
 }
