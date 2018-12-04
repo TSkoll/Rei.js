@@ -8,7 +8,7 @@ module.exports = async function(msg, args, webApiKey) {
 
     const tagName = args.slice(1).join(' ');
 
-    const resp = await request.get(`http://localhost:3000/tag/delete/${tagName}?k=${webApiKey}&u=${msg.author.id}`);
+    const resp = await request.get(`http://reibot.xyz/tag/delete/${tagName}?k=${webApiKey}&u=${msg.author.id}`);
 
     if (resp == "OK")
         return;

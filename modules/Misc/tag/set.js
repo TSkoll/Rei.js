@@ -21,7 +21,7 @@ module.exports = async function(msg, args, webApiKey) {
         form.fileContent = request(img.url);
 
     try {
-        const resp = await request.post('http://localhost:3000/tag/upload?k=' + webApiKey, {formData: form});
+        const resp = await request.post('http://reibot.xyz/tag/upload?k=' + webApiKey, {formData: form});
 
         if (resp == "OK")
             return;

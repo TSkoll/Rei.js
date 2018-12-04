@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 const request = require('request-promise-native');
 
 module.exports = async function(msg, args, webApiKey) {
-    let tags = JSON.parse(await request.get(`http://localhost:3000/tag/list?k=${webApiKey}&u=${msg.author.id}`));
+    let tags = JSON.parse(await request.get(`http://reibot.xyz/tag/list?k=${webApiKey}&u=${msg.author.id}`));
 
     if (tags.length < 1)
         throw 'You haven\'t saved any tags yet';
