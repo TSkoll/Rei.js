@@ -6,11 +6,13 @@ const list = require('./tag/list.js');
 const tag = require('./tag/tag.js');
 
 class Tag extends Command {
-    constructor() {
+    constructor(cmdPass) {
         super({
             args: 3,
             ignoreMin: true
         });
+
+        this.webApiKey = cmdPass.webApiKey;
     }
 
     async run(bot, msg, args) {
@@ -19,20 +21,20 @@ class Tag extends Command {
 
         switch (args[0]) {
             case 'create':
-                await set(msg, args);
+                await set(msg, args, this.webApiKey);
                 await super.sendBasicSuccess(msg, 'Tag created!');
 
                 break;
             case 'delete':
-                await remove(msg, args);
+                await remove(msg, args, this.webApiKey);
                 await super.sendBasicSuccess(msg, 'Tag deleted!');
 
                 break;
             case 'list':
-                await list(msg, args);
+                await list(msg, args, this.webApiKey);
                 break;
             default:
-                await tag(msg, args);
+                await tag(msg, args, this.webApiKey);
                 break;
         }
     }

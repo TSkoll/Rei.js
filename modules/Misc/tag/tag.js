@@ -1,24 +1,21 @@
 const db = require('../../../utils/dbUtil.js');
 const tagUtils = require('./tagUtils.js');
+const request = require('request-promise-native');
 
-module.exports = async function(msg, args) {
+module.exports = async function(msg, args, webApiKey) {
     const tagName = args.join(' ');
-    const rows = await db.getRows('tags', { 'userid': msg.author.id, 'name': tagName });
 
-    if (rows.length < 1)
-        throw 'This tag doesn\'t seem to exist!';
+    const tagDl = await request.get(`http://reibot.xyz/tag/get/${tagName}?k=${webApiKey}&u=${msg.author.id}`);
+    const tag = JSON.parse(tagDl);
 
-    let content = ''
+    let content = (tag.content) ? tag.content : '';
     let file = null;
 
-    if (rows[0].content)
-        content = rows[0].content;
+    if (tag.file)
+        file = await request({ url: `http://reibot.xyz/file/get/${tag.file}?k=${webApiKey}&u=${msg.author.id}`, encoding: null});
 
-    if (rows[0].imageid)
-        file = await tagUtils.loadImage(rows[0].imageid);
-    
     if (file)
-        await msg.channel.send(content, { files: [ { attachment: file, name: tagName + rows[0].imageid.slice(rows[0].imageid.indexOf('.')) } ] });
+        await msg.channel.send(content, { files: [ { attachment: file, name: tag.file } ] });
     else
         await msg.channel.send(content);
 }

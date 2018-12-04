@@ -29,5 +29,14 @@ class tagUtils {
             throw err;
         }
     }
+
+    static async getBuffer(img) {
+        try {
+            const buffer = await request.get({url: img.url, encoding: 'binary' });
+            return buffer;
+        } catch (err) {
+            throw err;
+        }
+    }
 }
 module.exports = tagUtils;
