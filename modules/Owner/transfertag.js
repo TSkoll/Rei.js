@@ -32,7 +32,7 @@ class Transfertag extends Command {
                 form.tagContent = row.content;
 
             if (row.imageid) {
-                const filePath = path.join(__dirname, '..', '..', 'data', 'tagImaghes', row.imageid);
+                const filePath = path.join(__dirname, '..', '..', 'data', 'tagImages', row.imageid);
                 form.fileContent = fs.createReadStream(filePath);
             }
 
