@@ -2,6 +2,7 @@ const Command = require('../../Types/command.js');
 const Discord = require('discord.js');
 const db = require('../../utils/dbUtil.js');
 const fs = require('fs');
+const path = require('path');
 const request = require('request-promise-native');
 
 class Transfertag extends Command {
@@ -30,8 +31,10 @@ class Transfertag extends Command {
             if (row.content)
                 form.tagContent = row.content;
 
-            if (row.imageid)
-                form.fileContent = fs.createReadStream('../../data/tagImages/' + row.imageid);
+            if (row.imageid) {
+                const filePath = path.join(__dirname, '..', '..', 'data', 'tagImaghes', row.imageid);
+                form.fileContent = fs.createReadStream(filePath);
+            }
 
             try {
                 const resp = await request.post('http://reibot.xyz/tag/upload?k=' + this.webApiKey, {formData: form});
