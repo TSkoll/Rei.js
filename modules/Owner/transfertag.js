@@ -37,8 +37,8 @@ class Transfertag extends Command {
             }
 
             try {
-                const resp = await request.post('http://reibot.xyz/tag/upload?k=' + this.webApiKey, {formData: form});
                 console.log(form.u, form.tagName);
+                const resp = await request.post('http://reibot.xyz/tag/upload?k=' + this.webApiKey, {formData: form});
 
                 if (resp != "OK")
                     throw resp;
