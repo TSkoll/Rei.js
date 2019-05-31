@@ -22,7 +22,7 @@ class Urban extends Command {
 
         data.sort((a, b) => b.thumbs_up - a.thumbs_up);
 
-        const top = data[0];
+        const top = data.find(x => x.word.toLowerCase() == args.toLowerCase()) || data[0];
 
         await super.sendEmbed(msg, new Discord.RichEmbed()
         .setColor('RANDOM')
