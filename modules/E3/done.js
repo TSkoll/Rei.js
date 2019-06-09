@@ -13,9 +13,8 @@ class Done extends Command {
         const updateMessage = args[1];
 
         const myMsg = await msg.channel.fetchMessage(channelID);
-        const embed = myMsg.embeds[0];
 
-        await myMsg.edit(updateMessage, { embed });
+        await myMsg.edit(updateMessage);
         await msg.delete();
     }
 }
