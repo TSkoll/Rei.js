@@ -13,7 +13,7 @@ class Done extends Command {
         const updateMessage = args[1];
 
         const myMsg = await msg.channel.fetchMessage(channelID);
-        const embed = msg.embeds[0];
+        const embed = myMsg.embeds[0];
 
         await myMsg.edit(updateMessage, { embed });
         await msg.delete();
