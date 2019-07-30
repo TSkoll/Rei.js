@@ -33,7 +33,8 @@ const hugs = [
     'https://i.imgur.com/EyRDmrp.gif',
     'https://i.imgur.com/Fww9wDy.gif',
     'https://i.imgur.com/3F9q1zB.gif',
-    'https://i.imgur.com/Jku7S9D.gif'
+    'https://i.imgur.com/Jku7S9D.gif',
+    'https://i.imgur.com/dXI6Nbr.gif'
 ];
 
 class Hug extends ReactionCommand {
