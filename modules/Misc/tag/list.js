@@ -1,10 +1,11 @@
-const db = require('../../../utils/dbUtil.js');
 const tagUtils = require('./tagUtils.js');
 
 const Discord = require('discord.js');
 const request = require('request-promise-native');
 
 module.exports = async function(msg, args, webApiKey) {
+    return "Not implemented!";
+
     let tags = JSON.parse(await request.get(`http://reibot.xyz/tag/list?k=${webApiKey}&u=${msg.author.id}`));
 
     if (tags.length < 1)

@@ -1,6 +1,5 @@
 const Command = require('../../Types/command.js');
 const Discord = require('discord.js');
-const db = require('../../utils/dbUtil.js');
 const fs = require('fs');
 const path = require('path');
 const request = require('request-promise-native');
@@ -16,8 +15,9 @@ class Transfertag extends Command {
     }
 
     async run(msg, args, bot) {
-        const rows = await db.query('SELECT * FROM tags;')
+        throw "Not implemented!";
 
+        const rows = await db.query('SELECT * FROM tags;')
 
         for (let i = 0; i < rows.length; i++) {
             const row = rows[i];

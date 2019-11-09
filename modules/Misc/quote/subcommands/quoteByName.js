@@ -1,7 +1,8 @@
-const db = require('../../../../utils/dbUtil.js');
 const sendQuote = require('../sendQuote.js');
 
 module.exports = async function(msg, args) {
+    return "Not implemented!";
+
     const rows = await db.getRows('quotes', { 'guildid': msg.guild.id, 'name': args.join(' ') });
 
     if (rows.length < 1)

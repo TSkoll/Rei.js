@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-const db = require('../../../utils/dbUtil.js');
-
 
 module.exports = async function(msg) {
+    throw "Not implemented!";
+
     const userid = msg.author.id;
 
     const rows = await db.getRows('colorhistory', { userid });

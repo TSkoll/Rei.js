@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const db = require('../utils/dbUtil.js');
 const defaultPrefix = require('../data/config.json').defaultPrefix;
 const cmdHandler = require('../cmdHandler/cmdHandler.js');
 

@@ -2,13 +2,13 @@ const Command = require('../../Types/command.js');
 
 const request = require('request-promise-native');
 const Discord = require('discord.js')
-const db = require('../../utils/dbUtil')
 
 const apis = [
     'https://konachan.com/post.json',
     'https://yande.re/post.json'
 ]
 
+// TODO: Implement MongoDB Integration
 class Hentai extends Command {
     constructor() {
         super({
@@ -18,6 +18,8 @@ class Hentai extends Command {
     }
 
     async run(bot, msg, args) {
+        throw "Not implemented!";
+
         // If there's only one tag, check local database on what boorus have the specified tag
         if (args && !args.includes(' ')) {
             let rows = await db.getRows('hentaitags', { "tagname": args })

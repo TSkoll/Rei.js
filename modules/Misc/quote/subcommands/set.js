@@ -1,8 +1,8 @@
-const db = require('../../../../utils/dbUtil.js');
-
 const bannedWords = [ 'list', 'set', 'remove' ]
 
 module.exports = async function(msg, args) {
+    return "Not implemented!";
+
     //Check all of the flags
     await checkFlags(msg, args);
 

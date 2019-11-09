@@ -1,7 +1,9 @@
 const Discord = require('discord.js');
-const db = require('../../../../utils/dbUtil.js');
 
+// TODO: MongoDB integration
 module.exports = async function(msg, args) {
+    throw "Not implemented!";
+
     const rows = await db.getRows('quotes', { 'guildid': msg.guild.id });
 
     if (rows.length < 1)

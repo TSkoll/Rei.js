@@ -2,8 +2,6 @@ const Discord = require("discord.js");
 const fs = require('fs');
 const client = new Discord.Client({ disableEveryone: true });
 
-const dbUtil = require('./utils/dbUtil.js');
-
 /*
     Config loading
 */
@@ -38,8 +36,6 @@ const cmdPass = {
 
 let msgHandler = require('./msgHandler/msgHandler.js');
 msgHandler = new msgHandler(client, cmdPass);
-
-dbUtil.migrate();
 
 /*
     Discord.js events

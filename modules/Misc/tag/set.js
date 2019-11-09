@@ -1,8 +1,9 @@
-const db = require('../../../utils/dbUtil.js');
 const tagUtils = require('./tagUtils.js');
 const request = require('request-promise-native');
 
 module.exports = async function(msg, args, webApiKey) {
+    return "Not implemented!";
+
     if (args.length < 2 || (args.length == 2 && msg.attachments.size == 0))
         throw 'Not enough arguments!';
 

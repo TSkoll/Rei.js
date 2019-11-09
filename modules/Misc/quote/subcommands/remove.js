@@ -1,6 +1,7 @@
-const db = require('../../../../utils/dbUtil.js');
 
 module.exports = async function(msg, args) {
+    throw "Not implemented!";
+
     if (args.length < 2)
         throw 'Not enough arguments!';
 

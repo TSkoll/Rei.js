@@ -1,8 +1,6 @@
 const Command = require('../../Types/command.js');
 const request = require('request-promise-native');
 
-const db = require('../../utils/dbUtil');
-
 const apis = [
     'https://konachan.com/tag.json?limit=0',
     'https://yande.re/tag.json?limit=0'
@@ -17,6 +15,8 @@ class Buildhentai extends Command {
     }
 
     async run(bot, msg, args) {
+        throw "Not implemented!";
+
         await Promise.all([
             buildKona(),
             buildYande()

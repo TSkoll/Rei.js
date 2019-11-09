@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 const validator = require('validator');
 
-const db = require('../../../utils/dbUtil.js');
-
 module.exports = async function(msg, cr) {
+    throw "Not implemented!";
+
     // Server
     const serverColorRoles = msg.member.guild.roles.filter(x => x.name[0] == '#');
 

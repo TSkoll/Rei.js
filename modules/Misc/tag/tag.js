@@ -1,8 +1,9 @@
-const db = require('../../../utils/dbUtil.js');
 const tagUtils = require('./tagUtils.js');
 const request = require('request-promise-native');
 
 module.exports = async function(msg, args, webApiKey) {
+    return "Not implemented!";
+
     const tagName = args.join(' ');
 
     const tagDl = await request.get(`http://reibot.xyz/tag/get/${tagName}?k=${webApiKey}&u=${msg.author.id}`);
