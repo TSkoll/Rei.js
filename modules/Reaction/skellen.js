@@ -38,7 +38,7 @@ class Skellen extends ReactionCommand {
     }
 
     async run(bot, msg, args) {
-        await super.sendReaction(msg, `Good boy %target%`, "36482621298442240")
+        await super.sendReaction(msg, `Good boy %target%`, "136482621298442240")
     }
 }
 module.exports = Skellen;
