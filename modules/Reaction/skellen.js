@@ -1,4 +1,5 @@
 const ReactionCommand = require('./reactioncommand');
+const Discord = require('discord.js')
 
 const pats = [
     'https://i.imgur.com/FoKYpLO.gif',
@@ -38,7 +39,11 @@ class Skellen extends ReactionCommand {
     }
 
     async run(bot, msg, args) {
-        await super.sendReaction(msg, `Good boy %target%`, "136482621298442240")
+        const reaction = pats[Math.floor(Math.random() * pats.length)];
+        await super.sendEmbed(msg, new Discord.RichEmbed()
+                .setColor('RANDOM')
+                .setDescription('Good boy <@136482621298442240>') 
+                .setImage(reaction));
     }
 }
 module.exports = Skellen;
