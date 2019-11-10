@@ -1,9 +1,7 @@
 const Discord = require('discord.js');
 const validator = require('validator');
 
-module.exports = async function(msg, cr) {
-    throw "Not implemented!";
-
+module.exports = async function(msg, cr, db) {
     // Server
     const serverColorRoles = msg.member.guild.roles.filter(x => x.name[0] == '#');
 
@@ -16,6 +14,7 @@ module.exports = async function(msg, cr) {
     if (msg.member.guild.roles.size > 225 && !serverColorRoles.exists('name', cr))
         throw 'Due to a Discord limitation of 250 roles you may not pick a color of your own.\nYou can still assign a color some other user has by copying the hex.'
 
+    // TODO: Collection#find: pass a function instead
     if (assignedUserColors.find('name', cr)) {
         msg.channel.send(new Discord.RichEmbed()
         .setColor('RED')
@@ -25,6 +24,7 @@ module.exports = async function(msg, cr) {
     }
 
     try {
+        // TODO: DeprecationWarning: Collection#exists: use Collection#some instead
         if (serverColorRoles.exists('name', cr)) {
             // Color role exists on server, use old one
             const r = serverColorRoles.find('name', cr);
@@ -49,7 +49,7 @@ module.exports = async function(msg, cr) {
     .setDescription('Color set!'));
 
     if (userColor != null)
-        await handleOldColor(msg, userColor);
+        await handleOldColor(msg, userColor, db);
 };
 
 async function assignColorToUser(msg, r = null) {
@@ -64,8 +64,8 @@ async function assignColorToUser(msg, r = null) {
     }
 }
 
-async function handleOldColor(msg, r) {
-    await addColorToHistory(msg.author.id, r.name);
+async function handleOldColor(msg, r, db) {
+    await addColorToHistory(msg.author.id, r.name, db);
 
     /*  Check if we want to remove the role after a second to make sure everything is synced up.
         Will not delete the role if a user assigns the same color to themselves. */
@@ -76,9 +76,7 @@ async function handleOldColor(msg, r) {
     }, 1000);
 }
 
-async function addColorToHistory(userid, cr) {
-    await db.addData('colorhistory', {
-        userid,
-        color: cr
-    });
+async function addColorToHistory(userid, cr, db) {
+    const historyCol = db.collection('colorHistory');
+    await historyCol.insertOne({ userid, color: cr });
 }

@@ -10,13 +10,15 @@ const history = require('./color/history.js');
 let menusOpen = [];
 
 class Color extends Command {
-    constructor() {
+    constructor(cmdPass) {
         super({
             args: 1,
             disallowDM: true,
             aliases: [ 'colorme' ],
             rateLimit: 5000 // 5 second cooldown
         });
+
+        this.db = cmdPass.db;
     }
 
     async run(bot, msg, args) {
@@ -32,11 +34,11 @@ class Color extends Command {
         try { 
             switch (args) {
                 case 'avatar':
-                    await avatar(msg, menusOpen);
+                    await avatar(msg, menusOpen, this.db);
                     menusOpen.push(msg.author.id);
                     break;
                 case 'random':
-                    await random(msg, menusOpen);
+                    await random(msg, menusOpen, this.db);
                     menusOpen.push(msg.author.id);
                     break;
                 case 'remove':
@@ -45,10 +47,10 @@ class Color extends Command {
                     await super.sendBasicSuccess(msg, "Color removed!");
                     break;
                 case 'history':
-                    await history(msg);
+                    await history(msg, this.db);
                     break;
                 default:
-                    await hex(msg, args);
+                    await hex(msg, args, this.db);
                     break;
             }
         } catch (err) {

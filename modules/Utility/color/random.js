@@ -6,7 +6,7 @@ const assign = require('./assign.js');
 
 let menusOpen = [];
 
-module.exports = async function(msg, menusOpen) {
+module.exports = async function(msg, menusOpen, db) {
     const colors = randomcolor({ count: 6 });
 
     const choiceImg = await generateImage(colors, msg);
@@ -24,7 +24,7 @@ module.exports = async function(msg, menusOpen) {
             try {
                 if (Number(message.content) > 0 && Number(message.content) <= colors.length) {
                     const cr = colors[Number(message.content) - 1];
-                    await assign(msg, cr.toUpperCase());
+                    await assign(msg, cr.toUpperCase(), db);
 
                     msgC.stop();
                     return;

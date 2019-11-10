@@ -28,7 +28,7 @@ class Prefix extends Command {
                 break;
             case 'clear':
                 // prefixHandler set null sets to default prefix
-                await this.prefixHandler.set(msg.guild.id, null);
+                await this.prefixHandler.set(msg.guild.id, null, this.db);
                 await super.sendBasicSuccess(msg, 'Prefix set back to default!');
                 break;
             default:

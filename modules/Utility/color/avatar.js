@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 const generateImage = require('./image/image.js');
 const assign = require('./assign.js');
 
-module.exports = async function(msg, menusOpen) {
+module.exports = async function(msg, menusOpen, db) {
 
     // User avatar url in png format
     const url = msg.author.displayAvatarURL.substr(0, msg.author.displayAvatarURL.lastIndexOf('.'));
@@ -45,7 +45,7 @@ module.exports = async function(msg, menusOpen) {
             try {
                 if (Number(message.content) > 0 && Number(message.content) <= choices.length) {
                     const cr = choices[Number(message.content) - 1];
-                    await assign(msg, cr.toUpperCase());
+                    await assign(msg, cr.toUpperCase(), db);
 
                     msgC.stop();
                     return;

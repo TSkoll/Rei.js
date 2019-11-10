@@ -1,24 +1,23 @@
 const Discord = require('discord.js');
 
-module.exports = async function(msg) {
-    throw "Not implemented!";
-
+module.exports = async function(msg, db) {
     const userid = msg.author.id;
 
-    const rows = await db.getRows('colorhistory', { userid });
+    let ret = '';
 
-    if (rows.length > 0) {
-        let ret = '';
+    const cursor = db.collection('colorHistory').find({ userid });
+    const c = await cursor.count();
+    if (c == 0) {
+        cursor.close();
+        throw 'I could\'t find any color history for this user!';
+    }
 
-        for (let i = 0; i < rows.length; i++) {
-            const row = rows[i];
+    await cursor.forEach(row => {
+        ret += row.color + '\n';
+    });
+    cursor.close();
 
-            ret += row.color + '\n';
-        }
-
-        await msg.channel.send(new Discord.RichEmbed()
+    await msg.channel.send(new Discord.RichEmbed()
         .setColor('BLUE')
         .setDescription(ret));
-    } else
-        throw 'I could\'t find any color history for this user!'
 }
