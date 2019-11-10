@@ -9,6 +9,7 @@ class Prefix extends Command {
         });
 
         this.prefixHandler = cmdPass.prefixHandler;
+        this.db = cmdPass.db;
     }
 
     async run(bot, msg, args) {
@@ -19,7 +20,7 @@ class Prefix extends Command {
             case 'set':
                 // Don't allow for null input, empty input or input with spaces
                 if (args[1] && args[1].trim() != '' && !args[1].includes(' ')) {
-                    await this.prefixHandler.set(msg.guild.id, args[1]);
+                    await this.prefixHandler.set(msg.guild.id, args[1], this.db);
                     await super.sendBasicSuccess(msg, 'Prefix changed!');
                 }
                 else

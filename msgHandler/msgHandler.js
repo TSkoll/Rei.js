@@ -7,6 +7,7 @@ class msgHandler {
         this.client = client;
         this.statTracker = cmdPass.statTracker;
         this.prefixHandler = cmdPass.prefixHandler;
+        this.db = cmdPass.db;
 
         // Initialize command handler
         this.cmdHandler = new cmdHandler(client, cmdPass);
@@ -21,7 +22,7 @@ class msgHandler {
         this.statTracker.messageAdd();
 
         // Get guild's command prefix
-        const prefix = (message.guild) ? await this.prefixHandler.get(message.guild.id) : defaultPrefix;
+        const prefix = (message.guild) ? await this.prefixHandler.get(message.guild.id, this.db) : defaultPrefix;
 
         if (message.content.startsWith(prefix)) {
             // Split the command and arguments from each other testprefix set !
