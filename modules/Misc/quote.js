@@ -15,6 +15,8 @@ class Quote extends Command {
     }
 
     async run(bot, msg, args) {
+        throw 'Quotes are off for a moment, sorry! :c';
+
         if (args.length < 1)
             throw 'Not enough arguments!';
 

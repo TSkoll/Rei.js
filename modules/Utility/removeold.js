@@ -16,9 +16,7 @@ class Removeold extends Command {
     async run(bot, msg, args) {
         const guild = msg.guild;
         const roles = guild.roles.array();
-
-        const message = await super.sendBasicSuccess("");
-
+        
         let amount = 0;
         async.each(roles, async (r, cb) => {
             if (r.name[0] == "#") {

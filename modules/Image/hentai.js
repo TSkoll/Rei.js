@@ -18,7 +18,7 @@ class Hentai extends Command {
     }
 
     async run(bot, msg, args) {
-        throw "Not implemented!";
+        throw "I'll be off hentai duty for the duration of No Nut November, sorry :c";
 
         // If there's only one tag, check local database on what boorus have the specified tag
         if (args && !args.includes(' ')) {

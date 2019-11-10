@@ -16,6 +16,8 @@ class Tag extends Command {
     }
 
     async run(bot, msg, args) {
+        throw 'Tags are offline for a moment! Sorry :c';
+
         if (args.length < 1)
             throw 'Not enough arguments!';
 
