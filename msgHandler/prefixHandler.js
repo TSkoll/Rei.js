@@ -1,6 +1,5 @@
 const defaultPrefix = require('../data/config.json').defaultPrefix;
 
-// TODO: add MongoDB Support
 class prefixHandler {
     constructor() {
         this.prefixes = new Map();
