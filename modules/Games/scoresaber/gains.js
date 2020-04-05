@@ -13,7 +13,7 @@ async function gains(msg, userProfile, db) {
 
     const user = await fetch(`https://new.scoresaber.com/api/player/${id}/basic`).then(resp => resp.json());
 
-    if (!userData[0].playerInfo)
+    if (!user.playerInfo)
         throw 'This player could not be found!'
 
     const col = db.collection('sc');
