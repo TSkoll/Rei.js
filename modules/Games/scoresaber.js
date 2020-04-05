@@ -31,7 +31,7 @@ class ScoreSaber extends Command {
                 break;
             case 'gains':
                 success = await Gains(msg, passthrough, this.db);
-                await super.sendBasicSuccess(msg, success);
+                await super.sendEmbed(msg, success);
                 break;
             default:
                 await super.sendBasicError(msg, 'Unknown or no subcommand')

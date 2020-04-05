@@ -1,4 +1,6 @@
+const Discord = require('discord.js');
 const fetch = require('node-fetch');
+
 const getUser = require('./utils/user.js');
 
 /**
@@ -18,9 +20,26 @@ async function gains(msg, userProfile, db) {
 
     const col = db.collection('sc');
     const previous = await col.findOne({ id: msg.author.id });
+    const ranks = presentRank(previous, user.playerInfo.rank);
 
-    await col.updateOne({ id: msg.author.id }, { $set: { sc: previous.sc, pp: user.playerInfo.pp } });
+    await col.updateOne({ id: msg.author.id }, { $set: { sc: previous.sc, pp: user.playerInfo.pp, rank: user.playerInfo.rank } });
 
-    return `Gains till the last time: ${user.playerInfo.pp - previous.pp}pp`;
+    return new Discord.MessageEmbed()
+        .setColor('RANDOM')
+        .setDescription(`Gains till the last time: ${(user.playerInfo.pp - previous.pp).toFixed(3)}pp${ranks.inMessage}`)
+        .setFooter(`${previous.pp}pp -> ${user.playerInfo.pp}pp${ranks.inFooter}`);
+}
+
+function presentRank(sc, userRank) {
+    if (sc.rank)
+        return {
+            inMessage: ` (#${userRank - sc.rank})`,
+            inFooter: ` (#${sc.rank} -> #${userRank})`
+        };
+    else
+        return {
+            inMessage: '',
+            inFooter: ''
+        };
 }
 module.exports = gains;
