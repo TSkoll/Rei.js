@@ -13,7 +13,7 @@ async function gains(msg, userProfile, db) {
     // Don't allow usage of passthrough
     let id = await getUser(msg, null, db);
 
-    const user = await fetch(`https://new.scoresaber.com/api/player/${id}/basic`).then(resp => resp.json());
+    const user = await fetch(`https://new.scoresaber.com/api/player/${id}/full`).then(resp => resp.json());
 
     if (!user.playerInfo)
         throw 'This player could not be found!'

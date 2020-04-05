@@ -14,7 +14,7 @@ async function User(msg, userProfile, db) {
     let id = await getUser(msg, userProfile, db);
 
     const urls = [
-        `https://new.scoresaber.com/api/player/${id}/basic`,
+        `https://new.scoresaber.com/api/player/${id}/full`,
         `https://new.scoresaber.com/api/player/${id}/scores/top`
     ].map(url => fetch(url).then(resp => resp.json()));
     const userData = await Promise.all(urls);
