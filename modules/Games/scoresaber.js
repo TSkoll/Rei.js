@@ -17,12 +17,15 @@ class ScoreSaber extends Command {
         const subcommand = args[0];
         const passthrough = args[1]
 
+        let success;
         switch (subcommand) {
             case 'set':
-                const success = await Set(msg, passthrough, this.db);
+                success = await Set(msg, passthrough, this.db);
                 await super.sendBasicSuccess(msg, success);
                 break;
             case 'user':
+                success = await User(msg, passthrough);
+                await super.sendEmbed(msg, success);
                 break;
             case 'top':
                 break;
