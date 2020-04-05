@@ -46,7 +46,7 @@ module.exports = msgHandler;
 
 /* Error messaging */
 async function throwErr(message, err) {
-    await message.channel.send(new Discord.RichEmbed()
+    await message.channel.send(new Discord.MessageEmbed()
     .setColor('YELLOW')
     .setTitle('Woops!')
     .setDescription(err)

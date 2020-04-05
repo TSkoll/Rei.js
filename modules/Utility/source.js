@@ -16,7 +16,7 @@ class Source extends Command {
     }
 
     async run(bot, msg, args) {
-        const messages = await msg.channel.fetchMessages({ limit: 10 });
+        const messages = await msg.channel.messages.fetch({ limit: 10 });
         const messagesArray = messages.array();
 
         for (let i = 0; i < messagesArray.length; i++) {
@@ -58,7 +58,7 @@ function embedify(sortedSauce) {
         desc += `#${j + 1} ${textify(sortedSauce[j])}\n\n`;
     }
 
-    let retMsg = new Discord.RichEmbed()
+    let retMsg = new Discord.MessageEmbed()
     .setColor('BLUE')
     .setThumbnail(sortedSauce[0].thumbnailURL)
     .setTitle(`Found ${sortedSauce.length} matches!`)

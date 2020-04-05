@@ -39,7 +39,7 @@ function quoteWithEmbed(msg, quoteMsg) {
 }
 
 function parseMessageEmbed(quoteObj) {
-    const embed = new Discord.RichEmbed().setColor(quoteObj.color);
+    const embed = new Discord.MessageEmbed().setColor(quoteObj.color);
 
     /*
     Check for each embed property, since they're optional,
@@ -73,7 +73,7 @@ function parseMessageEmbed(quoteObj) {
 }
 
 function defaultQuote(msg, quoteMsg) {
-    const embed = new Discord.RichEmbed()
+    const embed = new Discord.MessageEmbed()
         .setColor('RANDOM')
         .setAuthor(quoteMsg.author.tag, quoteMsg.author.avatarURL)
         .setDescription(quoteMsg.cleanContent)

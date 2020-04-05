@@ -7,7 +7,7 @@ class Ping extends Command {
 
     async run(bot, msg, args) {
         const pingMsg = await msg.channel.send('Pong!');
-        pingMsg.edit(`Pong! Took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms. API ping is ${bot.ping}ms.`);
+        pingMsg.edit(`Pong! Took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms. Websocket ping is ${bot.ws.ping}ms.`);
     }
 }
 module.exports = Ping;

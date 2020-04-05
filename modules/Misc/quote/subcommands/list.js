@@ -9,7 +9,7 @@ module.exports = async function(msg, args) {
     if (rows.length < 1)
         throw 'I can\'t find any quotes for this guild';
 
-   let embed = new Discord.RichEmbed()
+   let embed = new Discord.MessageEmbed()
    .setColor('BLUE');
 
     let description = '';

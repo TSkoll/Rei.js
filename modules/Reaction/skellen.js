@@ -40,7 +40,7 @@ class Skellen extends ReactionCommand {
 
     async run(bot, msg, args) {
         const reaction = pats[Math.floor(Math.random() * pats.length)];
-        await super.sendEmbed(msg, new Discord.RichEmbed()
+        await super.sendEmbed(msg, new Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setDescription('Good boy <@136482621298442240>') 
                 .setImage(reaction));

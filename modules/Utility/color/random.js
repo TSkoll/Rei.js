@@ -29,7 +29,7 @@ module.exports = async function(msg, menusOpen, db) {
                     msgC.stop();
                     return;
                 } else {
-                    await msg.channel.send(new Discord.RichEmbed()
+                    await msg.channel.send(new Discord.MessageEmbed()
                     .setColor('RED')
                     .setDescription('That\'s not a valid choice, is it'))
                 }

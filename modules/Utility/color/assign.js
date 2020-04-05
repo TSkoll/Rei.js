@@ -3,20 +3,19 @@ const validator = require('validator');
 
 module.exports = async function(msg, cr, db) {
     // Server
-    const serverColorRoles = msg.member.guild.roles.filter(x => x.name[0] == '#');
+    const serverColorRoles = msg.member.guild.roles.cache.filter(x => x.name[0] == '#');
 
     // User
-    const user = msg.guild.members.get(msg.author.id);
-    const assignedUserColors = user.roles.filter(x => x.name[0] == '#');
+    const user = msg.guild.members.cache.get(msg.author.id);
+    const assignedUserColors = user.roles.cache.filter(x => x.name[0] == '#');
     let userColor = assignedUserColors.first();
 
     // Check if the guild is about to hit the max role count
-    if (msg.member.guild.roles.size > 225 && !serverColorRoles.exists('name', cr))
+    if (msg.member.guild.roles.cache.size > 225 && !serverColorRole.some(role => role.name == cr))
         throw 'Due to a Discord limitation of 250 roles you may not pick a color of your own.\nYou can still assign a color some other user has by copying the hex.'
 
-    // TODO: Collection#find: pass a function instead
-    if (assignedUserColors.find('name', cr)) {
-        msg.channel.send(new Discord.RichEmbed()
+    if (assignedUserColors.find(role => role.name == cr)) {
+        msg.channel.send(new Discord.MessageEmbed()
         .setColor('RED')
         .setDescription('You already have this color!'))
         
@@ -24,19 +23,21 @@ module.exports = async function(msg, cr, db) {
     }
 
     try {
-        // TODO: DeprecationWarning: Collection#exists: use Collection#some instead
-        if (serverColorRoles.exists('name', cr)) {
+        if (serverColorRoles.some(role => role.name == cr)) {
             // Color role exists on server, use old one
-            const r = serverColorRoles.find('name', cr);
+            const r = serverColorRoles.find(role => role.name == cr);
 
             await assignColorToUser(msg, r);
         } else {
             // Color doesn't exist on server, create a new one!
-            const r = await msg.guild.createRole({
-                name: cr,
-                color: cr,
-                permissions: 0
-            }, "color command through Rei");
+            const r = await msg.guild.roles.create({
+                data: {
+                    name: cr,
+                    color: cr,
+                    permissions: 0
+                },
+                reason: 'Color command through Rei'
+            });
     
             await assignColorToUser(msg, r);
         }
@@ -44,7 +45,7 @@ module.exports = async function(msg, cr, db) {
         throw err;
     }
 
-    await msg.channel.send(new Discord.RichEmbed()
+    await msg.channel.send(new Discord.MessageEmbed()
     .setColor('GREEN')  
     .setDescription('Color set!'));
 
@@ -54,11 +55,11 @@ module.exports = async function(msg, cr, db) {
 
 async function assignColorToUser(msg, r = null) {
     // Build a role list by removing every role starting with '#'
-    let tempRoles = msg.member.roles.filter(x => x.name[0] != '#').array();
+    let tempRoles = msg.member.roles.cache.filter(x => x.name[0] != '#').array();
     tempRoles.push(r);
 
     try {
-        await msg.member.setRoles(tempRoles);
+        await msg.member.roles.set(tempRoles);
     } catch (err) {
         throw err;
     }

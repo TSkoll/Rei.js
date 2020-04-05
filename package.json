@@ -24,7 +24,7 @@
   "dependencies": {
     "async": "^2.6.3",
     "canvas": "^2.6.1",
-    "discord.js": "^11.6.3",
+    "discord.js": "^12.1.1",
     "erlpack": "github:discordapp/erlpack",
     "form-data": "^2.5.1",
     "mongodb": "^3.5.5",

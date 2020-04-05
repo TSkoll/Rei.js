@@ -32,7 +32,7 @@ class Help extends Command {
             return;
         }
 
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
         .setColor('BLUE')   
         .setTitle(args.toLowerCase())
         .setDescription(cmd.description)

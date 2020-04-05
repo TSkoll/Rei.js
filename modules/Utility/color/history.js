@@ -17,7 +17,7 @@ module.exports = async function(msg, db) {
     });
     cursor.close();
 
-    await msg.channel.send(new Discord.RichEmbed()
+    await msg.channel.send(new Discord.MessageEmbed()
         .setColor('BLUE')
         .setDescription(ret));
 }

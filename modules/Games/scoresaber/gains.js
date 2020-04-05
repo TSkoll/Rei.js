@@ -1,6 +1,12 @@
 const fetch = require('node-fetch');
 const getUser = require('./utils/user.js');
 
+/**
+ * Gets the pp gains of a scoresaber user.
+ * @param {Discord.Message} msg Command message contenxt
+ * @param {String} userProfile Scoresaber user profile or id
+ * @param {MongoClient} db MongoDB connector.
+ */
 async function gains(msg, userProfile, db) {
     // Don't allow usage of passthrough
     let id = await getUser(msg, null, db);

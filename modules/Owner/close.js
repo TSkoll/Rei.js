@@ -9,11 +9,11 @@ class Close extends Command {
     }
 
     async run(bot, msg, args) {
-        await super.sendEmbed(msg, new Discord.RichEmbed()
+        await super.sendEmbed(msg, new Discord.MessageEmbed()
         .setColor('DARK_BLUE')
         .setDescription('Good night!'));
         
-        await bot.destroy();
+        bot.destroy();
         process.exit();
     }
 }

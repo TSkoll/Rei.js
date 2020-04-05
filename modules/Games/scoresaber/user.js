@@ -4,7 +4,13 @@ const Discord = require('discord.js');
 const getUser = require('./utils/user');
 const diffMap = require('./utils/difficultymap');
 
-async function Set(msg, userProfile, db) {
+/**
+ * Gets Scoresaber user information for either the specified user or from the connected account.
+ * @param {Discord.Message} msg Command message context.
+ * @param {String} userProfile Scoresaber user profile link or ID.
+ * @param {MongoClient} db MongoDB connector.
+ */
+async function User(msg, userProfile, db) {
     let id = await getUser(msg, userProfile, db);
 
     const urls = [
@@ -13,7 +19,7 @@ async function Set(msg, userProfile, db) {
     ].map(url => fetch(url).then(resp => resp.json()));
     const userData = await Promise.all(urls);
 
-    return new Discord.RichEmbed()
+    return new Discord.MessageEmbed()
         .setColor('RANDOM')
         .setAuthor(userData[0].playerInfo.name, 
             'https://new.scoresaber.com' + userData[0].playerInfo.avatar, 
@@ -24,4 +30,4 @@ async function Set(msg, userProfile, db) {
         .addField('Top ranks', 
             userData[1].scores.map((s, i) => `**${i + 1}.** ${s.songAuthorName} - ${s.name} **[${diffMap(s.diff)}]** by **${s.levelAuthorName}**\n${((s.score / s.maxScoreEx) * 100).toFixed(2)}% - ${s.pp}pp`).slice(0, 3).join('\n\n'))
 }
-module.exports = Set;
+module.exports = User;

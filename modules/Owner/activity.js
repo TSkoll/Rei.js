@@ -9,9 +9,7 @@ class Activity extends Command {
     }
 
     async run(bot, msg, args) {
-        await bot.user.setActivity(args[1], {
-            type: args[0]
-        });
+        await bot.user.setActivity(args[1], { type: args[0] })
 
         await super.sendBasicSuccess(msg, 'Activity set!');
     }

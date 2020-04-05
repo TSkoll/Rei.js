@@ -1,6 +1,10 @@
 class argParser {
-    /* Parses input into a list of arguments
-        handles "quoted messages"*/
+    /**
+     * Parses text into a list of arguments
+     * @param {String} input The text that is being parsed
+     * @param {Number} argAmount The amount of arguments wanted
+     * @param {Boolean} ignoreMin True/False if the function should throw if the argument amount is not fulfilled
+     */
     static parse(input, argAmount, ignoreMin) {
         let args = [];
 

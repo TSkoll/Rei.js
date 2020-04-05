@@ -1,3 +1,9 @@
+/**
+ * Gets scoresaber user id either from the text content or from the local database.
+ * @param {Discord.Message} msg Discord command message context
+ * @param {String} content Scoresaber profile link or ID
+ * @param {MongoClient} db MongoDB connector
+ */
 async function getUser(msg, content, db) {
     let id;
     if (content)

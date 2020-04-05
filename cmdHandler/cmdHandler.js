@@ -4,6 +4,11 @@ const argParser = require('./argParser.js');
 const cmdLoader = require('./cmdLoader.js');
 
 class commandHandler {
+    /**
+     * Creates a new commandHandler.
+     * @param {Discord.Client} client Current Discord client.
+     * @param {Object} cmdPass Root data pass object.
+     */
     constructor(client, cmdPass) {
         this.client = client;
         this.statTracker = cmdPass.statTracker;
@@ -13,9 +18,12 @@ class commandHandler {
         this.loadCommands(cmdPass);
     }
 
-    /*
-        RUN
-    */
+    /**
+     * Finds and runs a command based on the given text arguments.
+     * @param {Discord.Message} msg Discord message context for the command.
+     * @param {String} cmdName Name of the command being run.
+     * @param {String[]} args Array of arguments passed to the command.
+     */
     async run(msg, cmdName, args) {
         try {
            // Get command and group arguments
@@ -27,7 +35,7 @@ class commandHandler {
 
             if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) {
                 try {
-                    await msg.author.send(new Discord.RichEmbed()
+                    await msg.author.send(new Discord.MessageEmbed()
                     .setColor('RED')
                     .setDescription('It seems like I can\'t send messages in that channel!'));
 
@@ -62,8 +70,9 @@ class commandHandler {
         }
    }
 
-    /*
-        LOADING
+   /**
+    * Loads all commands and prepares them for use in the command handler.
+    * @param {Object} cmdPass Root command pass object passed to the commands.
     */
     async loadCommands(cmdPass) {
         let ret = await cmdLoader.load(cmdPass);
@@ -72,6 +81,9 @@ class commandHandler {
         return;
     }
 
+    /**
+     * Reloads all commands
+     */
     async reloadCommands() {
         this.commands = { };
 
@@ -79,9 +91,10 @@ class commandHandler {
         return;
     }
 
-    /*
-        HELP
-    */
+    /**
+     * Gets the command based on its name.
+     * @param {String} name Name of the command.
+     */
     getCommand(name) {
         if (this.commands.hasOwnProperty(name)) {
             return this.commands[name];

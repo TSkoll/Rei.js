@@ -6,6 +6,10 @@ const difficultyMap = {
     "_Easy_SoloStandard": "Easy"
 }
 
+/**
+ * Turns a scoresaber api difficulty into a player readable one.
+ * @param {String} diffName Name of a Scoresaber map difficulty
+ */
 function mapDifficulty(diffName) {
     return difficultyMap[diffName] || diffName;
 }

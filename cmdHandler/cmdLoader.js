@@ -5,6 +5,10 @@ const async = require('async');
 
 class Loader {
     /* Loads commands and builds the commands and help object */
+    /**
+     * Loads all commands from disk and gets their help texts.
+     * @param {Object} cmdPass Root command information pass object.
+     */
     static async load(cmdPass) {
         let commandRet = { };
         try {
@@ -33,7 +37,10 @@ class Loader {
         }
     }
 
-    /* RESERVED  */
+    /**
+     * Reloads all commands.
+     * @todo Implement.
+     */
     static reload() {
         return new Promise(resolve => {
             resolve(null);

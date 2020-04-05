@@ -5,9 +5,10 @@ const generateImage = require('./image/image.js');
 const assign = require('./assign.js');
 
 module.exports = async function(msg, menusOpen, db) {
-
+    
     // User avatar url in png format
-    const url = msg.author.displayAvatarURL.substr(0, msg.author.displayAvatarURL.lastIndexOf('.'));
+    //const url = msg.author.displayAvatarURL.substr(0, msg.author.displayAvatarURL.lastIndexOf('.'));
+    const url = msg.author.avatarURL({ format: 'png' });
 
     const vBuilder = new vibrant.Builder(url, {
         colorCount: 64
@@ -50,7 +51,7 @@ module.exports = async function(msg, menusOpen, db) {
                     msgC.stop();
                     return;
                 } else {
-                    await msg.channel.send(new Discord.RichEmbed()
+                    await msg.channel.send(new Discord.MessageEmbed()
                     .setColor('RED')
                     .setDescription('That\'s not a valid choice, is it'))
                 }

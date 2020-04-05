@@ -54,7 +54,7 @@ class Sleep extends ReactionCommand {
                     const user = super.searchUser(msg, args);
 
                     if (targetUser === user.user.username) {
-                        await reiEmbedMessage.edit(new Discord.RichEmbed()
+                        await reiEmbedMessage.edit(new Discord.MessageEmbed()
                         .setColor(embed.hexColor)
                         .setImage(embed.image.url)
                         .setDescription(`${previousUsers.map(x => `**${x}**`).join(', ')} and **${msg.author.username}** put **${targetUser}** to sleep!`));

@@ -25,7 +25,7 @@ class Urban extends Command {
 
         const top = data.find(x => x.word.toLowerCase() == args.toLowerCase()) || data[0];
 
-        await super.sendEmbed(msg, new Discord.RichEmbed()
+        await super.sendEmbed(msg, new Discord.MessageEmbed()
         .setColor('RANDOM')
         .setAuthor(top.word, null, top.permalink)
         .addField('Definition', top.definition)

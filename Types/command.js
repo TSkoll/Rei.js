@@ -55,7 +55,7 @@ class Command {
     /* Functions */
     async sendBasicSuccess(message, content) {
         try {
-            let msg = await message.channel.send(new Discord.RichEmbed()
+            let msg = await message.channel.send(new Discord.MessageEmbed()
             .setColor('GREEN')
             .setDescription(content));
 
@@ -67,7 +67,7 @@ class Command {
 
     async sendBasicError(message, content) {
         try {
-            let msg = await message.channel.send(new Discord.RichEmbed()
+            let msg = await message.channel.send(new Discord.MessageEmbed()
             .setColor('RED')
             .setDescription(content));
 
@@ -99,11 +99,11 @@ class Command {
         if (message.guild && message.guild.available)
         {
             // Prioritize username, tag and user id over nickname
-            const foundUsers = message.guild.members.filter(x => x.user.username.toLowerCase().includes(normalizedQuery)
+            const foundUsers = message.guild.members.cache.filter(x => x.user.username.toLowerCase().includes(normalizedQuery)
                 || x.nickname && x.nickname.toLowerCase().includes(normalizedQuery)
                 || x.user.tag.toLowerCase() === normalizedQuery
                 || x.id === normalizedQuery).sort((a, b) => 
-                    b.highestRole.calculatedPosition - a.highestRole.calculatedPosition
+                    b.roles.highest.position - a.roles.highest.position
                 );
 
             const foundUser = foundUsers.first();
@@ -111,7 +111,7 @@ class Command {
             if (foundUser)
                 return foundUser;
 
-            const foundNickname = message.guild.members.find(x => 
+            const foundNickname = message.guild.members.cache.find(x => 
                 (x.nickname && x.nickname.toLowerCase().includes(normalizedQuery)));
             if (foundNickname)
                 return foundNickname;

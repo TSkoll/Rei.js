@@ -25,7 +25,7 @@ class ReactionCommand extends Command {
 
             mentionUserString += `${rest[0].user.username} **and** ${rest[1].user.username}`;
 
-            await super.sendEmbed(msg, new Discord.RichEmbed()
+            await super.sendEmbed(msg, new Discord.MessageEmbed()
             .setColor('RANDOM')
             .setDescription(reactMessage.replace('%target%', mentionUserString)) 
             .setImage(reaction));
@@ -33,12 +33,12 @@ class ReactionCommand extends Command {
             const mentionedUser = super.searchUser(msg, query);
         
             if (mentionedUser && reactMessage) {
-                await super.sendEmbed(msg, new Discord.RichEmbed()
+                await super.sendEmbed(msg, new Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setDescription(reactMessage.replace('%target%', mentionedUser.user.username)) 
                 .setImage(reaction));
             } else {
-                await super.sendEmbed(msg, new Discord.RichEmbed()
+                await super.sendEmbed(msg, new Discord.MessageEmbed()
                 .setColor('RANDOM')
                 .setImage(reaction));
             }
