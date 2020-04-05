@@ -19,6 +19,9 @@ async function User(msg, userProfile, db) {
     ].map(url => fetch(url).then(resp => resp.json()));
     const userData = await Promise.all(urls);
 
+    if (!userData[0].playerInfo)
+        throw 'This player could not be found!'
+
     return new Discord.MessageEmbed()
         .setColor('RANDOM')
         .setAuthor(userData[0].playerInfo.name, 

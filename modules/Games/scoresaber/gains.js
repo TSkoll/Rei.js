@@ -12,7 +12,10 @@ async function gains(msg, userProfile, db) {
     let id = await getUser(msg, null, db);
 
     const user = await fetch(`https://new.scoresaber.com/api/player/${id}/basic`).then(resp => resp.json());
-    
+
+    if (!userData[0].playerInfo)
+        throw 'This player could not be found!'
+
     const col = db.collection('sc');
     const previous = await col.findOne({ id: msg.author.id });
 
