@@ -12,6 +12,6 @@ async function gains(msg, userProfile, db) {
 
     await col.updateOne({ id: msg.author.id }, { $set: { sc: previous.sc, pp: user.playerInfo.pp } });
 
-    return `Change till last time this command was ran: ${user.playerInfo.pp - previous.pp}pp`;
+    return `Gains till the last time: ${user.playerInfo.pp - previous.pp}pp`;
 }
 module.exports = gains;
