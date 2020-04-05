@@ -1,18 +1,26 @@
 const fetch = require('node-fetch');
 const Discord = require('discord.js');
 
-async function Set(msg, userProfile) {
-    const id = userProfile.replace('https://scoresaber.com/u/', '');
+const getUser = require('./utils/user');
 
-    const resp = await (await fetch(`https://new.scoresaber.com/api/player/${id}/basic`)).json()
+async function Set(msg, userProfile, db) {
+    let id = await getUser(msg, userProfile, db);
+
+    const urls = [
+        `https://new.scoresaber.com/api/player/${id}/basic`,
+        `https://new.scoresaber.com/api/player/${id}/scores/top`
+    ].map(url => fetch(url).then(resp => resp.json()));
+    const userData = await Promise.all(urls);
 
     return new Discord.RichEmbed()
         .setColor('RANDOM')
-        .setAuthor(resp.playerInfo.name, 
-            'https://new.scoresaber.com' + resp.playerInfo.avatar, 
-            'https://scoresaber.com/u/' + resp.playerInfo.playerid)
-        .addField('this is my peepee', resp.playerInfo.pp + 'pp', true)
-        .addField('Global Rank', '#' + resp.playerInfo.rank, true)
-        .addField(`Country Rank [${resp.playerInfo.country}]`, '#' + resp.playerInfo.countryRank, true)
+        .setAuthor(userData[0].playerInfo.name, 
+            'https://new.scoresaber.com' + userData[0].playerInfo.avatar, 
+            'https://scoresaber.com/u/' + userData[0].playerInfo.playerid)
+        .addField('this is my peepee', userData[0].playerInfo.pp + 'pp', true)
+        .addField('Global Rank', '#' + userData[0].playerInfo.rank, true)
+        .addField(`Country Rank [${userData[0].playerInfo.country}]`, '#' + userData[0].playerInfo.countryRank, true)
+        .addField('Top ranks', 
+            userData[1].scores.map((s, i) => `**${i + 1}.** ${s.songAuthorName} - ${s.name} [${s.diff}] by **${s.levelAuthorName}**\n${((s.score / s.maxScoreEx) * 100).toFixed(2)}% - ${s.pp}pp`).slice(0, 3).join('\n\n'))
 }
 module.exports = Set;
