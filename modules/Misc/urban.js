@@ -1,6 +1,6 @@
 const Command = require('../../Types/command.js');
 const Discord = require('discord.js');
-const request = require('request-promise-native');
+const fetch = require('node-fetch')
 
 class Urban extends Command {
     constructor() {
@@ -13,7 +13,8 @@ class Urban extends Command {
         if (!args)
             throw 'Not enough arguments!'
 
-        const data = JSON.parse(await request.get(`http://api.urbandictionary.com/v0/define?term=${args}`)).list;
+        const resp = await fetch(`http://api.urbandictionary.com/v0/define?term=${args}`).then(resp => resp.json());
+        const data = resp.list;
 
         if (data.length == 0) {
             await super.sendBasicError(msg, 'Urban Dictionary returned nothing for this query!')

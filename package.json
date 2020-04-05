@@ -31,8 +31,6 @@
     "node-fetch": "^2.6.0",
     "node-vibrant": "^3.1.5",
     "randomcolor": "^0.5.3",
-    "request": "^2.88.2",
-    "request-promise-native": "^1.0.8",
     "uws": "^9.148.0",
     "validator": "^9.4.1",
     "zlib-sync": "^0.1.6"
