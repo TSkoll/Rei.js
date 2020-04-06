@@ -26,16 +26,20 @@ async function gains(msg, userProfile, db) {
 
     return new Discord.MessageEmbed()
         .setColor('RANDOM')
-        .setDescription(`Gains till the last time: ${(user.playerInfo.pp - previous.pp).toFixed(3)}pp${ranks.inMessage}`)
+        .setDescription(`You gained ${(user.playerInfo.pp - previous.pp).toFixed(3)}pp since the last time${ranks.inMessage}`)
         .setFooter(`${previous.pp}pp -> ${user.playerInfo.pp}pp${ranks.inFooter}`);
 }
 
 function presentRank(sc, userRank) {
-    if (sc.rank)
+    if (sc.rank) {
+        const rank = userRank - sc.rank;
+        const pretext = (rank < 0) && "and gained " || (rank > 0) && "and lost " || "and moved ";
+
         return {
-            inMessage: ` (#${userRank - sc.rank})`,
+            inMessage: ` (${pretext}${Math.abs(rank)} ranks)`,
             inFooter: ` (#${sc.rank} -> #${userRank})`
         };
+    }
     else
         return {
             inMessage: '',
