@@ -6,5 +6,5 @@
     "quoteProps": "as-needed",
     "trailingComma": "es5",
     "bracketSpacing": true,
-    "arrowPerens": "avoid",
+    "arrowParens": "avoid"
 }
