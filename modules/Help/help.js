@@ -1,5 +1,6 @@
 const Command = require('../../Types/command.js');
 const Discord = require('discord.js');
+const defaultPrefix = (require('../../data/config')).defaultPrefix
 
 class Help extends Command {
     constructor(cmdPass) {
@@ -67,26 +68,9 @@ module.exports = Help;
 
 function generateGenericResponse(helpTexts, name) {
     let ret = 'Hi! I\'m ' + name + ' and I\'m here to help you!\n\n' 
-    + 'Invite: <https://discordapp.com/oauth2/authorize?client_id=278819964851322880&scope=bot&permissions=2146958591>\n'
-    + 'Website: <https://rei.dkboat.xyz>\n\n'
-    + 'Need help? Got ideas? Just want to hang out? Come over to The Order of Spoon!\nhttps://discord.gg/Qr89Wav\n\n'
-    + '▼ Commands (Default prefix "$")';
-
-    const keys = Object.keys(helpTexts);
-
-    for (let i = 0; i < keys.length; i++) {
-        const cmd = helpTexts[keys[i]];
-        
-        if (cmd.hideFromHelp)
-            continue;
-
-        if (cmd.aliases && cmd.aliases.includes(keys[i]))
-            continue;
-
-        ret += '\n' + keys[i];
-    }
-
-    ret += '\n\nYou can do `!help (command)` to get more information about the specific command.'
+    + 'Invite: <https://discordapp.com/oauth2/authorize?client_id=278819964851322880&scope=bot&permissions=2146958591>\n\n'
+    + 'Need help? Got ideas? Just want to hang out? Come over to The Order of Spoon!\nhttps://discord.gg/eb8V99d\n\n'
+    + `Command list is currently unavailable but the default prefix is "${defaultPrefix}"`;
     return ret;
 }
 
