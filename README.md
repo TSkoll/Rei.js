@@ -38,6 +38,7 @@ Rei is currently looking for contributors looking to implement more commands to 
 | removeold     | Bot owner                 |
 | source        | None                      |
 | stats         | None                      |
+| scoresaber    | None                      |
 
 ## Prequisites
 
