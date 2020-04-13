@@ -26,4 +26,14 @@ class Nya extends ReactionCommand {
         await super.sendReaction(msg, `**${msg.author.username}** nyaas at **%target%**!`, args)
     }
 }
-module.exports = Nya;
+module.exports = {
+    command: Nya,
+    help: {
+        summary: "Sends a random nya in the chat.",
+        args: {
+            name: "user",
+            summary: "Discord user that the nya is directed to.",
+            required: false
+        }
+    }
+};

@@ -12,4 +12,6 @@ class Echo extends Command {
         await super.sendBasicSuccess(msg, args);
     }
 }
-module.exports = Echo;
+module.exports = {
+    command: Echo
+};

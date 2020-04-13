@@ -25,4 +25,14 @@ class Lick extends ReactionCommand {
         await super.sendReaction(msg, `**${msg.author.username}** licks **%target%**!`, args)
     }
 }
-module.exports = Lick;
+module.exports = {
+    command: Lick,
+    help: {
+        summary: "Sends a random lick in the chat.",
+        args: {
+            name: "user",
+            summary: "Discord user that the lick is directed to.",
+            required: false
+        }
+    }
+};

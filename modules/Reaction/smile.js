@@ -25,4 +25,14 @@ class Smile extends ReactionCommand {
         await super.sendReaction(msg, `**${msg.author.username}** smiles at **%target%**!`, args)
     }
 }
-module.exports = Smile;
+module.exports = {
+    command: Smile,
+    help: {
+        summary: "Sends a random smile in the chat.",
+        args: {
+            name: "user",
+            summary: "Discord user that the smile is directed to.",
+            required: false
+        }
+    }
+};

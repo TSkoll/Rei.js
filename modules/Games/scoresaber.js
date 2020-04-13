@@ -38,4 +38,21 @@ class ScoreSaber extends Command {
         }
     }
 }
-module.exports = ScoreSaber;
+module.exports = {
+    command: ScoreSaber,
+    help: {
+        summary: "",
+        args: [
+            {
+                name: "subcommand",
+                summary: "'Set': Links a scoresaber account to your discord account.\n'User': Gets your user profile from scoresaber.\n'Gains': Gets the amount of pp gained/lost since the last time the command was run.",
+                required: true
+            },
+            {
+                name: "scoresaber url",
+                summary: "Scoresaber URL or ID. E.g. https://scoresaber.com/u/76561198043731121 or 76561198043731121."
+            }
+        ],
+        aliases: ["sc"]
+    }
+};

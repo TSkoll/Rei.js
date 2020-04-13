@@ -13,4 +13,6 @@ class Setname extends Command {
         await super.sendBasicSuccess(msg, 'New name set!');
     }
 }
-module.exports = Setname;
+module.exports = {
+    command: Setname
+};

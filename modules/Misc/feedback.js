@@ -15,4 +15,16 @@ class Feedback extends Command {
         await super.sendBasicSuccess(msg, 'Feedback left!');
     }
 }
-module.exports = Feedback;
+module.exports = {
+    command: Feedback,
+    help: {
+        summary: "Sends feedback to the developer server.",
+        args: [
+            {
+                name: "feedback",
+                summary: "Feedback that'll be sent. Text only.",
+                required: true
+            }
+        ]
+    }
+};

@@ -33,4 +33,16 @@ class Urban extends Command {
         .setFooter(`Author: ${top.author} | ${top.thumbs_up}👍 ${top.thumbs_down}👎`));
     }
 }
-module.exports = Urban;
+module.exports = {
+    command: Urban,
+    help: {
+        summary: "Gets an article from the urban dictionary.",
+        args: [
+            {
+                name: "term",
+                summary: "The term that's used in the search.",
+                required: true
+            }
+        ]
+    }
+};

@@ -46,4 +46,9 @@ class Skellen extends ReactionCommand {
                 .setImage(reaction));
     }
 }
-module.exports = Skellen;
+module.exports = {
+    command: Skellen,
+    help: {
+        summary: "Skellen uwu.",
+    }
+};

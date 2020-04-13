@@ -17,4 +17,6 @@ class Test extends Command {
             await super.sendBasicSuccess(msg, user);
     }
 }
-module.exports = Test;
+module.exports = {
+    command: Test
+};

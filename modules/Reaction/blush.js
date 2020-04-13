@@ -33,4 +33,14 @@ class Blush extends ReactionCommand {
         await super.sendReaction(msg, 'Aww you shouldn\'t have **%target%**!', args);
     }
 }
-module.exports = Blush;
+module.exports = {
+    command: Blush,
+    help: {
+        summary: "Sends a random blush in the chat.",
+        args: {
+            name: "user",
+            summary: "Discord user that the blush is directed to.",
+            required: false
+        }
+    }
+};

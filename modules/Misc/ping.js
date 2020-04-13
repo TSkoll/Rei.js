@@ -10,4 +10,9 @@ class Ping extends Command {
         pingMsg.edit(`Pong! Took ${pingMsg.createdTimestamp - msg.createdTimestamp}ms. Websocket ping is ${bot.ws.ping}ms.`);
     }
 }
-module.exports = Ping;
+module.exports = {
+    command: Ping,
+    help: {
+        summary: "Gets the latency between the bot and Discord."
+    }
+};

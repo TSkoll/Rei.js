@@ -61,4 +61,34 @@ class Color extends Command {
         }
     }
 }
-module.exports = Color;
+module.exports = {
+    command: Color,
+    args: [
+        {
+            name: "{hex code}",
+            summary: "A hexadecimal color code. You can choose your favorite color from https://color.adobe.com/create/.",
+            required: false
+        },
+        {
+            name: "remove",
+            summary: "Removes your existing color.",
+            required: false,
+            aliases: [
+                "clear"
+            ]
+        },
+        {
+            name: "avatar",
+            summary: "Opens a menu that'll recommend colors based on your current avatar.",
+            required: false
+        },
+        {
+            name: "history",
+            summary: "Brings up a list of previous colors you've had.",
+            required: false
+        }
+    ],
+    aliases: [
+        "colorme"
+    ]
+};

@@ -150,4 +150,12 @@ function textify(data) {
 
     return ret;
 }
-module.exports = Source;
+module.exports = {
+    command: Source,
+    help: {
+        summary: "Looks up the source for the newest image in the channel within the last 10 messages.",
+        aliases: [
+            "sauce"
+        ]
+    }
+};

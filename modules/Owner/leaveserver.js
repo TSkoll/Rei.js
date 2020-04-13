@@ -20,4 +20,6 @@ class Leaveserver extends Command {
         }
     }
 }
-module.exports = Leaveserver;
+module.exports = {
+    command: Leaveserver
+};

@@ -46,4 +46,14 @@ class Hug extends ReactionCommand {
         await super.sendReaction(msg, `**${msg.author.username}** hugs **%target%**!`, args);
     }
 }
-module.exports = Hug;
+module.exports = {
+    command: Hug,
+    help: {
+        summary: "Sends a random hug in the chat.",
+        args: {
+            name: "user",
+            summary: "Discord user that the hug is directed to.",
+            required: false
+        }
+    }
+};

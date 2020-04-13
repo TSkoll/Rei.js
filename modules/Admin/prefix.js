@@ -1,4 +1,5 @@
 const Command = require('../../Types/command.js');
+const defaultPrefix = (require('../../data/config.json')).defaultPrefix;
 
 class Prefix extends Command {
     constructor(cmdPass) {
@@ -36,4 +37,24 @@ class Prefix extends Command {
         }
     }
 }
-module.exports = Prefix;
+module.exports = {
+    command: Prefix,
+    help: {
+        summary: "Allows setting and clearing the server specific prefix.",
+        requires: [
+            "Manage Server"
+        ],
+        args: [
+            {
+                name: "subcommand",
+                summary: `'Set': Set a prefix\n'Clear': Sets the prefix back to default ('${defaultPrefix}').`,
+                required: true
+            },
+            {
+                name: "prefix",
+                summary: "The prefix which will be set for the server. Can't contain spaces",
+                required: false
+            }
+        ]
+    }
+}

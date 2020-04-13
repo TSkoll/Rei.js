@@ -19,4 +19,14 @@ class Stare extends ReactionCommand {
         await super.sendReaction(msg, '👀 **%target%**', args)
     }
 }
-module.exports = Stare;
+module.exports = {
+    command: Hug,
+    help: {
+        summary: "Stare...",
+        args: {
+            name: "user",
+            summary: "Discord user that the stare is directed to.",
+            required: false
+        }
+    }
+};

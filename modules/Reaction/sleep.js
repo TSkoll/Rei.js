@@ -68,4 +68,14 @@ class Sleep extends ReactionCommand {
         await super.sendReaction(msg, `**${msg.author.username}** puts **%target%** to sleep!`, args);
     }
 }
-module.exports = Sleep;
+module.exports = {
+    command: Sleep,
+    help: {
+        summary: "Sends a random sleep in the chat.",
+        args: {
+            name: "user",
+            summary: "Discord user that you want to put to sleep.",
+            required: false
+        }
+    }
+};

@@ -27,4 +27,14 @@ class Confuse extends ReactionCommand {
         await super.sendReaction(msg, null, args)
     }
 }
-module.exports = Confuse;
+module.exports = {
+    command: Confuse,
+    help: {
+        summary: "Sends a random confused anime person in the chat.",
+        args: {
+            name: "user",
+            summary: "Discord user that the confusion is directed to.",
+            required: false
+        }
+    }
+};

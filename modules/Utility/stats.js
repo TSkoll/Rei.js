@@ -24,7 +24,12 @@ class Stats extends Command {
         .addField('CPU Usage', getCpuUsagePercent() + '%', true));
     }
 }
-module.exports = Stats;
+module.exports = {
+    command: Stats,
+    help: {
+        summary: "Shows statistics about the bot."
+    }
+};
 
 function epochToTimeDifference(epoch) {
     const diff = timeUtil.calcTimeDifference(epoch);

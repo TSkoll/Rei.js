@@ -14,4 +14,6 @@ class Activity extends Command {
         await super.sendBasicSuccess(msg, 'Activity set!');
     }
 }
-module.exports = Activity;
+module.exports = {
+    command: Activity
+};

@@ -41,4 +41,14 @@ class Pat extends ReactionCommand {
         await super.sendReaction(msg, `**${msg.author.username}** pats **%target%**!`, args)
     }
 }
-module.exports = Pat;
+module.exports = {
+    command: Pat,
+    help: {
+        summary: "Sends a random pat in the chat.",
+        args: {
+            name: "user",
+            summary: "Discord user that the pat is directed to.",
+            required: false
+        }
+    }
+};

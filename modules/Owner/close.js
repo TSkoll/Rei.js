@@ -17,4 +17,6 @@ class Close extends Command {
         process.exit();
     }
 }
-module.exports = Close;
+module.exports = {
+    command: Close
+};

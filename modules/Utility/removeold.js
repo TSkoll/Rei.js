@@ -37,4 +37,6 @@ class Removeold extends Command {
         });
     }
 }
-module.exports = Removeold;
+module.exports = {
+    command: Removeold
+};

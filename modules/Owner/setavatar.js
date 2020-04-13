@@ -13,4 +13,6 @@ class Setavatar extends Command {
         await super.sendBasicSuccess(msg, 'New avatar set!');
     }
 }
-module.exports = Setavatar;
+module.exports = {
+    command: Setavatar
+};

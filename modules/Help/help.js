@@ -64,7 +64,19 @@ class Help extends Command {
         await super.sendEmbed(msg, embed);
     }
 }
-module.exports = Help;
+module.exports = {
+    command: Help,
+    help: {
+        summary: "Helps you use the bot. Duh.",
+        args: [
+            {
+                name: "command",
+                summary: "Command to get the help information from.",
+                required: false
+            }
+        ]
+    }
+}
 
 function generateGenericResponse(helpTexts, name) {
     let ret = 'Hi! I\'m ' + name + ' and I\'m here to help you!\n\n' 
