@@ -17,7 +17,7 @@ class ScoreSaber extends Command {
 
     async run(bot, msg, args) {
         const subcommand = args[0];
-        const passthrough = args[1]
+        const passthrough = args[1];
 
         let success;
         switch (subcommand) {
@@ -34,7 +34,7 @@ class ScoreSaber extends Command {
                 await super.sendEmbed(msg, success);
                 break;
             default:
-                await super.sendBasicError(msg, 'Unknown or no subcommand')
+                await super.sendBasicError(msg, 'Unknown or no subcommand');
         }
     }
 }
