@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const confuses = [
   "https://i.imgur.com/B5ukYWx.gif",
@@ -31,10 +31,12 @@ module.exports = {
   command: Confuse,
   help: {
     summary: "Sends a random confused anime person in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that the confusion is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the confusion is directed to.",
+        required: false,
+      },
+    ],
   },
 };

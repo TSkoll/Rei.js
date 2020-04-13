@@ -10,7 +10,11 @@ class Loader {
    * @param {Object} cmdPass Root command information pass object.
    */
   static async load(cmdPass) {
-    let commandRet = {};
+    let commandRet = {
+      commands: {},
+      help: {},
+      uniqueCommands: [],
+    };
     try {
       const modules = await fsUtils.getFolders("./modules/");
 
@@ -18,14 +22,24 @@ class Loader {
         const commands = await fsUtils.getFiles(`./modules/${modules[i]}/`);
 
         for (let j = 0; j < commands.length; j++) {
-          const cmdObj = require(path.join(process.cwd(), "modules", modules[i], commands[j]));
+          const cmdData = require(path.join(process.cwd(), "modules", modules[i], commands[j]));
+          const cmdObj = cmdData.command;
 
           const cmd = new cmdObj(cmdPass);
-          commandRet[cmd.constructor.name.toLowerCase()] = cmd;
+          const cmdName = cmd.constructor.name.toLowerCase();
+
+          commandRet.uniqueCommands.push(cmdName);
+          commandRet.commands[cmdName] = cmd;
+
+          if (cmdData.help) {
+            cmdData.help.name = cmdName;
+            commandRet.help[cmdName] = cmdData.help;
+          }
 
           if (cmd.aliases) {
             for (let k = 0; k < cmd.aliases.length; k++) {
-              commandRet[cmd.aliases[k].toLowerCase()] = cmd;
+              commandRet.commands[cmd.aliases[k]] = cmd;
+              commandRet.help[cmd.aliases[k]] = cmdData.help || null;
             }
           }
         }

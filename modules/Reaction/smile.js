@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const smiles = [
   "https://i.imgur.com/mZSuX9D.gif",
@@ -29,10 +29,12 @@ module.exports = {
   command: Smile,
   help: {
     summary: "Sends a random smile in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that the smile is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the smile is directed to.",
+        required: false,
+      },
+    ],
   },
 };

@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const nyaas = [
   "https://i.imgur.com/9pbq9GW.gif",
@@ -30,10 +30,12 @@ module.exports = {
   command: Nya,
   help: {
     summary: "Sends a random nya in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that the nya is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the nya is directed to.",
+        required: false,
+      },
+    ],
   },
 };

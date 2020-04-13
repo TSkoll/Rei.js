@@ -1,4 +1,4 @@
-const Command = require("../../Types/command.js");
+const Command = require("./command.js");
 const Discord = require("discord.js");
 
 class ReactionCommand extends Command {

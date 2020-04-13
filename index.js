@@ -2,7 +2,9 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const client = new Discord.Client({ disableEveryone: true });
 const MongoClient = require("mongodb").MongoClient;
-const mongoClient = new MongoClient("mongodb://localhost:27017");
+const mongoClient = new MongoClient("mongodb://localhost:27017", {
+  useUnifiedTopology: true
+});
 
 process.on("exit", code => {
   mongoClient.close();

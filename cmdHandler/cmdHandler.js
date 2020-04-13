@@ -15,7 +15,11 @@ class commandHandler {
 
     this.commands = {};
 
-    this.loadCommands(cmdPass);
+    console.log("Loading commands");
+    this.loadCommands(cmdPass).then(() => {
+      console.log("Commands loaded successfully, running afterInit");
+      this.afterInit();
+    });
   }
 
   /**
@@ -79,8 +83,25 @@ class commandHandler {
   async loadCommands(cmdPass) {
     let ret = await cmdLoader.load(cmdPass);
 
-    this.commands = ret;
+    this.commands = ret.commands;
+    this.help = ret.help;
+    this.uniqueCommands = ret.uniqueCommands;
     return;
+  }
+
+  async afterInit() {
+    const data = {
+      help: this.help,
+    };
+
+    for (let cmdName of this.uniqueCommands) {
+      let cmd = this.commands[cmdName];
+
+      if (cmd.afterInit) {
+        console.log(`Running afterInit for ${cmdName}`);
+        await cmd.afterInit(data);
+      }
+    }
   }
 
   /**

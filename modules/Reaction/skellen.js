@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 const Discord = require("discord.js");
 
 const pats = [

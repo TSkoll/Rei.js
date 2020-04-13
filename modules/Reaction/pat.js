@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const pats = [
   "https://i.imgur.com/FoKYpLO.gif",
@@ -45,10 +45,12 @@ module.exports = {
   command: Pat,
   help: {
     summary: "Sends a random pat in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that the pat is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the pat is directed to.",
+        required: false,
+      },
+    ],
   },
 };

@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 const Discord = require("discord.js");
 
 const sleeps = [
@@ -73,10 +73,12 @@ module.exports = {
   command: Sleep,
   help: {
     summary: "Sends a random sleep in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that you want to put to sleep.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that you want to put to sleep.",
+        required: false,
+      },
+    ],
   },
 };

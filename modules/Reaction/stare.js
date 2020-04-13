@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const stares = [
   "https://i.imgur.com/6r9SmUG.gif",
@@ -20,13 +20,15 @@ class Stare extends ReactionCommand {
   }
 }
 module.exports = {
-  command: Hug,
+  command: Stare,
   help: {
     summary: "Stare...",
-    args: {
-      name: "user",
-      summary: "Discord user that the stare is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the stare is directed to.",
+        required: false,
+      },
+    ],
   },
 };

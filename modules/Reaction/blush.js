@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const blushes = [
   "https://i.imgur.com/h5HYmF1.gif",
@@ -37,10 +37,12 @@ module.exports = {
   command: Blush,
   help: {
     summary: "Sends a random blush in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that the blush is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the blush is directed to.",
+        required: false,
+      },
+    ],
   },
 };

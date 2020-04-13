@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const hugs = [
   "https://i.imgur.com/16daUkb.gif",
@@ -50,10 +50,12 @@ module.exports = {
   command: Hug,
   help: {
     summary: "Sends a random hug in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that the hug is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the hug is directed to.",
+        required: false,
+      },
+    ],
   },
 };

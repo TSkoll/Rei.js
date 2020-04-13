@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const eskimos = [
   "https://i.imgur.com/5YhTwcd.gif",
@@ -19,10 +19,12 @@ module.exports = {
   command: Eskimo,
   help: {
     summary: "Sends a random eskimo kiss gif in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that the eskimo kiss is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the eskimo kiss is directed to.",
+        required: false,
+      },
+    ],
   },
 };

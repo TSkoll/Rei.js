@@ -1,4 +1,4 @@
-const ReactionCommand = require("./reactioncommand");
+const ReactionCommand = require("../../Types/reactioncommand");
 
 const licks = [
   "https://i.imgur.com/jgwM4Ji.gif",
@@ -29,10 +29,12 @@ module.exports = {
   command: Lick,
   help: {
     summary: "Sends a random lick in the chat.",
-    args: {
-      name: "user",
-      summary: "Discord user that the lick is directed to.",
-      required: false,
-    },
+    args: [
+      {
+        name: "user",
+        summary: "Discord user that the lick is directed to.",
+        required: false,
+      },
+    ],
   },
 };

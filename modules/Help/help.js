@@ -8,8 +8,6 @@ class Help extends Command {
       args: 1,
       ignoreMin: false,
     });
-
-    this.helpTexts = generateCompleteHelp(require("../../data/help.json"));
   }
 
   async run(bot, msg, args) {
@@ -26,7 +24,7 @@ class Help extends Command {
     }
 
     // Command specific help
-    const cmd = this.helpTexts[args.toLowerCase()];
+    const cmd = this.help[args.toLowerCase()];
 
     if (!cmd) {
       super.sendBasicError(msg, "There doesn't seem to be any help text for this command!");
@@ -35,26 +33,13 @@ class Help extends Command {
 
     let embed = new Discord.MessageEmbed()
       .setColor("BLUE")
-      .setTitle(args.toLowerCase())
-      .setDescription(cmd.description)
-      .setFooter(msg.prefix + cmd.usage);
+      .setTitle(cmd.name)
+      .setDescription(cmd.summary)
+      .setFooter(`Usage: ${buildUsage(cmd)}`);
 
     if (cmd.args) {
-      // If arguments have been found, build it into the embed
-      const keys = Object.keys(cmd.args);
-
-      let args = `**${keys[0]}**: ${cmd.args[keys[0]]}`;
-      for (let i = 1; i < keys.length; i++) {
-        args += `\n\n**${keys[i]}**: ${cmd.args[keys[i]]}`;
-      }
-
-      let examples = "";
-      for (let i = 0; i < cmd.example.length; i++) {
-        examples += "\n" + msg.prefix + cmd.example[i];
-      }
-
+      const args = cmd.args.map(arg => `**${arg.name}** =>\n ${arg.summary}`).join("\n\n");
       embed.addField("arguments", args);
-      embed.addField("examples", examples);
     }
 
     if (cmd.aliases) {
@@ -62,6 +47,10 @@ class Help extends Command {
     }
 
     await super.sendEmbed(msg, embed);
+  }
+
+  async afterInit(data) {
+    this.help = data.help;
   }
 }
 module.exports = {
@@ -77,6 +66,34 @@ module.exports = {
     ],
   },
 };
+
+function buildUsage(cmd) {
+  let cmdName = cmd.name;
+
+  if (cmd.aliases) cmdName = `[${[cmdName, ...cmd.aliases].join("|")}]`;
+
+  let ret = defaultPrefix + cmdName;
+
+  if (cmd.args) {
+    const argsText = {};
+
+    for (let arg of cmd.args) {
+      const tier = arg.tier || 0;
+
+      if (!argsText[tier]) argsText[tier] = [];
+
+      argsText[tier].push(`${!arg.required ? "(" : ""}${arg.name}${!arg.required ? ")" : ""}`);
+    }
+
+    const keys = Object.keys(argsText);
+    for (let i = 0; i < keys.length; i++) {
+      const tierArgs = argsText[keys[i]];
+      ret += ` ${tierArgs.length > 1 ? `[${tierArgs.join("|")}]` : `[${tierArgs[0]}]`}`;
+    }
+  }
+
+  return ret;
+}
 
 function generateGenericResponse(helpTexts, name) {
   let ret =
