@@ -1,23 +1,21 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
-module.exports = async function(msg, db) {
-    const userid = msg.author.id;
+module.exports = async function (msg, db) {
+  const userid = msg.author.id;
 
-    let ret = '';
+  let ret = "";
 
-    const cursor = db.collection('colorHistory').find({ userid });
-    const c = await cursor.count();
-    if (c == 0) {
-        cursor.close();
-        throw 'I could\'t find any color history for this user!';
-    }
-
-    await cursor.forEach(row => {
-        ret += row.color + '\n';
-    });
+  const cursor = db.collection("colorHistory").find({ userid });
+  const c = await cursor.count();
+  if (c == 0) {
     cursor.close();
+    throw "I could't find any color history for this user!";
+  }
 
-    await msg.channel.send(new Discord.MessageEmbed()
-        .setColor('BLUE')
-        .setDescription(ret));
-}
+  await cursor.forEach(row => {
+    ret += row.color + "\n";
+  });
+  cursor.close();
+
+  await msg.channel.send(new Discord.MessageEmbed().setColor("BLUE").setDescription(ret));
+};

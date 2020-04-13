@@ -1,227 +1,179 @@
 {
-    "prefix": {
-        "description": "Allows setting and clearing the server specific prefix. Requires **Manage Server** permission.",
-        "args": {
-            "Subcommand": "\"Set:\" Sets the prefix.\n\"Clear\": Sets the prefix back to default.",
-            "Prefix": "Prefix, which will be set for the server. Can't contain spaces."
-        },
-        "usage": "prefix [subcommand] {prefix}",
-        "example": [
-            "prefix set !",
-            "prefix clear"
-        ]
+  "prefix": {
+    "description": "Allows setting and clearing the server specific prefix. Requires **Manage Server** permission.",
+    "args": {
+      "Subcommand": "\"Set:\" Sets the prefix.\n\"Clear\": Sets the prefix back to default.",
+      "Prefix": "Prefix, which will be set for the server. Can't contain spaces."
     },
+    "usage": "prefix [subcommand] {prefix}",
+    "example": ["prefix set !", "prefix clear"]
+  },
 
-    "blush": {
-        "description": "Blushes at the mentioned user.",
-        "usage": "blush @user",
-        "example": [
-            "blush @Skoll"
-        ]
+  "blush": {
+    "description": "Blushes at the mentioned user.",
+    "usage": "blush @user",
+    "example": ["blush @Skoll"]
+  },
+
+  "hug": {
+    "description": "Hugs the mentioned user",
+    "usage": "hug @user",
+    "example": ["hug @Skoll"]
+  },
+
+  "pat": {
+    "description": "Pats the mentioned user",
+    "usage": "pat @user",
+    "example": ["pat @Skoll"]
+  },
+
+  "help": {
+    "description": "Helps you use the bot. Duh.",
+    "args": {
+      "Command": "Command to get the help information from."
     },
+    "usage": "help {command}",
+    "example": ["help", "help color"]
+  },
 
-    "hug": {
-        "description": "Hugs the mentioned user",
-        "usage": "hug @user",
-        "example": [
-            "hug @Skoll"
-        ]
+  "feedback": {
+    "description": "Sends feedback to the developer server.",
+    "args": {
+      "Feedback": "Feedback that's left, can only be text."
     },
+    "usage": "feedback [feedback]",
+    "example": ["feedback what a great bot!"]
+  },
 
-    "pat": {
-        "description": "Pats the mentioned user",
-        "usage": "pat @user",
-        "example": [
-            "pat @Skoll"
-        ]
+  "echo": {
+    "hideFromHelp": true,
+    "description": "Echoes text to the chat.",
+    "args": {
+      "Text": "Text that will be echoed."
     },
+    "usage": "echo [text]",
+    "example": ["echo hello!"]
+  },
 
-    "help": {
-        "description": "Helps you use the bot. Duh.",
-        "args": {
-            "Command": "Command to get the help information from."
-        },
-        "usage": "help {command}",
-        "example": [
-            "help",
-            "help color"
-        ]
+  "leaveserver": {
+    "hideFromHelp": true,
+    "description": "Leaves the specified server.",
+    "args": {
+      "Server ID": "The ID of the server, from which the bot will leave.\nEmpty to leave the current server."
     },
+    "usage": "leaveserver {server id}",
+    "example": ["leaveserver 12345678"]
+  },
 
-    "feedback": {
-        "description": "Sends feedback to the developer server.",
-        "args": {
-            "Feedback": "Feedback that's left, can only be text."
-        },
-        "usage": "feedback [feedback]",
-        "example": [
-            "feedback what a great bot!"
-        ]
+  "setavatar": {
+    "hideFromHelp": true,
+    "description": "Changes the avatar of the bot.",
+    "args": {
+      "URL": "URL of the new avatar."
     },
+    "usage": "setavatar [URL]",
+    "example": ["setavatar https://i.imgur.com/SocBkqh.jpg"]
+  },
 
-    "echo": {
-        "hideFromHelp": true,
-        "description": "Echoes text to the chat.",
-        "args": {
-            "Text": "Text that will be echoed."
-        },
-        "usage": "echo [text]",
-        "example": [
-            "echo hello!"
-        ]
+  "activity": {
+    "hideFromHelp": true,
+    "description": "Sets the activity of the bot",
+    "args": {
+      "Status": "Status type",
+      "Name": "Text, which will be shown on the status."
     },
+    "usage": "activity [status] [game]",
+    "example": ["activity PLAYING Minecraft", "activity LISTENING Music", "activity WATCHING Movies"]
+  },
 
-    "leaveserver": {
-        "hideFromHelp": true,
-        "description": "Leaves the specified server.",
-        "args": {
-            "Server ID": "The ID of the server, from which the bot will leave.\nEmpty to leave the current server."
-        },
-        "usage": "leaveserver {server id}",
-        "example": [
-            "leaveserver 12345678"
-        ]
+  "setname": {
+    "hideFromHelp": true,
+    "description": "Changes the name of the bot.",
+    "args": {
+      "Name": "The new name of the bot."
     },
+    "usage": "setname [name]",
+    "example": ["setname Rei"]
+  },
 
-    "setavatar": {
-        "hideFromHelp": true,
-        "description": "Changes the avatar of the bot.",
-        "args": {
-            "URL": "URL of the new avatar."
-        },
-        "usage": "setavatar [URL]",
-        "example": [
-            "setavatar https://i.imgur.com/SocBkqh.jpg"
-        ]
+  "close": {
+    "hideFromHelp": true,
+    "description": "Shuts the bot down.",
+    "usage": "close",
+    "example": ["close"]
+  },
+
+  "color": {
+    "description": "Sets your color to a specified hex value or opens a helper menu.",
+    "args": {
+      "Hex": "A hex color. Choose your favorite color from https://htmlcolorcodes.com/color-picker/",
+      "\"Remove\"": "Removes your current color. Alias: \"clear\"",
+      "\"Avatar\"": "Opens a menu with color suggestions based on your current avatar.",
+      "\"Random\"": "Opens a menu with random color suggestions.",
+      "\"History\"": "Pastes hex color codes that you've used before."
     },
+    "usage": "color [hex|\"avatar\"|\"random\"|[\"remove\"|\"clear\"]|\"history\"]",
+    "example": ["color #FF0060", "color FF0060", "color remove", "color avatar", "color random", "color history"],
+    "aliases": ["colorme"]
+  },
 
-    "activity": {
-        "hideFromHelp": true,
-        "description": "Sets the activity of the bot",
-        "args": {
-            "Status": "Status type",
-            "Name": "Text, which will be shown on the status."
-        },
-        "usage": "activity [status] [game]",
-        "example": [
-            "activity PLAYING Minecraft",
-            "activity LISTENING Music",
-            "activity WATCHING Movies"
-        ]
+  "stats": {
+    "description": "Shows statistics about the bot.",
+    "usage": "stats",
+    "example": ["stats"]
+  },
+
+  "tag": {
+    "description": "Use and manage dummy commands.",
+    "args": {
+      "Subcommand": "\"Create\": Requires name and content. Create's a new tag you can use on any server.\n\"Delete\": Requires name, removes tag you've created.\n\"List\": lists all tags you've created.",
+      "Name": "Name of the tag. Used to call the tags you've created.",
+      "Content": "Content shown when tag has been run. Can include text and an image."
     },
+    "usage": "tag [subcommand|name] {name} {content}",
+    "example": [
+      "tag create MyAwesomeTag My even more awesome tag content!",
+      "tag MyAwesomeTag",
+      "tag delete MyAwesomeTag",
+      "tag list"
+    ]
+  },
 
-    "setname": {
-        "hideFromHelp": true,
-        "description": "Changes the name of the bot.",
-        "args": {
-            "Name": "The new name of the bot."
-        },
-        "usage": "setname [name]",
-        "example": [
-            "setname Rei"
-        ]
+  "quote": {
+    "description": "Gets a message from the same channel with ID or a saved message from the server.",
+    "args": {
+      "Subcommand": "Either a message id, saved quote name or follow subcommand:\n\"Create\": Saves a quote for use later. Allows for the quote to be called from any channel (NSFW limitations exist). Requires message id and name.\n\"Delete\": Removes a saved quote. You must be the creator of the tag or must have **Manage Messages** permission to remove quotes. Requires name.\n\"List\": Lists all quotes on the server.",
+      "Message ID": "Id of the message you want to quote.",
+      "Name": "Name of the saved quote."
     },
+    "usage": "quote [subcommand|message id|name] {message id|name} {name}",
+    "example": [
+      "quote 433598802809585667",
+      "quote create 433598802809585667 something I should remember",
+      "quote delete something I should remember",
+      "quote list"
+    ]
+  },
 
-    "close": {
-        "hideFromHelp": true,
-        "description": "Shuts the bot down.",
-        "usage": "close",
-        "example": [
-            "close"
-        ]
+  "removeold": {
+    "description": "Deletes all old unused color roles. Requires **Manage Server** permission.",
+    "usage": "removeold",
+    "example": ["removeold"]
+  },
+
+  "source": {
+    "description": "Looks up the source for the newest image in the channel within the last 10 messages.",
+    "usage": "source",
+    "example": ["source"],
+    "aliases": ["sauce"]
+  },
+
+  "hentai": {
+    "description": "Searches a lewd picture from boorus. Add booru tags to limit search.\n**Currently limited to questionable rating images!**\n**Only usable in NSFW channels!**",
+    "args": {
+      "tag": "Tag to limit the given search, replace spaces with underscore when searching: Azur Lane -> azur_lane."
     },
-
-    "color": {
-        "description": "Sets your color to a specified hex value or opens a helper menu.",
-        "args": {
-            "Hex": "A hex color. Choose your favorite color from https://htmlcolorcodes.com/color-picker/",
-            "\"Remove\"": "Removes your current color. Alias: \"clear\"",
-            "\"Avatar\"": "Opens a menu with color suggestions based on your current avatar.",
-            "\"Random\"": "Opens a menu with random color suggestions.",
-            "\"History\"": "Pastes hex color codes that you've used before."
-        },
-        "usage": "color [hex|\"avatar\"|\"random\"|[\"remove\"|\"clear\"]|\"history\"]",
-        "example": [
-            "color #FF0060",
-            "color FF0060",
-            "color remove",
-            "color avatar",
-            "color random",
-            "color history"
-        ],
-        "aliases": [
-            "colorme"
-        ]
-    },
-
-    "stats": {
-        "description": "Shows statistics about the bot.",
-        "usage": "stats",
-        "example": [
-            "stats"
-        ]
-    },
-
-    "tag": {
-        "description": "Use and manage dummy commands.",
-        "args": {
-            "Subcommand": "\"Create\": Requires name and content. Create's a new tag you can use on any server.\n\"Delete\": Requires name, removes tag you've created.\n\"List\": lists all tags you've created.",
-            "Name": "Name of the tag. Used to call the tags you've created.",
-            "Content": "Content shown when tag has been run. Can include text and an image."
-        },
-        "usage": "tag [subcommand|name] {name} {content}",
-        "example": [
-            "tag create MyAwesomeTag My even more awesome tag content!",
-            "tag MyAwesomeTag",
-            "tag delete MyAwesomeTag",
-            "tag list"
-        ]
-    },
-
-    "quote": {
-        "description": "Gets a message from the same channel with ID or a saved message from the server.",
-        "args": {
-            "Subcommand": "Either a message id, saved quote name or follow subcommand:\n\"Create\": Saves a quote for use later. Allows for the quote to be called from any channel (NSFW limitations exist). Requires message id and name.\n\"Delete\": Removes a saved quote. You must be the creator of the tag or must have **Manage Messages** permission to remove quotes. Requires name.\n\"List\": Lists all quotes on the server.",
-            "Message ID": "Id of the message you want to quote.",
-            "Name": "Name of the saved quote."
-        },
-        "usage": "quote [subcommand|message id|name] {message id|name} {name}",
-        "example": [
-            "quote 433598802809585667",
-            "quote create 433598802809585667 something I should remember",
-            "quote delete something I should remember",
-            "quote list"
-        ]
-    },
-
-    "removeold": {
-        "description": "Deletes all old unused color roles. Requires **Manage Server** permission.",
-        "usage": "removeold",
-        "example": [
-            "removeold"
-        ]
-    },
-
-    "source": {
-        "description": "Looks up the source for the newest image in the channel within the last 10 messages.",
-        "usage": "source",
-        "example": [
-            "source"
-        ],
-        "aliases": [
-            "sauce"
-        ]
-    },
-
-    "hentai": {
-        "description": "Searches a lewd picture from boorus. Add booru tags to limit search.\n**Currently limited to questionable rating images!**\n**Only usable in NSFW channels!**",
-        "args": {
-            "tag": "Tag to limit the given search, replace spaces with underscore when searching: Azur Lane -> azur_lane."
-        },
-        "usage": "hentai {tags}",
-        "example": [
-            "hentai",
-            "hentai wet"
-        ]
-    }
+    "usage": "hentai {tags}",
+    "example": ["hentai", "hentai wet"]
+  }
 }

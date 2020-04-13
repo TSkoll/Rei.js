@@ -1,106 +1,108 @@
-const Discord = require('discord.js');
+const Discord = require("discord.js");
 
-const argParser = require('./argParser.js');
-const cmdLoader = require('./cmdLoader.js');
+const argParser = require("./argParser.js");
+const cmdLoader = require("./cmdLoader.js");
 
 class commandHandler {
-    /**
-     * Creates a new commandHandler.
-     * @param {Discord.Client} client Current Discord client.
-     * @param {Object} cmdPass Root data pass object.
-     */
-    constructor(client, cmdPass) {
-        this.client = client;
-        this.statTracker = cmdPass.statTracker;
+  /**
+   * Creates a new commandHandler.
+   * @param {Discord.Client} client Current Discord client.
+   * @param {Object} cmdPass Root data pass object.
+   */
+  constructor(client, cmdPass) {
+    this.client = client;
+    this.statTracker = cmdPass.statTracker;
 
-        this.commands = { };
+    this.commands = {};
 
-        this.loadCommands(cmdPass);
-    }
+    this.loadCommands(cmdPass);
+  }
 
-    /**
-     * Finds and runs a command based on the given text arguments.
-     * @param {Discord.Message} msg Discord message context for the command.
-     * @param {String} cmdName Name of the command being run.
-     * @param {String[]} args Array of arguments passed to the command.
-     */
-    async run(msg, cmdName, args) {
+  /**
+   * Finds and runs a command based on the given text arguments.
+   * @param {Discord.Message} msg Discord message context for the command.
+   * @param {String} cmdName Name of the command being run.
+   * @param {String[]} args Array of arguments passed to the command.
+   */
+  async run(msg, cmdName, args) {
+    try {
+      // Get command and group arguments
+      const cmd = this.getCommand(cmdName.toLowerCase());
+      const parsedArgs = args ? argParser.parse(args, cmd.args, cmd.ignoreMin) : null;
+
+      // Flag the message as a command run attempt
+      msg.isCommand = true;
+
+      if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has("SEND_MESSAGES")) {
         try {
-           // Get command and group arguments
-            const cmd = this.getCommand(cmdName.toLowerCase());
-            const parsedArgs = (args) ? argParser.parse(args, cmd.args, cmd.ignoreMin) : null;
+          await msg.author.send(
+            new Discord.MessageEmbed()
+              .setColor("RED")
+              .setDescription("It seems like I can't send messages in that channel!")
+          );
 
-            // Flag the message as a command run attempt
-            msg.isCommand = true;
-
-            if (msg.guild && !msg.channel.permissionsFor(msg.guild.me).has('SEND_MESSAGES')) {
-                try {
-                    await msg.author.send(new Discord.MessageEmbed()
-                    .setColor('RED')
-                    .setDescription('It seems like I can\'t send messages in that channel!'));
-
-                    return;
-                } catch (err) {
-                    console.error(`Tried to send a DM about not being able to deliver message to the specified channel but sending the DM failed! ${err}`);
-                
-                    return;
-                }
-            }
-
-            try {
-                // Check if all permissions
-                cmd.checkFlags(msg);
-            
-                await cmd.run(this.client, msg, parsedArgs);
-            
-                // Commands run +1
-                this.statTracker.commandsAdd();
-                cmd.executionSuccess(msg);
-            
-                return;
-            }
-            catch (err) {
-                await cmd.sendBasicError(msg, err); // 'Not enough permissions to run this command!')
-
-                return;
-            }
+          return;
         } catch (err) {
-            if (err != "Command doesn't exist!")
-                throw err;
+          console.error(
+            `Tried to send a DM about not being able to deliver message to the specified channel but sending the DM failed! ${err}`
+          );
+
+          return;
         }
-   }
+      }
 
-   /**
-    * Loads all commands and prepares them for use in the command handler.
-    * @param {Object} cmdPass Root command pass object passed to the commands.
-    */
-    async loadCommands(cmdPass) {
-        let ret = await cmdLoader.load(cmdPass);
-        
-        this.commands = ret;
+      try {
+        // Check if all permissions
+        cmd.checkFlags(msg);
+
+        await cmd.run(this.client, msg, parsedArgs);
+
+        // Commands run +1
+        this.statTracker.commandsAdd();
+        cmd.executionSuccess(msg);
+
         return;
-    }
+      } catch (err) {
+        await cmd.sendBasicError(msg, err); // 'Not enough permissions to run this command!')
 
-    /**
-     * Reloads all commands
-     */
-    async reloadCommands() {
-        this.commands = { };
-
-        await loadCommands();
         return;
+      }
+    } catch (err) {
+      if (err != "Command doesn't exist!") throw err;
     }
+  }
 
-    /**
-     * Gets the command based on its name.
-     * @param {String} name Name of the command.
-     */
-    getCommand(name) {
-        if (this.commands.hasOwnProperty(name)) {
-            return this.commands[name];
-        } else {
-            throw "Command doesn't exist!";
-        }
+  /**
+   * Loads all commands and prepares them for use in the command handler.
+   * @param {Object} cmdPass Root command pass object passed to the commands.
+   */
+  async loadCommands(cmdPass) {
+    let ret = await cmdLoader.load(cmdPass);
+
+    this.commands = ret;
+    return;
+  }
+
+  /**
+   * Reloads all commands
+   */
+  async reloadCommands() {
+    this.commands = {};
+
+    await loadCommands();
+    return;
+  }
+
+  /**
+   * Gets the command based on its name.
+   * @param {String} name Name of the command.
+   */
+  getCommand(name) {
+    if (this.commands.hasOwnProperty(name)) {
+      return this.commands[name];
+    } else {
+      throw "Command doesn't exist!";
     }
+  }
 }
 module.exports = commandHandler;
