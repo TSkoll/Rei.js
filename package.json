@@ -34,5 +34,8 @@
     "uws": "^9.148.0",
     "validator": "^9.4.1",
     "zlib-sync": "^0.1.6"
+  },
+  "devDependencies": {
+    "prettier": "2.0.4"
   }
 }
