@@ -42,7 +42,7 @@ Rei is currently looking for contributors looking to implement more commands to 
 
 ## Prequisites
 
-* Node.js 10+
+* Node.js 12+
 * Npm 6+
 * Node-gyp
 * MongoDB 4.2.3
