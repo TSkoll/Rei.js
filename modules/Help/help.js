@@ -14,7 +14,7 @@ class Help extends Command {
     if (args == null) {
       // Send the generic response
       if (msg.channel.type != "dm") {
-        msg.author.send(generateGenericResponse(this.helpTexts, bot.user.username));
+        msg.author.send(generateGenericResponse(this.help, bot.user.username));
         await super.sendBasicSuccess(msg, "Sent a DM!");
       } else {
         msg.author.send(generateGenericResponse(this.helpTexts, bot.user.username));
@@ -95,14 +95,16 @@ function buildUsage(cmd) {
   return ret;
 }
 
-function generateGenericResponse(helpTexts, name) {
+function generateGenericResponse(help, name) {
   let ret =
     "Hi! I'm " +
     name +
     " and I'm here to help you!\n\n" +
     "Invite: <https://discordapp.com/oauth2/authorize?client_id=278819964851322880&scope=bot&permissions=2146958591>\n\n" +
     "Need help? Got ideas? Just want to hang out? Come over to The Order of Spoon!\nhttps://discord.gg/eb8V99d\n\n" +
-    `Command list is currently unavailable but the default prefix is "${defaultPrefix}"`;
+    `Commands **Default prefix: "${defaultPrefix}"**\n\n` + 
+    Object.keys(help).join("\n");
+
   return ret;
 }
 
